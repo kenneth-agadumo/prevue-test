@@ -7,6 +7,7 @@ import { Login } from './pages/Login'
 import {Register} from './pages/Register'
 import {Dashboard} from './pages/Dashboard'
 import {ForgotPassword} from './pages/ForgotPassword'
+import { SetPassword } from './pages/SetPassword';
 import { Navbar } from './components/Navbar';
 import { Home } from './pages/Home';
 import { Activities } from './pages/Activities';
@@ -34,6 +35,8 @@ export const UserContext = createContext()
             <Route path='/register' element={<Register/>} />
             <Route path='/login' element={<Login/>} />
             <Route path='/forgot-password' element={<ForgotPassword/>} />
+            <Route path='/set-password' element={<SetPassword/>} />
+            <Route path='/reset-successful' element={<PasswordReset/>} />
             <Route path='/verify-email' element={<EmailVerification/>} />
           </Routes>
         </div>
