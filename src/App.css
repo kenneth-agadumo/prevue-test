@@ -1,0 +1,42 @@
+:root{
+
+  --primary-color: #F2A20E;
+  --button-grey: #292D32;
+}
+
+@font-face{
+  font-family: 'Switzer';
+  src: url('https://fonts.cdnfonts.com/css/switzer')
+}
+
+.root{
+  overflow: hidden;
+}
+*{
+  font-family: 'Switzer', sans-serif;
+  margin: 0px;
+  padding: 0px;
+}
+
+
+h1, h2, h3, h4{
+  font-weight: 500;
+  color: #242423;
+}
+
+p, input, label, button, span{
+  font-weight: 300;
+  font-size: 16px;
+  color: #242423;
+  
+}
+
+button{
+  cursor: pointer;
+}
+
+a{
+
+  text-decoration: none;
+  color: inherit;
+}
