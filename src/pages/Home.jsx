@@ -134,7 +134,7 @@ export const Home = () => {
         </div>
         <div className="footer">
             
-            <div className="row-1">
+            <div className="footer-row-1">
                 <div className="row1-left">
                     <p className='newsletter-header'>Stay Updated</p>
                     <p className='newsletter-text'>Subscribe to our newsletter for the latest location previews and special offers</p>
@@ -164,14 +164,14 @@ export const Home = () => {
                   
                 </div>
             </div>
-            <div className="row-2">
+            <div className="footer-row-2">
                 <div className="column">
                 <p>info@prevue.com</p>
                 <p>+234 81234567890</p>
                 </div>
                 <p> ©2023 legal</p>
             </div>
-            <div className="row-3">
+            <div className="footer-row-3">
                 <img src="prevue.png" alt="" />
             </div>
         </div>

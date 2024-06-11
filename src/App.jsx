@@ -8,6 +8,7 @@ import {Register} from './pages/Register'
 import {Dashboard} from './pages/Dashboard'
 import {ForgotPassword} from './pages/ForgotPassword'
 import { SetPassword } from './pages/SetPassword';
+import { PasswordReset } from './pages/PasswordReset';
 import { Navbar } from './components/Navbar';
 import { Home } from './pages/Home';
 import { Activities } from './pages/Activities';

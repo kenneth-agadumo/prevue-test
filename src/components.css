@@ -38,10 +38,11 @@ nav ul{
   min-width: 0%;
   display: flex;
   justify-content: space-between;
-  /* color: white; */
+  color: white;
   gap: 30px;
   font-weight: 300;
 }
+
 
 nav button{
   
@@ -308,6 +309,7 @@ input{
   .nav-menu ul li{
   
     font-weight:400;
+    color: #000;
   }
 
   .nav-menu button{

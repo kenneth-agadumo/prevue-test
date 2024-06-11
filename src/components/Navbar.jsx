@@ -22,7 +22,7 @@ export const Navbar = () => {
     return (
         <nav  style={{left: isActive ? '0' : '5%'}}>
             <Link to='/'>
-                <img src="prevue.png" className="logo" alt="" />
+                <img src={location.pathname === '/' &&  {isActive} ? 'prevue.png' : 'prevue.svg'} className="logo" alt="" />
             </Link>
 
             <img className="hamburger-menu" src="hamburger.svg" alt=""  onClick={() => setIsActive(true)}/>
@@ -32,7 +32,7 @@ export const Navbar = () => {
                     <img src="prevue.svg" alt="" className="logo-black" />
                     <img src="X.svg" alt="" className="X" onClick={() => setIsActive(false)} />
                 </div> 
-                <ul style={{color: location.pathname === '/' &&  {isActive} ? 'black' : 'white'}} >
+                <ul style={{color: location.pathname === '/' &&  {isActive} ? 'white' : 'black'}} >
                     <li style={{color: location.pathname == '/' && 'var(--primary-color)'}}><Link to="/">Home</Link></li>
                     <li style={{color: location.pathname == '/rentals' && 'var(--primary-color)'}}><Link to="/rentals">Rentals</Link></li>
                     <li style={{color: location.pathname == '/restaurants' && 'var(--primary-color)'}}><Link to="/restaurants">Restaurants</Link></li>

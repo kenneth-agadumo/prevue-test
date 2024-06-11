@@ -1,18 +1,22 @@
 import React from 'react';
 import {  signOut, onAuthStateChanged} from 'firebase/auth';
-import {  useNavigate } from 'react-router-dom';
+import {  useNavigate, Link } from 'react-router-dom';
 import {auth, db} from '../firebaseConfig.jsx'
 import { doc, getDoc, getDocs, query, where, collection } from 'firebase/firestore';
 import { SegmentedControl, Table } from '@radix-ui/themes';
 import { useState, useEffect } from 'react';
 import Modal from '../components/RestaurantModal.jsx';
 import { PropertiesTab } from '../components/PropertiesTab.jsx';
-import '../layout.css'
+import { SettingsTab } from '../components/SettingsTab.jsx';
+import '../dashboard.css'
 
 export const Dashboard = () => {
   const [userData, setUserData] = useState();
+  const [documentID, setDocumentID] = useState('')
   const [loading, setLoading] = useState(true);
+  const [ dropdownActive, setDropdownActive] = useState(true);
   const navigate = useNavigate();
+  
 
   const userRef = collection(db, 'users')
 
@@ -27,6 +31,17 @@ export const Dashboard = () => {
         if (user) {
             
             const q = query(userRef, where("uid", "==", user.uid));
+            getDocs(q)
+            .then(snapshot => {
+              snapshot.forEach(doc => {
+                const documentId = doc.id;
+                setDocumentID(documentId)
+                console.log("Document ID:", documentId);
+              });
+            })
+            .catch(error => {
+              console.error("Error getting documents:", error);
+            });
             
             try {
                 const querySnapshot = await getDocs(q);
@@ -45,7 +60,8 @@ export const Dashboard = () => {
             // User is not signed in, handle accordingly
             setUserData(null); // Clear user data when user signs out
             setLoading(false);
-        }
+      }
+      setDropdownActive(false)
     });
             
         return () => unsubscribe();
@@ -105,7 +121,7 @@ export const Dashboard = () => {
       </div>
 
       <div className="dashboard-body-section">
-        <div className="top-row">
+        <div className="top-row" style={{ display : selectedTab == 'settings' &&  'none'}}>
           <div className="search-bar-column">
             <img className='search-icon' src="search.svg" alt="" />
             <input className='search-input' type="text"placeholder='Search' />
@@ -120,8 +136,13 @@ export const Dashboard = () => {
                 <small className='name'>{userData?.fullName.split(' ')[0]}</small>
                 <small className='name'>{userData?.fullName.split(' ')[1]}</small>
               </div>
-              <img src="down-arrow.svg" alt=""  style={{width:'17px'}}/>
+              <img src="down-arrow.svg" alt=""  style={{width:'17px'}} onClick={() => setDropdownActive(!dropdownActive)} />
               
+              <div className={`dropdown-content ${dropdownActive && 'active'}`}>
+                <span onClick={() =>  setSelectedTab('settings')}>My Profile</span>
+                <hr style={{background: '#f2f4f7', height:'2px', border:'none'}}/>
+                <Link to={'/login'} style={{color:'var(--primary-color)'}}>Logout</Link>
+              </div>
             </div>
           </div>
         </div>
@@ -130,7 +151,7 @@ export const Dashboard = () => {
         {selectedTab === 'account' && <AccountContent loading = {loading} userData={userData} />}
         {selectedTab === 'reservations' && <PropertyContent />}
         {selectedTab === 'properties' && <PropertiesTab userData ={userData}  />} 
-        {selectedTab === 'settings' && <SettingContent userData={userData} />} 
+        {selectedTab === 'settings' && <SettingsTab userData={userData} documentID={documentID}/>} 
       </div>
     </div>
   );
@@ -220,15 +241,6 @@ function RestaurantContent() {
 function PropertyContent() {
   return <div>View Reservations</div>;
 }
-function SettingContent(props) {
-  return (
-    <div className='card' style={{}}>
-      <p>Full Name: {props.userData?.fullName}</p>
-      <p>Phone Number: {props.userData?.phoneNumber}</p>
-      <p>Email: {props.userData?.email}</p>
 
-    </div>
-  )
-}
 
 export default Dashboard;

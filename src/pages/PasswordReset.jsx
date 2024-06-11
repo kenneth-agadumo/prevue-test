@@ -6,58 +6,40 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../layout.css'
 
 
-export const ForgotPassword = () => {
+export const PasswordReset = () => {
 
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState(null);
+  
 
-  const handleResetPassword = async (e) => {
-
-    e.preventDefault();
-    setError(null);
-    setMessage('');
-
-    try {
-      const auth = getAuth();
-      await sendPasswordResetEmail(auth, email);
-      setMessage('Password reset email sent. Please check your email inbox.');
-    } catch (error) {
-      setError(error.message);
-      console.error('Password reset error:', error);
-    }
-  };
-
-    return(
-      <div className='form-container'>
-        <div className="form">
+  return(
+    <div className='form-container'>
+      <div className="form">
         <img style={{width:'50px'}} src="key.svg" alt="" />
-      <h2>Forgot password?</h2>
-      <p> No worries, we'll send you reset instructions</p>
+        <h2>Forgot password?</h2>
+        <p> No worries, we'll send you reset instructions</p>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {message && <p style={{ color: 'green' }}>{message}</p>}
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {message && <p style={{ color: 'green' }}>{message}</p>}
 
-      <form className='fp-form' onSubmit={handleResetPassword}>
-        <div className='row-1'>
-          <label htmlFor="email"><small>Email:</small></label><br />
-          <input className='input' type="email" id="email" 
-          value={email}
-          placeholder='Enter your email' 
-          onChange={(e) => setEmail(e.target.value)} required />
-        </div>
-      
+        <form className='fp-form' onSubmit={handleResetPassword}>
+          <div className='row-1'>
+            <label htmlFor="email"><small>Email:</small></label><br />
+            <input className='input' type="email" id="email" 
+            value={email}
+            placeholder='Enter your email' 
+            onChange={(e) => setEmail(e.target.value)} required />
+          </div>
         
-        <button type="submit" className='form-button'>Reset password</button>
-        <Link to={'/'}>
-        <button className='borderless-button'> <img src="" alt="" style={{width:'15px', paddingRight:'15px'}} /> Back to login</button>
-        
-        </Link>
+          
+          <button type="submit" className='form-button'>Reset password</button>
+          <Link to={'/'}>
+          <button className='borderless-button'> <img src="" alt="" style={{width:'15px', paddingRight:'15px'}} /> Back to login</button>
+          
+          </Link>
 
-        
-      </form>
-        </div>
-    </div>
+          
+        </form>
+      </div>
+  </div>
   );
     
 }

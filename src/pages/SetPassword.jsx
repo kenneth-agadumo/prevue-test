@@ -68,27 +68,25 @@ export const SetPassword = () => {
       <div className='form-container'>
         <div className="form">
         <img style={{width:'50px'}} src="key.svg" alt="" />
-      <h2>Forgot password?</h2>
-      <p> No worries, we'll send you reset instructions</p>
+      <h2>Create new password</h2>
+      <p> Your new password must be different from previously used passwords.</p>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {message && <p style={{ color: 'green' }}>{message}</p>}
 
       <form className='fp-form' onSubmit={handleResetPassword}>
         <div className='row-1'>
-          <label htmlFor="email"><small>Email:</small></label><br />
+          <label htmlFor="password"><small>New Password:</small></label><br />
           
-          <input className='password' 
+          <input className='input' 
           type={visible1 ? 'text' : 'password'}
           id="password" 
-          value={email}
-          placeholder='Enter your email' 
+          placeholder='Enter new password' 
           onChange={(e) => setNewPassword(e.target.value)} required />
           
           <input className='input' 
           type={visible2 ? 'text' : 'password'}
           id="password" 
-          value={email}
           placeholder='Confirm new password' 
           onChange={(e) => setConfirmPassword(e.target.value)} required />
         </div>
