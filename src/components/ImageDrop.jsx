@@ -1,16 +1,44 @@
-import { CustomProvider } from 'firebase/app-check';
 import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
+import Loading from './Loading';  // Import the Loading component
 
-export const ImageDrop = () => {
+export const ImageDrop = ({ imageNumber, width, height, onImagesChange }) => {
   const [images, setImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(null);
 
   const onDrop = useCallback((acceptedFiles) => {
-    const newImages = acceptedFiles.map(file => Object.assign(file, {
-      preview: URL.createObjectURL(file)
-    }));
-    setImages(prevImages => [...prevImages, ...newImages]);
-  }, []);
+    if (images.length + acceptedFiles.length <= imageNumber) {
+      setIsLoading(true);
+      const newImages = acceptedFiles.map(file => {
+        const preview = URL.createObjectURL(file);
+        return Object.assign(file, { preview });
+      });
+      // Simulate upload progress
+      let progress = 0;
+      const interval = setInterval(() => {
+        if (progress >= 100) {
+          clearInterval(interval);
+          setIsLoading(false);
+          setUploadProgress(null);
+          const updatedImages = [...images, ...newImages];
+          setImages(updatedImages);
+          onImagesChange(updatedImages); // Call the callback function with updated images
+        } else {
+          progress += 10;
+          setUploadProgress(progress);
+        }
+      }, 200);
+    } else {
+      alert(`You can only upload a maximum of ${imageNumber} images.`);
+    }
+  }, [images, imageNumber, onImagesChange]);
+
+  const removeImage = (index) => {
+    const updatedImages = images.filter((_, i) => i !== index);
+    setImages(updatedImages);
+    onImagesChange(updatedImages); // Call the callback function with updated images
+  };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -35,10 +63,12 @@ export const ImageDrop = () => {
       <div style={previewStyle}>
         {images.map((file, index) => (
           <div key={index} style={imageContainerStyle}>
+            <button onClick={() => removeImage(index)} style={removeButtonStyle}>X</button>
             <img src={file.preview} alt={`preview ${index}`} style={imageStyle} />
           </div>
         ))}
       </div>
+      {isLoading  && <Loading isLoading={isLoading} uploadProgress={uploadProgress} />}
     </div>
   );
 };
@@ -49,7 +79,7 @@ const dropzoneStyle = {
   padding: '20px',
   textAlign: 'center',
   cursor: 'pointer',
-  width: '50%'
+  width: ''
 };
 
 const previewStyle = {
@@ -59,6 +89,7 @@ const previewStyle = {
 };
 
 const imageContainerStyle = {
+  position: 'relative',
   width: '100px',
   height: '100px',
   margin: '10px',
@@ -71,4 +102,21 @@ const imageStyle = {
   width: '100%',
   height: '100%',
   objectFit: 'cover'
+};
+
+const removeButtonStyle = {
+  position: 'absolute',
+  top: '5px',
+  right: '5px',
+  backgroundColor: 'red',
+  color: 'white',
+  border: 'none',
+  borderRadius: '50%',
+  cursor: 'pointer',
+  width: '20px',
+  height: '20px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  zIndex: 10
 };

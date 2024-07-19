@@ -1,19 +1,23 @@
 import React from 'react';
 import {  signOut, onAuthStateChanged} from 'firebase/auth';
 import {  useNavigate, Link } from 'react-router-dom';
-import {auth, db} from '../firebaseConfig.jsx'
+import {auth, db, storage} from '../firebaseConfig.jsx'
 import { doc, getDoc, getDocs, query, where, collection } from 'firebase/firestore';
 import { SegmentedControl, Table } from '@radix-ui/themes';
 import { useState, useEffect } from 'react';
-import Modal from '../components/RestaurantModal.jsx';
+import {  ref, uploadBytes, getDownloadURL} from 'firebase/storage'
+import { useGlobalState } from '../Contexts/GlobalStateContext.jsx';
 import { PropertiesTab } from '../components/PropertiesTab.jsx';
 import { SettingsTab } from '../components/SettingsTab.jsx';
 import '../dashboard.css'
 
 export const Dashboard = () => {
-  const [userData, setUserData] = useState();
+  const {userData, setUserData, loading, setLoading, userImageUrl} = useGlobalState();
   const [documentID, setDocumentID] = useState('')
-  const [loading, setLoading] = useState(true);
+ 
+  const [imageUrl, setImageUrl] = useState();
+  const imageRef = ref(storage, `/userImages/${auth?.currentUser?.uid}/image-1`)
+
   const [ dropdownActive, setDropdownActive] = useState(true);
   const navigate = useNavigate();
   
@@ -58,8 +62,10 @@ export const Dashboard = () => {
             }
         } else {
             // User is not signed in, handle accordingly
+            navigate('/login');
             setUserData(null); // Clear user data when user signs out
             setLoading(false);
+            
       }
       setDropdownActive(false)
     });
@@ -79,7 +85,7 @@ export const Dashboard = () => {
     setSelectedTab(newValue);
   };
  
-  
+  console.log
 
   return (
     <div className='dashboard'>
@@ -131,7 +137,7 @@ export const Dashboard = () => {
               <img src="bell.svg" alt="" style={{width:'17px'}}/>
             </div>
             <div className="user-dropdown">
-              <img src="Avatar.svg" alt="" />
+            <img src={userImageUrl} alt=""  style={{width:'50px', height:'50px', borderRadius:'50%'}}/>
               <div className="info">
                 <small className='name'>{userData?.fullName.split(' ')[0]}</small>
                 <small className='name'>{userData?.fullName.split(' ')[1]}</small>

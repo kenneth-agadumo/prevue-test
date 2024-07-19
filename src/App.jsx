@@ -15,6 +15,7 @@ import { Activities } from './pages/Activities';
 import { Restaurants } from './pages/Restaurants';
 import { Rentals } from './pages/Rentals';
 import { EmailVerification } from './pages/EmailVerification';
+import { RestaurantPage } from './pages/RestaurantPage';
 import './App.css'
 
 export const UserContext = createContext()
@@ -39,6 +40,7 @@ export const UserContext = createContext()
             <Route path='/set-password' element={<SetPassword/>} />
             <Route path='/reset-successful' element={<PasswordReset/>} />
             <Route path='/verify-email' element={<EmailVerification/>} />
+            <Route path='/restaurants/:restaurant-name' element={<RestaurantPage />} />
           </Routes>
         </div>
        

@@ -9,7 +9,7 @@ export const Navbar = () => {
     const [isActive, setIsActive] = useState(false)
   
     // Array of paths where Navbar should be visible
-    const visiblePaths = ['/', '/rentals', '/restaurants', '/activities'];
+    const visiblePaths = ['/', '/rentals', '/restaurants', '/activities', '/restaurant/id'];
 
     // Check if the current path is in the visiblePaths array
     const isVisible = visiblePaths.includes(location.pathname);
@@ -29,12 +29,12 @@ export const Navbar = () => {
             
             <div className={`nav-menu ${isActive ? 'active' : ''}`}>
                 <div className="responsive-nav-x">
-                    <img src="prevue.svg" alt="" className="logo-black" />
+                    <img src="prevue.svg" alt="" className="logo-black" />n
                     <img src="X.svg" alt="" className="X" onClick={() => setIsActive(false)} />
                 </div> 
                 <ul style={{color: location.pathname === '/' &&  {isActive} ? 'white' : 'black'}} >
                     <li style={{color: location.pathname == '/' && 'var(--primary-color)'}}><Link to="/">Home</Link></li>
-                    <li style={{color: location.pathname == '/rentals' && 'var(--primary-color)'}}><Link to="/rentals">Rentals</Link></li>
+                    <li style={{color: location.pathname == '/rentals' && 'var(--primary-color)'}}><Link to="/rentals">Shortlets</Link></li>
                     <li style={{color: location.pathname == '/restaurants' && 'var(--primary-color)'}}><Link to="/restaurants">Restaurants</Link></li>
                     <li style={{color: location.pathname == '/activities' && 'var(--primary-color)'}}><Link to="/activities">Activities</Link></li>
                 </ul>

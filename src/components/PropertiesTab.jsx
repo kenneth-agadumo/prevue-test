@@ -4,17 +4,18 @@ import {collection, getDocs, doc, onSnapshot,deleteDoc } from 'firebase/firestor
 import RestaurantModal from './RestaurantModal.jsx';
 import RentalModal from './RentalModal.jsx';
 import { SegmentedControl, Table } from '@radix-ui/themes';
+import { useGlobalState } from "../Contexts/GlobalStateContext.jsx";
 
 export const PropertiesTab = (props) =>{
     
-    const [selectedTab, setSelectedTab] = useState('account');
+    const [selectedTab, setSelectedTab] = useState('restaurants');
     const handleTabChange = (newValue) => {
       setSelectedTab(newValue);
     };
    
 
     
-    console.log(selectedTab)
+   
     return (
     <div>
       <div className="tab-bar">
@@ -51,49 +52,11 @@ export const RentalDashboard = () => {
     setIsModalOpen(false);
   };
   
-  const [rentals, setRentals] = useState([])
+  const {rentals, setRentals} = useGlobalState()
     
   const rentalRef = collection(db, 'rentals')
 
-  useEffect(() => {
-    const getRentalsList= async () => {
-      
-      try{
-        const data = await getDocs(rentalRef)
-        const filteredData = data.docs.map((doc) => ({
-          ...doc.data(),
-          id : doc.id,
-        }))
-         
-        console.log(`Restaurant data ${filteredData}`)
-        setRentals(filteredData )
-        console.log(rentals)
 
-        
-
-      }catch (error){
-        console.log(error)
-      }
-      
-    }
-    
-    getRentalsList();
-
-    const unsubscribe = onSnapshot(rentalRef, (snapshot) => {
-      const updatedRentals = [];
-      snapshot.forEach((doc) => {
-          updatedRentals.push({
-              id: doc.id,
-              ...doc.data(),
-          });
-      });
-      console.log(updatedRentals)
-      setRentals(updatedRentals);
-  });
-
-  return () => unsubscribe();
-  }, [])
-  
   
 
   const deleteRental = async (id) =>{
@@ -109,7 +72,7 @@ export const RentalDashboard = () => {
       <div className="dash-section restaurant-record " >
         <div className="top-row">
           <h3>Rentals Records</h3>
-            <button className='add-button' onClick={openModal} ><img src="plus.svg" alt="" className='plus' />Add New</button>
+            <button className='add-button' onClick={{openModal}} ><img src="plus.svg" alt="" className='plus' />Add New</button>
           
           <RentalModal isOpen={isModalOpen} onClose={closeModal} />
         </div>
@@ -157,6 +120,8 @@ export const RentalDashboard = () => {
 
 export const RestaurantDashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const {restaurants, setRestaurants} = useGlobalState()
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -165,56 +130,12 @@ export const RestaurantDashboard = () => {
     setIsModalOpen(false);
   };
   
-  const [restaurants, setRestaurants] = useState([])
-    
-  const restaurantRef = collection(db, 'restaurants')
-
-  useEffect(() => {
-    const getRestaurantList= async () => {
-      
-      try{
-        const data = await getDocs(restaurantRef)
-        const filteredData = data.docs.map((doc) => ({
-          ...doc.data(),
-          id : doc.id,
-        }))
-         
-        console.log(filteredData)
-        setRestaurants(filteredData )
-        console.log(restaurants)
-
-        
-
-      }catch (error){
-        console.log(error)
-      }
-      
-    }
-    
-    getRestaurantList();
-
-    const unsubscribe = onSnapshot(restaurantRef, (snapshot) => {
-      const updatedRestaurants = [];
-      snapshot.forEach((doc) => {
-          updatedRestaurants.push({
-              id: doc.id,
-              ...doc.data(),
-          });
-      });
-      setRestaurants(updatedRestaurants);
-  });
-
-  return () => unsubscribe();
-  }, [])
   
-  
-
+    
   const deleteRestaurant = async (id) =>{
     const restaurantDoc = doc(db,'restaurants', id)
     await deleteDoc(restaurantDoc)
   }
-
-
 
   return(
     <div>

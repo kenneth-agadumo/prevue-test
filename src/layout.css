@@ -557,6 +557,95 @@
 
 
 
+/* RENTALS/ PAGE */
+
+.rental-top-section{
+    margin-top: 150px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.rental-top-section p{
+    max-width: 698px;
+}
+.rental-catalogue{
+    padding: 20px 0;
+}
+
+.catalogue-top-row{
+    max-width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.catalogue-top-row select{
+    height: fit-content;
+    max-width: 105px;
+    border: 1px solid #86708560;
+    padding: 10px 12px;
+    border-radius: 37px;
+    display: flex;
+    justify-content:flex-start ;
+}
+
+.rental-search-bar{
+    width: 654px;
+    padding: 18px 29px;
+    border: 1px solid #d9d9d9;
+    border-radius: 78px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.rental-search-bar input{
+    height: 22px;
+    width: 305px;
+    border: none;
+}
+
+.rental-search-bar select{
+    border: none;
+    border-left: 1px solid #d9d9d9;
+    border-radius: 0;
+    padding: 16px 8px;
+    box-sizing: border-box;
+}
+
+.catalogue{
+    max-width:90% ;
+    margin: 60px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+
+}
+
+/* END OF RENTAL */
+
+
+/* RESTAURANT */
+.slider{
+    margin-top: 60px;
+}
+
+.description{
+    /* background: #000; */
+    width: 90%;
+    margin: 50px auto;
+}
+
+/* END OF RESTAURANT */
+
+
 p{
    font-size: 14px;
 }

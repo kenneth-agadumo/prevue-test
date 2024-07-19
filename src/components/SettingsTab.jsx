@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { auth, db } from "../firebaseConfig";
+import { auth, db, storage } from "../firebaseConfig";
 import {collection, getDocs, doc, onSnapshot,deleteDoc, updateDoc } from 'firebase/firestore'
 import { updateEmail, updatePassword, sendPasswordResetEmail } from "firebase/auth";
 import RestaurantModal from './RestaurantModal.jsx';
@@ -7,6 +7,7 @@ import RentalModal from './RentalModal.jsx';
 import { SegmentedControl, Table } from '@radix-ui/themes';
 import {ImageDrop} from './ImageDrop.jsx'
 import '../dashboard.css'
+import {  ref, uploadBytes, getDownloadURL, deleteObject} from 'firebase/storage'
 import { set } from "firebase/database";
 
 export const SettingsTab  = (props) => {
@@ -44,21 +45,37 @@ export const SettingsTab  = (props) => {
   )
 }
 
+
 export const MyProfile = (props) => {
   const [firstName, setFirstName] = useState(props.userData?.fullName?.split(' ')[0])
   const [lastName, setLastName] = useState(props.userData?.fullName?.split(' ')[1])
   const [email, setEmail] = useState(props.userData?.email)
   const [phoneNumber, setPhoneNumber] = useState(props.userData?.phoneNumber)
   const [emailChanged, setEmailChanged] = useState(false)
+  const [images, setImages] = useState([])
 
 
   console.log(
-    `first name: ${firstName}, last name: ${lastName}, email: ${email}, phone number: ${phoneNumber}`
+    ` ${images} ${firstName}`
   )
 
-  const [inputValue, setInputValue] = useState('Initial Value');
+  const [imageUrl, setImageUrl] = useState();
+  const imageRef = ref(storage, `/userImages/${auth.currentUser.uid}/image-1`)
 
-  console.log(auth.currentUser?.email)
+  useEffect(() => {
+    getDownloadURL(imageRef)
+      .then((url) => {
+        setImageUrl(url);
+      })
+      .catch((error) => {
+        console.error('Error getting download URL:', error);
+      });
+  }, []);
+
+  
+    const handleImagesChange = (updatedImages) => {
+      setImages(updatedImages);
+    };
 
    // Function to handle input change events
    const handleInputChange = (e) => {
@@ -79,12 +96,14 @@ export const MyProfile = (props) => {
 
   };
 
+
+
  
   const updateInfo = async () => {
     const docRef = doc(db, 'users', props.documentID)
     const user = auth.currentUser
 
-
+   
     try {
       await updateDoc(docRef, {
         fullName: firstName + ' ' + lastName,
@@ -98,6 +117,26 @@ export const MyProfile = (props) => {
           console.log("Email changed successfully")
         })
       }
+
+      
+      if (auth.currentUser){
+          const imageRef = ref(storage, `/userImages/${auth?.currentUser?.uid}/image-1`)
+        getDownloadURL(imageRef)
+        .then((url) => {
+          setUserImageUrl(url);
+        })
+        .catch((error) => {
+          console.error('Error getting download URL:', error);
+        });
+      }
+
+      // // Submit Image
+      // imageRef && await deleteObject(imageRef);
+      // console.log('Image deleted successfully!');
+
+      const result = await uploadBytes(imageRef, images[0 ])
+      .then(() => console.log('success'))
+      .catch((error) => console.log(error))
 
       console.log('Your profile was updated successfully!');
       alert('Your profile was updated successfully!')
@@ -119,6 +158,7 @@ export const MyProfile = (props) => {
         </div>
         <hr style={{background: '#eaecf0', height:'1px', border:'none'}} />
       </div>
+
       <div className="full-name">
         <div className="flex-row">  
           <label htmlFor="">Name</label>
@@ -161,8 +201,10 @@ export const MyProfile = (props) => {
         <h4>Your Photo</h4>
         <p>This will be displayed on your profile</p>
         <div className="upload-photo">
-        <img src="Avatar.svg" alt=""  style={{width:'70px'}}/>
-          <ImageDrop/>
+        <img src={imageUrl} alt=""  style={{width:'100px', height:'100px', borderRadius:'50%'}}/>
+        <ImageDrop imageNumber={1} onImagesChange={handleImagesChange} width={'80%'} height={'100px'} />
+
+          
         </div>
         <hr style={{background: '#eaecf0', height:'1px', border:'none' }} />
       </div>

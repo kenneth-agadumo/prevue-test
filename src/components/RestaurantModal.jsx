@@ -1,29 +1,47 @@
 import React, { useState } from 'react';
 import '../components.css'
-import { db, auth } from '../firebaseConfig';
+import { db, auth, storage } from '../firebaseConfig';
 import {addDoc, setDoc, collection, doc, deleteDoc} from 'firebase/firestore'
+import { ImageDrop } from './ImageDrop';
+import {  ref, uploadBytes, getDownloadURL} from 'firebase/storage'
 
 export const RestaurantModal = ({ isOpen, onClose }) => {
-
+  const [images, setImages] = useState()
 
   const [formData, setFormData] = useState({
     userId : auth?.currentUser?.uid,
     name: '',
     address:'', 
-    contactNumber: ''
+    contactNumber: '',
+    // id: `res${}`
   });
 
   const handleChange = (e) => {
+   
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handleImagesChange = (updatedImages) => {
+    setImages(updatedImages);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
     try{
-        await addDoc(collection (db, 'restaurants'), formData)
-        console.log("data sumitted")
+        // Add the restaurant to Firestore and get the document reference
+      const docRef = await addDoc(collection(db, 'restaurants'), formData);
+      const restaurantId = docRef.id;
+      console.log("Restaurant ID:", restaurantId);
+
+      // Upload images
+      for (let i = 0; i < images.length; i++) {
+        const imageRef = ref(storage, `/restaurants/${restaurantId + '-' + images[i].name}`);
+        await uploadBytes(imageRef, images[i])
+          .then(() => console.log('Image uploaded successfully'))
+          .catch((error) => console.error('Error uploading image:', error));
+      }
 
         onClose(); // Close the modal after form submission
         e.target.value =''
@@ -34,6 +52,7 @@ export const RestaurantModal = ({ isOpen, onClose }) => {
   };
 
 
+  console.log(images)
 
 
   return (
@@ -64,7 +83,8 @@ export const RestaurantModal = ({ isOpen, onClose }) => {
               </div>
 
               <div className='row2' >
-              <input type="file" name="Image" className='image-upload' />
+              <ImageDrop imageNumber={3} onImagesChange={handleImagesChange} width={'80%'} height={'100px'} />
+              
               </div>
                
             

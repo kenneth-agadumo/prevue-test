@@ -85,6 +85,7 @@ nav button{
 
 .card-info-cont{
  /* background: #000; */
+ height: fit-content;
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
@@ -92,6 +93,26 @@ nav button{
 }
 .info{
   margin: 0;
+}
+
+.rental-info{
+  width: 80% ;
+  display: flex ;
+  justify-content: space-between  ;
+  align-items: center;
+
+}
+.rental-info span{
+  font-weight: 400;
+}
+.card-price{
+  transform: translateY(-12px);
+  
+}
+
+.card-price span{
+  font-size: 18px;
+  font-weight: 500;
 }
 
 .name{
