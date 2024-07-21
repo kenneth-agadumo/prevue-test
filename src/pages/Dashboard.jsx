@@ -139,8 +139,8 @@ export const Dashboard = () => {
             <div className="user-dropdown">
             <img src={userImageUrl} alt=""  style={{width:'50px', height:'50px', borderRadius:'50%'}}/>
               <div className="info">
-                <small className='name'>{userData?.fullName.split(' ')[0]}</small>
-                <small className='name'>{userData?.fullName.split(' ')[1]}</small>
+                <small className='dash-name'>{userData?.fullName.split(' ')[0]}</small>
+                <small className='dash-name'>{userData?.fullName.split(' ')[1]}</small>
               </div>
               <img src="down-arrow.svg" alt=""  style={{width:'17px'}} onClick={() => setDropdownActive(!dropdownActive)} />
               

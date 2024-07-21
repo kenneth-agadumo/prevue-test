@@ -7,65 +7,10 @@ import { useGlobalState } from "../Contexts/GlobalStateContext";
 import { storage } from "../firebaseConfig";
 
 export const Rentals = () => {
-    const { userData, rentals } = useGlobalState();
-    const [imageUrls, setImageUrls] = useState({});
-        /*
-    ##########################
-    ##########################
-    ##########################
-    ##########################
-    ##########################
-    ##########################
-    ##########################
-    */
+    const { userData, rentals, rentalImagesMap} = useGlobalState();
+    
+   
 
-    useEffect(() => {
-        const fetchImages = async () => {
-            try {
-                const rentalImagesMap = {};
-                const rentalsRef = ref(storage, 'rentals');
-                const userFolders = await listAll(rentalsRef);
-
-                
-                // Iterate through each rental
-                for (const userFolder of userFolders.prefixes) {
-                    const rentalFolders = await listAll(userFolder);
-
-                    for(const rentalFolder of rentalFolders.prefixes){
-                        const imageFiles = await listAll(rentalFolder);
-
-                        if (imageFiles.items.length > 0) {
-                            // Get the first image's URL
-                            const firstImageFile = imageFiles.items[0];
-                            const downloadURL = await getDownloadURL(firstImageFile);
-                            allImages[rental.id] = firstImageUrl;
-                        }
-                    }
-                    
-                   
-                }
-
-                setImageUrls(allImages);
-            } catch (error) {
-                console.error('Error fetching images:', error);
-            }
-        };
-
-        if (rentals.length > 0) {
-            fetchImages();
-        }
-    }, [rentals]);
-
-
-    /*
-    ##########################
-    ##########################
-    ##########################
-    ##########################
-    ##########################
-    ##########################
-    ##########################
-    */
 
     return (
         <>
@@ -89,15 +34,16 @@ export const Rentals = () => {
                     <Dropdown itemNumber={3} itemsArray={['Featured', 'Recent', 'Popular']} />
                 </div>
                 <div className="catalogue">
-                    {rentals.map((rental) => (
-                        <RentalCard
-                            key={rental.id}
-                            address={rental.address}
-                            image={imageUrls[rental.id] || 'default-image.png'}
-                            price={rental.price}
-                            width={'35.3%'}
-                        />
-                    ))}
+                {Object.entries(rentalImagesMap).map(([rentalId, rentalData]) => (
+                    <RentalCard
+                    key={rentalId}  
+                    address={rentalData.address}        
+                    price={rentalData.price}
+                    image={rentalData.images.length > 0 ? rentalData.images[0].url : 'default-image.png'}
+                    width={'33%'}
+                    />
+                ))}
+
                 </div>
                 <div className="load-more">
                     {/* <button>Load More</button> */}

@@ -1,19 +1,29 @@
-import {ImageSlider} from '../components/ImageSlider'
-import '../layout.css'
+import React from "react";
+import { useParams } from "react-router-dom";
+import { useGlobalState } from "../Contexts/GlobalStateContext";
 
 export const RestaurantPage = () => {
-    const images = [
-        'hard-rock.png',
-        'crust.png',
-        'hero-bg.png',
-      ];
-    return(
-        <>
-            <div className="slider">
-                <ImageSlider images={images} />
-            </div>
+  const { restaurantId } = useParams();
+  const { restaurantImagesMap } = useGlobalState();
+  const restaurantData = restaurantImagesMap[restaurantId];
 
-            <div className="description">
+  if (!restaurantData) {
+    return <div>Restaurant not found</div>;
+  }
+
+  
+   return(
+        <>
+           
+    <div className="restaurant-detail">
+      <h1>{restaurantData.name}</h1>
+      <p>{restaurantData.address}</p>
+      {restaurantData.images.map((image, index) => (
+        <img key={index} src={image.url} alt={restaurantData.name} />
+      ))}
+      <p>{restaurantData.description}</p>
+    </div>
+    <div className="description">
                 <div className="description-left">
                     <div className="description-info">
                         <h4>Cactus Restaurant</h4>
@@ -30,4 +40,5 @@ export const RestaurantPage = () => {
             </div>
         </>
     )
-}
+};
+   

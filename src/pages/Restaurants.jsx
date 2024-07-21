@@ -2,9 +2,18 @@ import React from "react";
 import { Dropdown } from "../components/Dropdown";
 import { RestaurantCard } from "../components/Card";
 import { useGlobalState } from "../Contexts/GlobalStateContext";
+import { useNavigate, Link } from "react-router-dom";
+
 
 export const Restaurants = () => {
   const { restaurantImagesMap } = useGlobalState();
+  const navigate = useNavigate();
+
+  const handleCardClick = (restaurantId) => {
+
+    navigate(`/restaurants/${restaurantId}`);
+    console.log('clicked')
+  };
 
   return (
     <>
@@ -27,15 +36,16 @@ export const Restaurants = () => {
           </div>
           <Dropdown itemNumber={3} itemsArray={['Featured', 'Recent', 'Popular']} />
         </div>
-        <div className="catalogue">
+        <div className="catalogue" >
           {Object.entries(restaurantImagesMap).map(([restaurantId, restaurantData]) => (
-            <RestaurantCard
-              key={restaurantId}
-              name={restaurantData.name}
-              address={restaurantData.address}
-              image={restaurantData.images.length > 0 ? restaurantData.images[0].url : 'default-image.png'}
-              width={'30%'}
-            />
+             <Link to={`/restaurants/${restaurantId}`} key={restaurantId} style={{ textDecoration: 'none' }}>
+             <RestaurantCard
+               name={restaurantData.name}
+               address={restaurantData.address}
+               image={restaurantData.images.length > 0 ? restaurantData.images[0].url : 'default-image.png'}
+               width={'30%'}
+             />
+           </Link>
           ))}
         </div>
         <div className="load-more">

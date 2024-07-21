@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { collection, getDocs, onSnapshot } from 'firebase/firestore';
+import { collection, getDocs, onSnapshot, doc, getDoc } from 'firebase/firestore';
 import { ref, getDownloadURL, listAll } from 'firebase/storage';
 import { auth, db, storage } from "../firebaseConfig";
 
@@ -13,88 +13,97 @@ export const GlobalStateProvider = ({ children }) => {
   const [userData, setUserData] = useState();
   const [loading, setLoading] = useState(false);
   const [userImageUrl, setUserImageUrl] = useState();
-  const [restaurantId, setRestaurantId] = useState()
+  const [restaurantId, setRestaurantId] = useState();
   const [restaurantImagesMap, setRestaurantImagesMap] = useState({});
+  const [rentalImagesMap, setRentalImagesMap] = useState({});
 
   const restaurantRef = collection(db, 'restaurants');
   const rentalRef = collection(db, 'rentals'); // Assuming you have a rentals collection
 
-  useEffect(() => {
-    const fetchRestaurants = async () => {
-      try {
-        const data = await getDocs(restaurantRef);
-        const filteredData = data.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
-        setRestaurants(filteredData);
-      } catch (error) {
-        console.error("Error fetching restaurants:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchRestaurants = async () => {
+  //     try {
+  //       const data = await getDocs(restaurantRef);
+  //       const filteredData = data.docs.map((doc) => ({
+  //         ...doc.data(),
+  //         id: doc.id,
+  //       }));
+  //       setRestaurants(filteredData);
+  //     } catch (error) {
+  //       console.error("Error fetching restaurants:", error);
+  //     }
+  //   };
 
-    fetchRestaurants();
+  //   fetchRestaurants();
 
-    const unsubscribeRestaurants = onSnapshot(restaurantRef, (snapshot) => {
-      const updatedRestaurants = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setRestaurants(updatedRestaurants);
-    });
+  //   const unsubscribeRestaurants = onSnapshot(restaurantRef, (snapshot) => {
+  //     const updatedRestaurants = snapshot.docs.map((doc) => ({
+  //       id: doc.id,
+  //       ...doc.data(),
+  //     }));
+  //     setRestaurants(updatedRestaurants);
+  //   });
 
-    return () => unsubscribeRestaurants();
-  }, [restaurantRef]);
+  //   return () => unsubscribeRestaurants();
+  // }, []);
 
   useEffect(() => {
     if (auth.currentUser) {
       const imageRef = ref(storage, `/userImages/${auth.currentUser.uid}/image-1`);
-      getDownloadURL(imageRef)
+
+      if (imageRef){
+        getDownloadURL(imageRef)
         .then((url) => {
           setUserImageUrl(url);
         })
         .catch((error) => {
           console.error('Error getting download URL:', error);
         });
+      }else{
+        setUserImageUrl('user.png')
+      }
+      console.log(userImageUrl)
     }
   }, [auth.currentUser]);
 
-  useEffect(() => {
-    const fetchRentals = async () => {
-      try {
-        const data = await getDocs(rentalRef);
-        const filteredData = data.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
-        setRentals(filteredData);
-      } catch (error) {
-        console.error("Error fetching rentals:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchRentals = async () => {
+  //     try {
+  //       const data = await getDocs(rentalRef);
+  //       const filteredData = data.docs.map((doc) => ({
+  //         ...doc.data(),
+  //         id: doc.id,
+  //       }));
+  //       setRentals(filteredData);
+  //     } catch (error) {
+  //       console.error("Error fetching rentals:", error);
+  //     }
+  //   };
 
-    fetchRentals();
+  //   fetchRentals();
 
-    const unsubscribeRentals = onSnapshot(rentalRef, (snapshot) => {
-      const updatedRentals = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setRentals(updatedRentals);
-    });
+  //   const unsubscribeRentals = onSnapshot(rentalRef, (snapshot) => {
+  //     const updatedRentals = snapshot.docs.map((doc) => ({
+  //       id: doc.id,
+  //       ...doc.data(),
+  //     }));
+  //     setRentals(updatedRentals);
+  //   });
 
-    return () => unsubscribeRentals();
-  }, [rentalRef]);
-
+  //   return () => unsubscribeRentals();
+  // }, []);
 
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        
-        const restaurantsRef = ref(storage, 'restaurants');
-        const imageFiles = await listAll(restaurantsRef);
+        const restaurantImagesMap = {};
+        const rentalImagesMap = {};
 
-        for (const imageFile of imageFiles.items) {
+        // Fetching restaurant images
+        const restaurantsRef = ref(storage, 'restaurants');
+        const restaurantImageFiles = await listAll(restaurantsRef);
+
+        for (const imageFile of restaurantImageFiles.items) {
           const downloadURL = await getDownloadURL(imageFile);
           const imageName = imageFile.name;
 
@@ -124,10 +133,46 @@ export const GlobalStateProvider = ({ children }) => {
             });
           }
         }
-        
 
         setRestaurantImagesMap(restaurantImagesMap);
-        console.log(restaurantImagesMap)
+
+        // Fetching rental images
+        const rentalsRef = ref(storage, 'rentals');
+        const rentalImageFiles = await listAll(rentalsRef);
+
+        for (const imageFile of rentalImageFiles.items) {
+          const downloadURL = await getDownloadURL(imageFile);
+          const imageName = imageFile.name;
+
+          // Assuming the image name follows the convention rentalId-imageName
+          const [rentalId, ...imageNameParts] = imageName.split('-');
+          const imageNameWithoutId = imageNameParts.join('-');
+
+          // Fetch the rental document to get rental data if needed
+          const rentalDocRef = doc(db, 'rentals', rentalId);
+          const rentalDoc = await getDoc(rentalDocRef);
+
+          if (rentalDoc.exists()) {
+            const rentalData = rentalDoc.data();
+            
+            // Initialize the array if it doesn't exist
+            if (!rentalImagesMap[rentalId]) {
+              rentalImagesMap[rentalId] = {
+                ...rentalData,
+                images: []
+              };
+            }
+
+            // Add the image URL to the rental's images array
+            rentalImagesMap[rentalId].images.push({
+              name: imageNameWithoutId,
+              url: downloadURL
+            });
+          }
+        }
+
+        setRentalImagesMap(rentalImagesMap);
+        
       } catch (error) {
         console.error('Error fetching images:', error);
       }
@@ -143,6 +188,7 @@ export const GlobalStateProvider = ({ children }) => {
       userData, setUserData,
       loading, setLoading,
       restaurantImagesMap,
+      rentalImagesMap,
       userImageUrl
     }}>
       {children}

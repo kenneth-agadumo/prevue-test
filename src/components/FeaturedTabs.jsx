@@ -2,6 +2,8 @@ import { useState } from "react";
 import '../layout.css'
 import { Dropdown } from "./Dropdown";
 import { RentalCard, RestaurantCard } from "./Card";
+import Lottie from "lottie-react" 
+import ComingSoon from  '../coming-soon.json'   
 
 export const FeaturedTabs = () => {
     const [selectedTab, setSelectedTab] = useState('restaurants');
@@ -43,7 +45,27 @@ export const RentalSection = () => {
             <div className="content-row">
                 <Dropdown  itemNumber={3} itemsArray={['All Types', 'Type 1', 'Type 2']} />
                 <div className="content-item">
-                    <RentalCard />
+                <RentalCard
+                  
+                    address={'adwdawd'}        
+                    price={10000000}
+                    image={'hero-bg.png'}
+                    width={'33%'}
+                    />
+                    <RentalCard
+                  
+                  address={'adwdawd'}        
+                  price={10000000}
+                  image={'hero-bg.png'}
+                  width={'33%'}
+                  />
+                  <RentalCard
+                  
+                  address={'adwdawd'}        
+                  price={10000000}
+                  image={'hero-bg.png'}
+                  width={'33%'}
+                  />
                 </div>
             </div>
             </div>
@@ -91,7 +113,8 @@ export const ActivitiesSection = () => {
         <div className="content-row">
             <Dropdown  itemNumber={3} itemsArray={['All Types', 'Type 1', 'Type 2']} />
             <div className="content-item">
-                A content goes here
+               
+            <Lottie style={{width:'250px'}} animationData={ComingSoon}   />
             </div>
         </div>
         </div>

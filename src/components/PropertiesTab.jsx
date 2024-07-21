@@ -44,7 +44,8 @@ export const PropertiesTab = (props) =>{
 
 export const RentalDashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = () => {
+
+ const openModal = () => {
     setIsModalOpen(true);
   };
 
@@ -65,14 +66,14 @@ export const RentalDashboard = () => {
   }
 
 
-
+console.log(isModalOpen)
   
   return(
     <div>
       <div className="dash-section restaurant-record " >
         <div className="top-row">
           <h3>Rentals Records</h3>
-            <button className='add-button' onClick={{openModal}} ><img src="plus.svg" alt="" className='plus' />Add New</button>
+            <button className='add-button' onClick={openModal} ><img src="plus.svg" alt="" className='plus' />Add New</button>
           
           <RentalModal isOpen={isModalOpen} onClose={closeModal} />
         </div>

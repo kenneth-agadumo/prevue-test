@@ -40,7 +40,7 @@ export const UserContext = createContext()
             <Route path='/set-password' element={<SetPassword/>} />
             <Route path='/reset-successful' element={<PasswordReset/>} />
             <Route path='/verify-email' element={<EmailVerification/>} />
-            <Route path='/restaurants/:restaurant-name' element={<RestaurantPage />} />
+            <Route path='/restaurants/:restaurantId' element={<RestaurantPage />} />
           </Routes>
         </div>
        
