@@ -11,8 +11,9 @@ export const Navbar = () => {
     // Array of paths where Navbar should be visible
     const visiblePaths = ['/', '/rentals', '/restaurants', '/activities', '/restaurant/id'];
 
-    // Check if the current path is in the visiblePaths array
-    const isVisible = visiblePaths.includes(location.pathname);
+    // Check if the current path matches any of the visible paths or if it matches the pattern /restaurants/:restaurantId
+    const isVisible = visiblePaths.includes(location.pathname) || location.pathname.startsWith('/restaurants/');
+
 
     // If the current path is not in visiblePaths, return null to hide Navbar
     if (!isVisible) {
@@ -22,7 +23,7 @@ export const Navbar = () => {
     return (
         <nav  style={{left: isActive ? '0' : '5%'}}>
             <Link to='/'>
-                <img src={location.pathname === '/' &&  {isActive} ? 'prevue.png' : 'prevue.svg'} className="logo" alt="" />
+                <img src={location.pathname === '/' &&  {isActive} ? '/prevue.png' : '/prevue.svg'} className="logo" alt="" />
             </Link>
 
             <img className="hamburger-menu" src="hamburger.svg" alt=""  onClick={() => setIsActive(true)}/>

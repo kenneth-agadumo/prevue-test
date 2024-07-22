@@ -3,30 +3,23 @@ import '../layout.css';
 import { FeaturedTabs } from '../components/FeaturedTabs';
 import { Dropdown } from '../components/Dropdown';
 import { EmbedScript } from '../components/VirtualTour';
-import Lottie from "lottie-react" 
-import Loading from  '../house-loading.json'   
+
 
 export const Home = () => {
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        // Simulate loading data/components, you can replace this with actual loading logic
-        const loadComponents = async () => {
-            // Simulate a delay for loading components
-            await new Promise((resolve) => setTimeout(resolve, 3000));
-            setLoading(false);
-        };
+    // useEffect(() => {
+    //     // Simulate loading data/components, you can replace this with actual loading logic
+    //     const loadComponents = async () => {
+    //         // Simulate a delay for loading components
+    //         await new Promise((resolve) => setTimeout(resolve, 3000));
+    //         setLoading(false);
+    //     };
 
-        loadComponents();
-    }, []);
+    //     loadComponents();
+    // }, []);
 
-    if (loading) {
-        return (
-            <div className="loading-container" style={{height: '100vh',display: 'flex', justifyContent: 'center', alignContent: 'center'}}>
-                <Lottie style={{width:'300px'}} animationData={Loading} />
-            </div>
-        );
-    }
+   
 
     return (
         <>

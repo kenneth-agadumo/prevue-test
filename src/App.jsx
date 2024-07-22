@@ -16,12 +16,60 @@ import { Restaurants } from './pages/Restaurants';
 import { Rentals } from './pages/Rentals';
 import { EmailVerification } from './pages/EmailVerification';
 import { RestaurantPage } from './pages/RestaurantPage';
+import Loading from  './house-loading.json'   
 import './App.css'
+import Lottie from "lottie-react" 
 
-export const UserContext = createContext()
+const imageSources = [
+  '/hero-bg.png',
+  '/prevue.svg',
+  '/public/prevue.png'
+ 
+];
 
- const App = () => {
-  
+const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const preloadImages = async () => {
+      const cacheImages = (srcArray) => {
+        return Promise.all(
+          srcArray.map((src) => {
+            return new Promise((resolve, reject) => {
+              const img = new Image();
+              img.src = src;
+              img.onload = resolve;
+              img.onerror = (error) => {
+                console.error(`Failed to load image: ${src}`, error);
+                resolve(); // Resolve anyway to not block the Promise.all
+              };
+            });
+          })
+        );
+      };
+
+      try {
+        await cacheImages(imageSources);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error preloading images:', error);
+        setIsLoading(false);
+      }
+    };
+
+    preloadImages();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <>
+       <div className="loading-container" style={{height: '100vh',display: 'flex', justifyContent: 'center', alignContent: 'center'}}>
+          <Lottie style={{width:'300px'}} animationData={Loading} />
+        </div>
+      </>
+    )
+  }
+
 
   return (
     <div className='root' id='root'> 

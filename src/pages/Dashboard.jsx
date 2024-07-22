@@ -32,39 +32,41 @@ export const Dashboard = () => {
   useEffect(() => {
     const getActiveUser = async () =>{
       const unsubscribe = onAuthStateChanged(auth, async (user) => {
-        if (user) {
+        if (!user) {
+
+           // User is not signed in, handle accordingly
+           navigate('/login');
+           setUserData(null); // Clear user data when user signs out
+           setLoading(false);
             
-            const q = query(userRef, where("uid", "==", user.uid));
-            getDocs(q)
-            .then(snapshot => {
-              snapshot.forEach(doc => {
-                const documentId = doc.id;
-                setDocumentID(documentId)
-                console.log("Document ID:", documentId);
-              });
-            })
-            .catch(error => {
-              console.error("Error getting documents:", error);
-            });
             
-            try {
-                const querySnapshot = await getDocs(q);
-                
-                querySnapshot.forEach((doc) => {
-                  
-                    const user = doc.data(); // Access document data using the data() method
-                   
-                    setUserData(user);
-                });
-            } catch (error) {
-                console.error("Error fetching user data:", error);
-                // Handle error (e.g., show an error message to the user)
-            }
         } else {
-            // User is not signed in, handle accordingly
-            navigate('/login');
-            setUserData(null); // Clear user data when user signs out
-            setLoading(false);
+          const q = query(userRef, where("uid", "==", user.uid));
+          getDocs(q)
+          .then(snapshot => {
+            snapshot.forEach(doc => {
+              const documentId = doc.id;
+              setDocumentID(documentId)
+              console.log("Document ID:", documentId);
+            });
+          })
+          .catch(error => {
+            console.error("Error getting documents:", error);
+          });
+          
+          try {
+              const querySnapshot = await getDocs(q);
+              
+              querySnapshot.forEach((doc) => {
+                
+                  const user = doc.data(); // Access document data using the data() method
+                 
+                  setUserData(user);
+              });
+          } catch (error) {
+              console.error("Error fetching user data:", error);
+              // Handle error (e.g., show an error message to the user)
+          }
             
       }
       setDropdownActive(false)

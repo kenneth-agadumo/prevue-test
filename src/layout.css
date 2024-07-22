@@ -11,7 +11,7 @@
     height: 100vh;
     padding: 100px 0 0 0;
     box-sizing: border-box;
-    background: url('hero-bg.png');
+    background: url('/hero-bg.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -106,7 +106,7 @@
     /* background: ; */
     /* text-align: center; */
     margin-top: -3vw;
-    margin-bottom: 100px;
+    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -223,7 +223,7 @@
 
 .about-section-container img{
     width: 90%;
-    translate: 0 16px  ;
+    translate: 0 106px  ;
     /* height: ; */
 }
 
@@ -295,7 +295,7 @@
 .steps-section{
     /* background: #000; */
     width: 90%;
-    margin: 40px auto;
+    margin: 100px auto;
     display: flex;
     gap: 62px;
     box-sizing: border-box;
@@ -395,7 +395,7 @@
     padding: 40px 0;
     width: 100%;
     box-sizing: border-box;
-    padding: 100px 0
+    padding: 30px 0;
     /* height: 50vh; */
 
 }

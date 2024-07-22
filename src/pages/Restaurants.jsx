@@ -38,12 +38,12 @@ export const Restaurants = () => {
         </div>
         <div className="catalogue" >
           {Object.entries(restaurantImagesMap).map(([restaurantId, restaurantData]) => (
-             <Link to={`/restaurants/${restaurantId}`} key={restaurantId} style={{ textDecoration: 'none' }}>
+             <Link to={`/restaurants/${restaurantId}`} key={restaurantId} style={{ textDecoration: 'none', width:'33%' }}>
              <RestaurantCard
                name={restaurantData.name}
                address={restaurantData.address}
                image={restaurantData.images.length > 0 ? restaurantData.images[0].url : 'default-image.png'}
-               width={'30%'}
+              
              />
            </Link>
           ))}
