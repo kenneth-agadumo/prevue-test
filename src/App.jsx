@@ -23,7 +23,7 @@ import Lottie from "lottie-react"
 const imageSources = [
   '/hero-bg.png',
   '/prevue.svg',
-  '/public/prevue.png'
+  '/prevue.png'
  
 ];
 
