@@ -79,7 +79,7 @@ export const  Register = () => {
       <small>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       </small>
-      <form onSubmit={handleRegister} className="register-form">
+      <form onSubmit={handleRegister} className="register-form" style={{boxSizing: 'border-box'}}>
         <div>
           <label htmlFor="fullName">Name*</label>
 
@@ -98,9 +98,11 @@ export const  Register = () => {
           <input className='input' type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Create your password" required /> <br />
           <small>Must be at least 8 characters</small>
         </div>
-        <button type="submit" className="form-button">Get started</button>
-        <button type="button" onClick={handleSignInWithGoogle} className="google-button"> <img src="google.svg" alt="" style={{width:'15px', paddingRight:'15px'}} /> Sign up with Google</button>
-        <small> Already have an account? <Link to={'/'}>Sign in</Link></small>
+        <div>
+          <button type="submit" className="form-button" style={{width:'100%', marginLeft: '-10px'}}>Get started</button>
+          <button type="button" onClick={handleSignInWithGoogle} className="google-button" style={{width:'100%', marginLeft: '-10px'}}> <img src="/google.svg" alt="" style={{width:'15px', paddingRight:'15px'}} /> Sign up with Google</button>
+        </div>
+        <small> Already have an account? <Link to={'/login'}> Login</Link></small>
       </form>
       </div>
       

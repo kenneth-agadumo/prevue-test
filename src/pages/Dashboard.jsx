@@ -99,19 +99,19 @@ export const Dashboard = () => {
 
           <div className="nav-items">
             <div   className={`dashboard-navbar-item ${selectedTab === 'account' ? 'active' : ''}`}value="inbox" onClick={() => handleTabChange('account')} >
-              <img src="dashboard.svg" alt="" className='prof-img'/> <span className="nav-item-text">Dashboard</span> 
+              <img src="/dashboard.svg" alt="" className='prof-img'/> <span className="nav-item-text">Dashboard</span> 
             </div>
             <div className={`dashboard-navbar-item ${selectedTab === 'reservations' ? 'active' : ''}`} value="drafts" onClick={() => handleTabChange('reservations')} >
-            <img src="stack.svg" alt="" className='res-img'/> <span className="nav-item-text">Reservations</span> 
+            <img src="/stack.svg" alt="" className='res-img'/> <span className="nav-item-text">Reservations</span> 
             </div>
             <div className={`dashboard-navbar-item ${selectedTab === 'properties' ? 'active' : ''}`} value="sent" onClick={() => handleTabChange('properties')} >
-            <img src="prop.svg" alt="" className='res-img' />  <span className="nav-item-text">Properties</span> 
+            <img src="/prop.svg" alt="" className='res-img' />  <span className="nav-item-text">Properties</span> 
             </div>
           </div>
 
           <div className="dashboard-nav-bottom">
             <div className={`dashboard-navbar-item ${selectedTab === 'settings' ? 'active' : ''}`} value="settings" onClick={() => handleTabChange('settings')} >
-            <img src="gears.svg" alt=""  className='prof-img'/> Settings
+            <img src="/gears.svg" alt=""  className='prof-img'/> Settings
             </div>
             <div className="bb"></div>
             <div className="logout " >
@@ -121,7 +121,7 @@ export const Dashboard = () => {
                 <small style={{minWidth:'fit-content'}}> {userData?.email}</small>
               </div>
               
-              <img src="logout.svg" alt=""  style={{cursor:'pointer'}}/>
+              <img src="/logout.svg" alt=""  style={{cursor:'pointer'}}/>
             </div>
          </div>
         </div>
@@ -131,12 +131,12 @@ export const Dashboard = () => {
       <div className="dashboard-body-section">
         <div className="top-row" style={{ display : selectedTab == 'settings' &&  'none'}}>
           <div className="search-bar-column">
-            <img className='search-icon' src="search.svg" alt="" />
+            <img className='search-icon' src="/search.svg" alt="" />
             <input className='search-input' type="text"placeholder='Search' />
           </div>
           <div className="account-column">
             <div className="notification">
-              <img src="bell.svg" alt="" style={{width:'17px'}}/>
+              <img src="/bell.svg" alt="" style={{width:'17px'}}/>
             </div>
             <div className="user-dropdown">
             <img src={userImageUrl} alt=""  style={{width:'50px', height:'50px', borderRadius:'50%'}}/>
@@ -144,7 +144,7 @@ export const Dashboard = () => {
                 <small className='dash-name'>{userData?.fullName.split(' ')[0]}</small>
                 <small className='dash-name'>{userData?.fullName.split(' ')[1]}</small>
               </div>
-              <img src="down-arrow.svg" alt=""  style={{width:'17px'}} onClick={() => setDropdownActive(!dropdownActive)} />
+              <img src="/down-arrow.svg" alt=""  style={{width:'17px'}} onClick={() => setDropdownActive(!dropdownActive)} />
               
               <div className={`dropdown-content ${dropdownActive && 'active'}`}>
                 <span onClick={() =>  setSelectedTab('settings')}>My Profile</span>
@@ -182,7 +182,7 @@ function AccountContent(props) {
 
           <div className='row1'>
             <h4 style={{fontWeight:'500'}}>Total Reservations</h4>
-            <img src="Dropdown.svg" alt="" />
+            <img src="/Dropdown.svg" alt="" />
           </div>
 
           <div className='row-2'>
@@ -191,7 +191,7 @@ function AccountContent(props) {
 
           <div className='row-3'>
             <div className="change-rate">
-              <img src="green-arrow-up.svg" alt="" /><p> <span style={{color:'green'}}>40%</span> vs last month</p>
+              <img src="/green-arrow-up.svg" alt="" /><p> <span style={{color:'green'}}>40%</span> vs last month</p>
             </div>
           </div>
 
@@ -202,7 +202,7 @@ function AccountContent(props) {
 
           <div className='row1'>
             <h4 style={{fontWeight:'500'}}>Total Restaurants</h4>
-            <img src="Dropdown.svg" alt="" />
+            <img src="/Dropdown.svg" alt="" />
           </div>
 
           <div className='row-2'>
@@ -211,7 +211,7 @@ function AccountContent(props) {
 
           <div className='row-3'>
             <div className="change-rate">
-              <img src="green-arrow-up.svg" alt="" /><p> <span style={{color:'green'}}>40%</span> vs last month</p>
+              <img src="/green-arrow-up.svg" alt="" /><p> <span style={{color:'green'}}>40%</span> vs last month</p>
             </div>
           </div>
 
@@ -221,7 +221,7 @@ function AccountContent(props) {
 
         <div className='row1'>
             <h4 style={{fontWeight:'500'}}>Total Entries</h4>
-            <img src="Dropdown.svg" alt="" />
+            <img src="/Dropdown.svg" alt="" />
           </div>
 
           <div className='row-2'>
@@ -230,7 +230,7 @@ function AccountContent(props) {
 
           <div className='row-3'>
             <div className="change-rate">
-              <img src="green-arrow-up.svg" alt="" /><p> <span style={{color:'green'}}>20%</span> vs last month</p>
+              <img src="/green-arrow-up.svg" alt="" /><p> <span style={{color:'green'}}>20%</span> vs last month</p>
             </div>
           </div>
 

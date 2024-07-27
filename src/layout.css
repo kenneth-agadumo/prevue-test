@@ -715,6 +715,7 @@ small, button{
     background: #F2C94C;
     color: white;
     margin-bottom: 18px;
+    /* margin-left: -10px */
 }
 .google-button{
     width: 105%;
@@ -722,7 +723,7 @@ small, button{
     padding: 10px 12px;
     border-radius: 20px;
     margin-bottom: 12px;
-    
+    /* margin-left: -10px */
 }
 .borderless-button{
     width: 105%;

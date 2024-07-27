@@ -67,7 +67,7 @@ export const SetPassword = () => {
     return(
       <div className='form-container'>
         <div className="form">
-        <img style={{width:'50px'}} src="key.svg" alt="" />
+        <img style={{width:'50px'}} src="/key.svg" alt="" />
       <h2>Create new password</h2>
       <p> Your new password must be different from previously used passwords.</p>
 

@@ -31,7 +31,7 @@ export const ForgotPassword = () => {
     return(
       <div className='form-container'>
         <div className="form">
-        <img style={{width:'50px'}} src="key.svg" alt="" />
+        <img style={{width:'50px'}} src="/key.svg" alt="" />
       <h2>Forgot password?</h2>
       <p> No worries, we'll send you reset instructions</p>
 
@@ -49,7 +49,7 @@ export const ForgotPassword = () => {
       
         
         <button type="submit" className='form-button'>Reset password</button>
-        <Link to={'/'}>
+        <Link to={'/login'}>
         <button className='borderless-button'> <img src="" alt="" style={{width:'15px', paddingRight:'15px'}} /> Back to login</button>
         
         </Link>

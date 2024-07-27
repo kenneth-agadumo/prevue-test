@@ -55,7 +55,7 @@ export const RentalModal = ({ isOpen, onClose }) => {
             <div className="modal-row1">
               <b>Add Rental</b>
               <span className="close" onClick={onClose}>
-                <img src="X.svg" alt="" />
+                <img src="/X.svg" alt="" />
               </span>
             </div>
 

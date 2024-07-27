@@ -42,7 +42,7 @@ export const Restaurants = () => {
              <RestaurantCard
                name={restaurantData.name}
                address={restaurantData.address}
-               image={restaurantData.images.length > 0 ? restaurantData.images[0].url : 'default-image.png'}
+               image={restaurantData.images.length > 0 ? restaurantData.images[0].url : '/default-image.png'}
               
              />
            </Link>
@@ -86,7 +86,7 @@ export const Restaurants = () => {
           <p>©2023 legal</p>
         </div>
         <div className="footer-row-3">
-          <img src="prevue.png" alt="" />
+          <img src="/prevue.png" alt="" />
         </div>
       </div>
     </>

@@ -62,7 +62,7 @@ export const RestaurantModal = ({ isOpen, onClose }) => {
           <div className="modal-content">
             <div className="modal-row1">
             <b>Add Restaurant</b>
-            <span className="close" onClick={onClose}><img src="X.svg" alt="" /></span>
+            <span className="close" onClick={onClose}><img src="/X.svg" alt="" /></span>
             </div>
           
             <form onSubmit={handleSubmit}  className='rest-form'>

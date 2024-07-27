@@ -13,7 +13,7 @@ export const PasswordReset = () => {
   return(
     <div className='form-container'>
       <div className="form">
-        <img style={{width:'50px'}} src="key.svg" alt="" />
+        <img style={{width:'50px'}} src="/key.svg" alt="" />
         <h2>Forgot password?</h2>
         <p> No worries, we'll send you reset instructions</p>
 

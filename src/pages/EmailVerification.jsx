@@ -48,7 +48,7 @@ export const EmailVerification = () => {
   return (
     <div className='form-container'>
       <div className="form">
-        <img style={{width:'50px'}} src="message.png" alt="" />
+        <img style={{width:'50px'}} src="/message.png" alt="" />
         <h2>Check your email</h2>
         <p>We sent you a verification link to</p>
         <p>{auth.currentUser.email}</p>

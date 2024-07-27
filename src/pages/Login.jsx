@@ -83,7 +83,7 @@ export const Login = () => {
 
           <button type="submit" className='form-button'>Sign in</button>
           <button type="button" onClick={handleSignInWithGoogle} className='google-button'>
-            <img src="google.svg" alt="" style={{ width: '15px', paddingRight: '15px' }} /> Sign in with Google
+            <img src="/google.svg" alt="" style={{ width: '15px', paddingRight: '15px' }} /> Sign in with Google
           </button>
 
           <small> Don't have an account? <Link to={'/register'}>Sign up</Link></small>

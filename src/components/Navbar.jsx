@@ -26,12 +26,12 @@ export const Navbar = () => {
                 <img src={location.pathname === '/' &&  {isActive} ? '/prevue.png' : '/prevue.svg'} className="logo" alt="" />
             </Link>
 
-            <img className="hamburger-menu" src="hamburger.svg" alt=""  onClick={() => setIsActive(true)}/>
+            <img className="hamburger-menu" src="/hamburger.svg" alt=""  onClick={() => setIsActive(true)}/>
             
             <div className={`nav-menu ${isActive ? 'active' : ''}`}>
                 <div className="responsive-nav-x">
-                    <img src="prevue.svg" alt="" className="logo-black" />n
-                    <img src="X.svg" alt="" className="X" onClick={() => setIsActive(false)} />
+                    <img src="/prevue.svg" alt="" className="logo-black" />n
+                    <img src="/X.svg" alt="" className="X" onClick={() => setIsActive(false)} />
                 </div> 
                 <ul style={{color: location.pathname === '/' &&  {isActive} ? 'white' : 'black'}} >
                     <li style={{color: location.pathname == '/' && 'var(--primary-color)'}}><Link to="/">Home</Link></li>

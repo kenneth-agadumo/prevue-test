@@ -26,7 +26,7 @@ export const Rentals = () => {
                     <Dropdown itemNumber={3} itemsArray={['Filters', 'Type 1', 'Type 2']} />
                     <div className="rental-search-bar">
                         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                            <img src="search.svg" alt="" />
+                            <img src="/search.svg" alt="" />
                             <input type="text" placeholder="Search Property by name, type or location" />
                         </div>
                         <Dropdown itemNumber={3} itemsArray={['All Types', 'Recent', 'Popular']} />
@@ -56,7 +56,7 @@ export const Rentals = () => {
                         <p className='newsletter-text'>Subscribe to our newsletter for the latest location previews and special offers</p>
                         <div className="newsletter">
                             <input type="email" name="n-email" placeholder='Yourown@gmail.com' id="" style={{ color: '#fdfdfd' }} />
-                            <button>Go <img src="forward.svg" alt="" /></button>
+                            <button>Go <img src="/forward.svg" alt="" /></button>
                         </div>
                     </div>
                     <div className="row1-right">

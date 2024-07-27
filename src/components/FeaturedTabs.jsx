@@ -49,21 +49,21 @@ export const RentalSection = () => {
                   
                     address={'adwdawd'}        
                     price={10000000}
-                    image={'hero-bg.png'}
+                    image={'/hero-bg.png'}
                     width={'33%'}
                     />
                     <RentalCard
                   
                   address={'adwdawd'}        
                   price={10000000}
-                  image={'hero-bg.png'}
+                  image={'/hero-bg.png'}
                   width={'33%'}
                   />
                   <RentalCard
                   
                   address={'adwdawd'}        
                   price={10000000}
-                  image={'hero-bg.png'}
+                  image={'/hero-bg.png'}
                   width={'33%'}
                   />
                 </div>
@@ -88,9 +88,9 @@ export const RestaurantSection = () => {
             <div className="content-row">
                 <Dropdown  itemNumber={3} itemsArray={['All Types', 'Type 1', 'Type 2']} />
                 <div className="content-item">
-                    <RestaurantCard name={'Hard Rock Cafe'} address={'10 Admiralty Way, Lekki, Lagos'}  image={'hard-rock.png'} width={'43.3%'} />
-                    <RestaurantCard name={'Crust Cafe'} address={'10 Admiralty Way, Lekki, Lagos'}  image={'crust.png'} width={'43.3%'} />
-                    <RestaurantCard name={'Pause Cafe'} address={'10 Admiralty Way, Lekki, Lagos'}  image={'pause.png'} width={'43.3%'} />
+                    <RestaurantCard name={'Hard Rock Cafe'} address={'10 Admiralty Way, Lekki, Lagos'}  image={'/hard-rock.png'} width={'43.3%'} />
+                    <RestaurantCard name={'Crust Cafe'} address={'10 Admiralty Way, Lekki, Lagos'}  image={'/crust.png'} width={'43.3%'} />
+                    <RestaurantCard name={'Pause Cafe'} address={'10 Admiralty Way, Lekki, Lagos'}  image={'/pause.png'} width={'43.3%'} />
                 </div>
             </div>
             </div>

@@ -51,12 +51,12 @@ export const ImageDrop = ({ imageNumber, width, height, onImagesChange }) => {
       {
         isDragActive ?
         <>
-          <img src='uploap.png' alt=''/>
+          <img src='/upload.png' alt=''/>
           <p>Drop the files here ...</p> 
         </>
         :
         <>
-          <img src='upload.png' alt='' />
+          <img src='/upload.png' alt='' />
           <p style={{ fontWeight:'500'}}><span style={{color:'#158b8d', fontWeight:'500'}}>Click to upload</span> or drag and drop</p>
         </>
       }

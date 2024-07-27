@@ -71,13 +71,13 @@ export const Home = () => {
                         <button className="learn-more">Learn More</button>
                     </div>
                 </div>
-                <img src="about-image.png" alt="" />
+                <img src="/about-image.png" alt="" />
             </div>
 
             <div className="steps-section-container">
                 <div className="steps-section">
                     <div className="steps-left">
-                        <img src="steps-image.png" alt="" />
+                        <img src="/steps-image.png" alt="" />
                     </div>
                     <div className="steps-right">
                         <h3>
@@ -126,8 +126,8 @@ export const Home = () => {
                         <div className="slider-bar"></div>
                     </div>
                     <div className="buttons">
-                        <button className="left-slider"> <img src="left-arrow.png" alt="" style={{ width: "7px" }} /></button>
-                        <button className="right-slider"> <img src="right-arrow.png" alt="" style={{ width: "7px" }} /></button>
+                        <button className="left-slider"> <img src="/left-arrow.png" alt="" style={{ width: "7px" }} /></button>
+                        <button className="right-slider"> <img src="/right-arrow.png" alt="" style={{ width: "7px" }} /></button>
                     </div>
                 </div>
             </div>
@@ -165,7 +165,7 @@ export const Home = () => {
                     <p> ©2023 legal</p>
                 </div>
                 <div className="footer-row-3">
-                    <img src="prevue.png" alt="" />
+                    <img src="/prevue.png" alt="" />
                 </div>
             </div>
         </>

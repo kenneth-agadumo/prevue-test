@@ -73,7 +73,7 @@ console.log(isModalOpen)
       <div className="dash-section restaurant-record " >
         <div className="top-row">
           <h3>Rentals Records</h3>
-            <button className='add-button' onClick={openModal} ><img src="plus.svg" alt="" className='plus' />Add New</button>
+            <button className='add-button' onClick={openModal} ><img src="/plus.svg" alt="" className='plus' />Add New</button>
           
           <RentalModal isOpen={isModalOpen} onClose={closeModal} />
         </div>
@@ -143,7 +143,7 @@ export const RestaurantDashboard = () => {
       <div className="dash-section restaurant-record " >
         <div className="top-row">
           <h3>Restaurants Records</h3>
-            <button className='add-button' onClick={openModal} ><img src="plus.svg" alt="" className='plus' />Add New</button>
+            <button className='add-button' onClick={openModal} ><img src="/plus.svg" alt="" className='plus' />Add New</button>
           
           <RestaurantModal isOpen={isModalOpen} onClose={closeModal} />
         </div>
