@@ -48,22 +48,24 @@ export const GlobalStateProvider = ({ children }) => {
   // }, []);
 
   useEffect(() => {
-    if (auth.currentUser) {
-      const imageRef = ref(storage, `/userImages/${auth.currentUser.uid}/image-1`);
-
-      if (imageRef){
-        getDownloadURL(imageRef)
-        .then((url) => {
+    const fetchUserImage = async () => {
+      if (auth.currentUser) {
+        const imageRef = ref(storage, `/userImages/${auth.currentUser.uid}/image-1`);
+        
+        try {
+          const url = await getDownloadURL(imageRef);
           setUserImageUrl(url);
-        })
-        .catch((error) => {
-          console.error('Error getting download URL:', error);
-        });
-      }else{
-        setUserImageUrl('user.png')
+        } catch (error) {
+          if (error.code === 'storage/object-not-found') {
+            setUserImageUrl('/user.png'); // Set default image if not found
+          } else {
+            console.error('Error getting download URL:', error);
+          }
+        }
       }
-      console.log(userImageUrl)
-    }
+    };
+  
+    fetchUserImage();
   }, [auth.currentUser]);
 
   // useEffect(() => {

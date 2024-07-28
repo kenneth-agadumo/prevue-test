@@ -53,23 +53,36 @@ export const  Register = () => {
   };
 
 
+  
   const handleSignInWithGoogle = async () => {
-   
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
       console.log('User signed in with Google:', user);
+  
+      // Add user details to Firestore
+      await addDoc(collection(db, 'users'), {
+        uid: user.uid,
+        fullName: user.displayName,
+        email: user.email
+      });
 
+      const imageRef = ref(storage, `/users/${user.uid + '-image-1'}`);
+      await uploadBytes(imageRef, user.p)
+        .then(() => console.log('Image uploaded successfully'))
+        .catch((error) => console.error('Error uploading image:', error));
+
+      console.log(user.displayName)
+  
+      // Optionally, send email verification (though usually Google accounts are already verified)
+      await sendEmailVerification(user);
+  
       navigate('/dashboard'); // Redirect to Dashboard after successful sign-in
-         // Send email verification
-         await sendEmailVerification(user);
-
     } catch (error) {
       setError(error.message);
       console.error('Google sign-in error:', error);
     }
   };
-
 
   return (
     <div className="form-container">
