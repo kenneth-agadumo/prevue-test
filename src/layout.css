@@ -606,7 +606,7 @@
 
 .rental-search-bar input{
     height: 22px;
-    width: 305px;
+    width: 450px;
     border: none;
 }
 
@@ -635,13 +635,74 @@
 /* RESTAURANT */
 .slider{
     margin-top: 60px;
+    box-sizing: border-box;
 }
 
 .description{
     /* background: #000; */
-    width: 90%;
-    margin: 50px auto;
+    max-width: 90%;
+    margin: 32px auto;
+    box-sizing: border-box;
+    display: flex;
+    gap: 33px;
+    
 }
+.description-left{
+    width: 70%;
+    min-height: 70vh;
+    padding: 33px 24px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    box-shadow: -1px 0px 15px -11px rgba(0,0,0,0.75);
+    -webkit-box-shadow: -1px 0px 15px -11px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 0px 15px -11px rgba(0,0,0,0.75);
+}
+
+.description-right{
+    width: 30%;
+    padding: 0;
+    margin: 0;
+}
+
+.dright-col-1{
+    width: 100%;
+    height: 40vh;
+    padding: 24px 18px;
+    margin-bottom: 14px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    box-shadow: -1px 0px 15px -11px rgba(0,0,0,0.75);
+    -webkit-box-shadow: -1px 0px 15px -11px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 0px 15px -11px rgba(0,0,0,0.75);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+}
+.col1{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.d-header{
+    
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    margin-bottom: 56px;
+
+}
+.like-share{
+    display: flex;
+}
+.description-about{
+    margin-bottom: 56px;
+    box-sizing: border-box;
+}
+
+.
 
 /* END OF RESTAURANT */
 

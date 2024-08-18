@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { auth, db } from "../firebaseConfig";
 import {collection, getDocs, doc, onSnapshot,deleteDoc } from 'firebase/firestore'
 import RestaurantModal from './RestaurantModal.jsx';
@@ -121,7 +122,9 @@ console.log(isModalOpen)
 
 export const RestaurantDashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const {restaurants, setRestaurants} = useGlobalState()
+  const { restaurantImagesMap, rentalImagesMap} = useGlobalState()
+
+ 
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -160,24 +163,22 @@ export const RestaurantDashboard = () => {
   </Table.Header>
 
   <Table.Body>
-  {restaurants?.filter((doc) => doc.userId == auth?.currentUser?.uid ).map((restaurant, key) => (
-            
-            // <div key={restaurant.id} className="card">
-            //   <p>Name: {restaurant?.name}</p>
-            //   <p> Address: {restaurant?.address}</p>
-            //   <p>Contact Number: {restaurant?.contactNumber}</p>
-            //   <button onClick={() =>  deleteRestaurant(restaurant.id)}>Delete</button>
-            // </div>
-            <Table.Row>
-            <Table.RowHeaderCell>{restaurant?.name}</Table.RowHeaderCell>
+    
+  {Object.entries(restaurantImagesMap).map(([restaurantId, restaurant]) => (
+          
+          <Table.Row>
+            <Link to={`/restaurants/${restaurantId}`} key={restaurantId} style={{ textDecoration: 'none', width:'33%' }}>
+              <Table.RowHeaderCell>{restaurant?.name}</Table.RowHeaderCell>
+            </Link>
             <Table.Cell>{restaurant?.address}</Table.Cell>
             <Table.Cell>{restaurant?.contactNumber}</Table.Cell>
             <Table.Cell>
-            <button onClick={() =>  deleteRestaurant(restaurant?.id)}>Delete</button>
+            <button onClick={() =>  deleteRestaurant(restaurantId)}>Delete</button>
             </Table.Cell>
           </Table.Row>
-        ))}
-    
+       
+          ))}
+
     
   </Table.Body>
 </Table.Root>

@@ -8,6 +8,7 @@ import { getStorage, ref } from "firebase/storage";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 const firebaseConfig = {
+  
     apiKey: "AIzaSyDzoDjPIvcwsK55JpIO-XrgLPLMGyp5jrg",
     authDomain: "test-7c797.firebaseapp.com",
     projectId: "test-7c797",

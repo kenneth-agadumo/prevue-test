@@ -96,7 +96,7 @@ export const GlobalStateProvider = ({ children }) => {
   // }, []);
 
   useEffect(() => {
-    const fetchImages = async () => {
+    const fetchAll = async () => {
       try {
         const restaurantImagesMap = {};
         const rentalImagesMap = {};
@@ -180,7 +180,7 @@ export const GlobalStateProvider = ({ children }) => {
       }
     };
 
-    fetchImages();
+    fetchAll();
   }, []);
 
   return (
