@@ -4,6 +4,7 @@ import { useGlobalState } from "../Contexts/GlobalStateContext";
 import {ImageSlider} from '../components/ImageSlider'
 import {Map} from '../components/Map'
 import Lottie from "lottie-react" 
+import ReservationForm from "../components/RervationForm";
 import Heart from  '../heart.json'  
 
 export const RestaurantPage = () => {
@@ -108,7 +109,8 @@ export const RestaurantPage = () => {
                         </div>
                     </div>
                     <div className="dright-col-1">
-                        
+                    <h4 style={{color: "#50504F;"}}>Make Reservation</h4>
+                        <ReservationForm />
                     </div>
                 </div>
             </div>

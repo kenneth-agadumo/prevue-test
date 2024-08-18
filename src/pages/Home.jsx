@@ -30,15 +30,15 @@ export const Home = () => {
                         <div className="dropdowns">
                             <div className="dropdown-1">
                                 <label style={{ padding: '0 3px' }} htmlFor="">Category</label>
-                                <Dropdown itemNumber={3} itemsArray={['Select Category', 'Rentals', 'Restaurants']} />
+                                <Dropdown itemNumber={3} itemsArray={['Select Category', 'Rentals', 'Restaurants']} width={'200px'} border={'none'} isSearchable={false} />
                             </div>
                             <div className="dropdown-2">
                                 <label style={{ padding: '0 3px' }} htmlFor="">Sub-category</label>
-                                <Dropdown itemNumber={3} itemsArray={['Select Sub-category', 'Rentals', 'Restaurants']} />
+                                <Dropdown itemNumber={4} placeholder={'Select Sub-Ceak n'} itemsArray={['All', 'Popular', 'Recent']} width={'150px'} border={'none'} isSearchable={false}/>
                             </div>
                             <div className="dropdown-3">
                                 <label style={{ padding: '0 3px' }} htmlFor="">Location</label>
-                                <Dropdown itemNumber={3} itemsArray={['All Types', 'Type 1', 'Type 2']} />
+                                <Dropdown itemNumber={3} itemsArray={['All Types', 'Type 1', 'Type 2']} width={'150px'} border={'none'}/>
                             </div>
                         </div>
                         <div className="s-button">

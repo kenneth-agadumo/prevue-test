@@ -1,4 +1,112 @@
+/* Date Picker */
+/* Main container of the calendar */
+.date-custom-input, .time-custom-input{
+  font-size: 14px;
+  font-weight: 500;
+  width: 150px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 24px ;
+  padding: 15px 22px ;
+  background-color: #fafafa;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
+.react-datepicker {
+  background-color: #fff; /* Background color of the calendar */
+  border: 1px solid #ddd; /* Border around the calendar */
+  border-radius: 4px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
+
+/* Header of the calendar */
+.react-datepicker__header {
+  background-color: #007bff; /* Background color of the header */
+  color: #fff; /* Text color in the header */
+}
+
+/* Single day cell in the calendar */
+.react-datepicker__day {
+  color: #333; /* Text color for day cells */
+}
+
+/* Selected day cell */
+.react-datepicker__day--selected {
+  background-color: #007bff; /* Background color for selected day */
+  color: #fff; /* Text color for selected day */
+}
+
+/* Highlighted day cell */
+.react-datepicker__day--highlighted {
+  background-color: #e9ecef; /* Background color for highlighted day */
+}
+
+/* Month container */
+.react-datepicker__month {
+  margin: 0; /* Remove margin */
+}
+
+/* Year container */
+.react-datepicker__year {
+  margin: 0; /* Remove margin */
+}
+
+/* Time selection container */
+.react-datepicker__time-container {
+  background-color: #fff; /* Background color of the time picker */
+  border-left: 1px solid #ddd; /* Border between date and time picker */
+}
+
+/* Main container for the time selection */
+.react-datepicker__time {
+  padding: 10px; /* Padding around the time selection */
+}
+
+/* Box containing the time list */
+.react-datepicker__time-box {
+  max-height: 200px; /* Limit height of the time list */
+  overflow-y: auto; /* Scroll if content overflows */
+}
+
+/* List of available times */
+.react-datepicker__time-list {
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margin */
+  list-style-type: none; /* Remove bullet points */
+}
+
+/* Individual time item in the list */
+.react-datepicker__time-list-item {
+  padding: 5px 10px; /* Padding around time items */
+  color: #333; /* Text color for time items */
+  cursor: pointer; /* Cursor pointer for clickable items */
+}
+
+/* Selected time item */
+.react-datepicker__time-list-item--selected {
+  background-color: #007bff; /* Background color for selected time */
+  color: #fff; /* Text color for selected time */
+}
+
+/* Active (hovered) time item */
+.react-datepicker__time-list-item--active {
+  background-color: #e9ecef; /* Background color for hovered time item */
+}
+
+/* Applied when the time picker is in 24-hour format */
+.react-datepicker__time--24hour {
+  font-size: 14px; /* Font size for 24-hour format */
+}
+
+/* Applied when the time picker is in 12-hour format */
+.react-datepicker__time--12hour {
+  font-size: 14px; /* Font size for 12-hour format */
+}
+
+
+/* NAv */
 nav{
 
  position: absolute ;
@@ -344,4 +452,5 @@ input{
     width: 94px;
   }
 }
+
 

@@ -86,7 +86,7 @@ export const RestaurantSection = () => {
             ut commodo diam libero vitae erat.
             </p>
             <div className="content-row">
-                <Dropdown  itemNumber={3} itemsArray={['All Types', 'Type 1', 'Type 2']} />
+                <Dropdown  itemNumber={3} itemsArray={['All Types', 'Type 1', 'Type 2']} width={'100px'} border={'none'}/>
                 <div className="content-item">
                     <RestaurantCard name={'Hard Rock Cafe'} address={'10 Admiralty Way, Lekki, Lagos'}  image={'/hard-rock.png'} width={'43.3%'} />
                     <RestaurantCard name={'Crust Cafe'} address={'10 Admiralty Way, Lekki, Lagos'}  image={'/crust.png'} width={'43.3%'} />
