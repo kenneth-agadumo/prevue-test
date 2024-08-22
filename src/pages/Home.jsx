@@ -3,6 +3,7 @@ import '../layout.css';
 import { FeaturedTabs } from '../components/FeaturedTabs';
 import { Dropdown } from '../components/Dropdown';
 import { EmbedScript } from '../components/VirtualTour';
+import Footer from '../components/Footer';
 
 
 export const Home = () => {
@@ -27,23 +28,21 @@ export const Home = () => {
                 <div className="hero-container">
                     <h1 className="hero-text"> Discover, Preview, and Explore Locations of Your Choice</h1>
                     <div className="hero-search-bar">
-                        <div className="dropdowns">
                             <div className="dropdown-1">
                                 <label style={{ padding: '0 3px' }} htmlFor="">Category</label>
-                                <Dropdown itemNumber={3} itemsArray={['Select Category', 'Rentals', 'Restaurants']} width={'200px'} border={'none'} isSearchable={false} />
+                                <Dropdown itemNumber={3} placeholder={'Category'} itemsArray={[ 'Rentals', 'Restaurants']} width={'200px'} border={'none'} isSearchable={false} />
                             </div>
                             <div className="dropdown-2">
                                 <label style={{ padding: '0 3px' }} htmlFor="">Sub-category</label>
-                                <Dropdown itemNumber={4} placeholder={'Select Sub-Ceak n'} itemsArray={['All', 'Popular', 'Recent']} width={'150px'} border={'none'} isSearchable={false}/>
+                                <Dropdown itemNumber={4} placeholder={'Sub-Category'} itemsArray={['All', 'Popular', 'Recent']} width={'150px'} border={'none'} isSearchable={false}/>
                             </div>
                             <div className="dropdown-3">
                                 <label style={{ padding: '0 3px' }} htmlFor="">Location</label>
-                                <Dropdown itemNumber={3} itemsArray={['All Types', 'Type 1', 'Type 2']} width={'150px'} border={'none'}/>
+                                <Dropdown itemNumber={3} placeholder={'Location'} itemsArray={[ 'Type 1', 'Type 2']} width={'150px'} border={'none'} />
                             </div>
-                        </div>
-                        <div className="s-button">
-                            <button className="hero-search-button"><img src="search-white.svg" alt="" /></button>
-                        </div>
+                            <div className="s-button">
+                                <button className="hero-search-button"><img src="search-white.svg" alt="" /></button>
+                            </div>
                     </div>
                 </div>
                 <div className="oval"></div>
@@ -131,43 +130,7 @@ export const Home = () => {
                     </div>
                 </div>
             </div>
-            <div className="footer">
-                <div className="footer-row-1">
-                    <div className="row1-left">
-                        <p className="newsletter-header">Stay Updated</p>
-                        <p className="newsletter-text">Subscribe to our newsletter for the latest location previews and special offers</p>
-                        <div className="newsletter">
-                            <input type="email" name="n-email" placeholder="Yourown@gmail.com" id="" style={{ color: '#fdfdfd' }} />
-                            <button>Go <img src="forward.svg" alt="" /></button>
-                        </div>
-                    </div>
-                    <div className="row1-right">
-                        <ul>
-                            <p>Quick Links</p>
-                            <li>Home</li>
-                            <li>Restaurants</li>
-                            <li>Properties</li>
-                            <li>Activities</li>
-                        </ul>
-                        <ul>
-                            <p>Socials</p>
-                            <li>X(Twitter)</li>
-                            <li>Instagram</li>
-                            <li>LinkedIn</li>
-                        </ul>
-                    </div>
-                </div>
-                <div className="footer-row-2">
-                    <div className="column">
-                        <p>info@prevue.com</p>
-                        <p>+234 81234567890</p>
-                    </div>
-                    <p> ©2023 legal</p>
-                </div>
-                <div className="footer-row-3">
-                    <img src="/prevue.png" alt="" />
-                </div>
-            </div>
+            <Footer/>
         </>
     );
 };

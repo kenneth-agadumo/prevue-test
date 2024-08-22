@@ -6,6 +6,8 @@ import '../components.css'
 import { ReactComponent as Clock } from '../assets/clock.svg';
 import { ReactComponent as Calendar  } from '../assets/calendar.svg';
 import { heightPropDefs } from '@radix-ui/themes/props';
+import {Dropdown} from '../components/Dropdown'
+import Button from '../micro-components/Button';
 
 const ReservationForm = () => {
   const [startDate, setStartDate] = useState(null); // Initialize with null
@@ -49,9 +51,9 @@ const ReservationForm = () => {
   };
 
   return (
-    <div style={{width:'100%', display: 'flex', justifyContent:'space-between'}}>
-
-        <div>
+    <div style={{width:'100%', height:'100%', display: 'flex', flexDirection:'column', justifyContent:'space-between'}}>
+        <div style={{width:'100%', display: 'flex', justifyContent:'space-between'}}>
+            <div>
          
           <DatePicker
             selected={startDate}
@@ -62,7 +64,6 @@ const ReservationForm = () => {
         </div>
 
         <div>
-         
           <DatePicker
             selected={selectedTime}
             onChange={handleTimeChange}
@@ -75,10 +76,15 @@ const ReservationForm = () => {
           />
         </div>
 
+
+        </div>
+
+        
        <div>
-        <select name="" id="">
-            <option value="1">1</option>
-        </select>
+            <Dropdown itemNumber={5} itemsArray={[ '1', '2', '3', '4', '5+']} backgroundColor={"#f3f3f3"} width={'100%'} border={'none'} borderRadius={'20px'} placeholder={'guests'} />
+       </div>
+       <div>
+            <Button title={'Book Reservation'} width={'100%'} height={'50px'} borderRadius={'30px'} background={'var(--primary-color'} color={'white'} /> 
        </div>
     </div>
   );

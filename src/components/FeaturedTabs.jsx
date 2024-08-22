@@ -43,7 +43,7 @@ export const RentalSection = () => {
             ut commodo diam libero vitae erat.
             </p>
             <div className="content-row">
-                <Dropdown  itemNumber={3} itemsArray={['All Types', 'Type 1', 'Type 2']} />
+                <Dropdown  itemNumber={3} placeholder={'All Types'} itemsArray={[ 'Type 1', 'Type 2']} border={'none'} isSearchable={false} />
                 <div className="content-item">
                 <RentalCard
                   
@@ -86,7 +86,7 @@ export const RestaurantSection = () => {
             ut commodo diam libero vitae erat.
             </p>
             <div className="content-row">
-                <Dropdown  itemNumber={3} itemsArray={['All Types', 'Type 1', 'Type 2']} width={'100px'} border={'none'}/>
+                <Dropdown  itemNumber={3} placeholder={'All Types'} itemsArray={[ 'Type 1', 'Type 2']} border={'none'} isSearchable={false}/>
                 <div className="content-item">
                     <RestaurantCard name={'Hard Rock Cafe'} address={'10 Admiralty Way, Lekki, Lagos'}  image={'/hard-rock.png'} width={'43.3%'} />
                     <RestaurantCard name={'Crust Cafe'} address={'10 Admiralty Way, Lekki, Lagos'}  image={'/crust.png'} width={'43.3%'} />
@@ -111,7 +111,7 @@ export const ActivitiesSection = () => {
         ut commodo diam libero vitae erat.
         </p>
         <div className="content-row">
-            <Dropdown  itemNumber={3} itemsArray={['All Types', 'Type 1', 'Type 2']} />
+            <Dropdown  itemNumber={3} placeholder={'All Types'} itemsArray={['Type 1', 'Type 2']} border={'none'} isSearchable={false}/>
             <div className="content-item">
                
             <Lottie style={{width:'250px'}} animationData={ComingSoon}   />

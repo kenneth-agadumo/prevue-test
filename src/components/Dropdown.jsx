@@ -6,7 +6,7 @@ export const Dropdown = ({ itemNumber, itemsArray, width, height, border, border
   // Prepare options for react-select
   const options = itemsArray.slice(0, itemNumber).map(item => ({ value: item, label: item }));
 
-  const [selectedOption, setSelectedOption] = useState(options[0]);
+  const [selectedOption, setSelectedOption] = useState(placeholder);
 
   const handleChange = (selectedOption) => {
     setSelectedOption(selectedOption);
@@ -16,21 +16,23 @@ export const Dropdown = ({ itemNumber, itemsArray, width, height, border, border
   const customStyles = {
     container: (provided) => ({
       ...provided,
-      width:  width || 'auto', // Set the container width as needed
+      maxWidth:  width || 'auto', // Set the container width as needed
     }),
     control: (provided, state) => ({
       ...provided,
       fontSize: '14px',
       minHeight: height ||'38px',
-      borderRadius: '4px',
+      borderRadius: borderRadius,
       border: border,
       borderColor: state.isFocused ? 'blue' : 'grey',
       boxShadow: 'none',
       '&:hover': {
         borderColor: 'blue',
       },
+      padding: '4px',
+      backgroundColor: backgroundColor,
       // Ensure the input doesn't resize
-      width: '100%', // Maintain width of the control
+      maxWidth: 'fit-content', // Maintain width of the control
     }),
     placeholder: (provided) => ({
       ...provided,
@@ -44,10 +46,12 @@ export const Dropdown = ({ itemNumber, itemsArray, width, height, border, border
       boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
       zIndex: 9999,
       fontSize: '14px',
+      width: 'max-content',
+      
     }),
     option: (provided, state) => ({
       ...provided,
-      padding: '10px',
+      padding : '12px 30px',
       backgroundColor: state.isSelected ? '#f0f0f0' : state.isFocused ? '#e0e0e0' : 'white',
       color: state.isSelected ? '#333' : '#000',
       fontSize: '14px',

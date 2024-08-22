@@ -264,9 +264,8 @@ p, input, label{
   
   /* Modal content */
   .modal-content {
-    max-width: 400px;
-    width: 360px;
-    min-height: 65vh;
+    width: 50%;
+    min-height: 80vh;
     background-color: #fff;
     padding: 15px 12px;
     border-radius: 8px;
