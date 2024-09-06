@@ -46,7 +46,7 @@ export const RestaurantPage = () => {
                 <div className="description-header">
                     <div className='d-header'>
                         <div>    
-                            <h4 style={{marginBottom: "6px", fontSize: '22px'}} >{restaurantData.name}</h4>
+                            <h4 style={{marginBottom: "6px", fontSize: '22px'}}> {restaurantData.name}</h4>
                             <p>{restaurantData.address}</p>
                         </div>
                     

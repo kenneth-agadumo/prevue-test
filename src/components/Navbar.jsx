@@ -49,8 +49,8 @@ console.log(isActive)
                 <img src={location.pathname === '/' &&  {isActive} ? '/prevue.png' : '/prevue.svg'} className="logo" alt="" />
             </Link>
 
-            <div onClick={() => setIsActive(true)}>
-                <Ham    color={location.pathname === '/' ? 'white' : 'black'}  />
+            <div className="hamburger-menu"  onClick={() => setIsActive(true)}>
+                <Ham  color={location.pathname === '/' ? 'white' : 'black'}  />
             </div>
                 
             
