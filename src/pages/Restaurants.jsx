@@ -26,15 +26,15 @@ export const Restaurants = () => {
       </div>
       <div className="rental-catalogue">
         <div className="catalogue-top-row">
-          <Dropdown itemNumber={3} itemsArray={['Filters', 'Type 1', 'Type 2']} />
+          <Dropdown itemNumber={3} itemsArray={['Filters', 'Type 1', 'Type 2']} border='none' />
           <div className="rental-search-bar">
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
               <img src="search.svg" alt="" />
               <input type="text" placeholder="Search Property by name, type or location" />
             </div>
-            <Dropdown itemNumber={3} itemsArray={['All Types', 'Recent', 'Popular']} />
+            <Dropdown itemNumber={3} itemsArray={['All Types', 'Recent', 'Popular']}  border='none'/>
           </div>
-          <Dropdown itemNumber={3} itemsArray={['Featured', 'Recent', 'Popular']} />
+          <Dropdown itemNumber={3} itemsArray={['Featured', 'Recent', 'Popular']} border='none'/>
         </div>
         <div className="catalogue" >
           {Object.entries(restaurantImagesMap).map(([restaurantId, restaurantData]) => (
@@ -48,7 +48,7 @@ export const Restaurants = () => {
            </Link>
           ))}
         </div>
-        <div className="load-more">
+        <div className="load-more justify-center grid">
           <button>Load More</button>
         </div>
       </div>
