@@ -25,7 +25,7 @@ export const Rentals = () => {
                 <div className="catalogue-top-row" >
                     <Dropdown itemNumber={3} itemsArray={['Filters', 'Type 1', 'Type 2']} border='none' />
                     <div className="rental-search-bar">
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                        <div className="flex items-center gap-[16px]">
                             <img src="/search.svg" alt="" />
                             <input type="text" placeholder="Search Property by name, type or location" />
                         </div>
