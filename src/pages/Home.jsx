@@ -27,21 +27,21 @@ export const Home = () => {
             <div className="hero-section">
                 <div className="hero-container">
                     <h1 className="hero-text"> Discover, Preview, and Explore Locations of Your Choice</h1>
-                    <div className="hero-search-bar">
+                    <div className="hero-search-bar gap-5 ">
                             <div className="dropdown-1">
                                 <label style={{ padding: '0 3px' }} htmlFor="">Category</label>
                                 <Dropdown itemNumber={3} placeholder={'Category'} itemsArray={[ 'Rentals', 'Restaurants']} width={'200px'} border={'none'} isSearchable={false} />
                             </div>
                             <div className="dropdown-2">
                                 <label style={{ padding: '0 3px' }} htmlFor="">Sub-category</label>
-                                <Dropdown itemNumber={4} placeholder={'Sub-Category'} itemsArray={['All', 'Popular', 'Recent']} width={'150px'} border={'none'} isSearchable={false}/>
+                                <Dropdown itemNumber={4} placeholder={'Sub-Category'} itemsArray={['All', 'Popular', 'Recent']} width={'200px'} border={'none'} isSearchable={false}/>
                             </div>
                             <div className="dropdown-3">
                                 <label style={{ padding: '0 3px' }} htmlFor="">Location</label>
-                                <Dropdown itemNumber={3} placeholder={'Location'} itemsArray={[ 'Type 1', 'Type 2']} width={'150px'} border={'none'} />
+                                <Dropdown itemNumber={3} placeholder={'Location'} itemsArray={[ 'Type 1', 'Type 2']} width={'200px'} border={'none'} />
                             </div>
                             <div className="s-button">
-                                <button className="hero-search-button"><img src="search-white.svg" alt="" /></button>
+                                <button className="hero-search-button justify-center grid items-center"><img src="search-white.svg" alt="" /></button>
                             </div>
                     </div>
                 </div>
@@ -74,8 +74,8 @@ export const Home = () => {
             </div>
 
             <div className="steps-section-container">
-                <div className="steps-section">
-                    <div className="steps-left">
+                <div className="steps-section md:flex sm:grid my-[100px] mx-[20px] md:text-start sm:text-center justify-center">
+                    <div className="steps-left lg:block md:hidden sm:hidden">
                         <img src="/steps-image.png" alt="" />
                     </div>
                     <div className="steps-right">
@@ -104,7 +104,7 @@ export const Home = () => {
             </div>
 
             <div className="showcase-section">
-                <div className="headline-intro">
+                <div className=" px-[70px] py-8 text-center">
                     <div className="headline-left">
                         <p>Preview Locations</p>
                         <h3>Step into Your Favorite Locations with our panoramic virtual tours</h3>

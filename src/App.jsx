@@ -72,7 +72,7 @@ const App = () => {
 
 
   return (
-    <div className='root' id='root'> 
+    <div className='root ' id='root'> 
       <Router>
         <div>
           <Navbar/>

@@ -2,7 +2,7 @@ import { useState } from "react"
 import Lottie from "lottie-react" 
 import Heart from  '../heart.json'   
 
-export const RentalCard = ({image, name, address, price, width}) => {
+export const RentalCard = ({image, name, address, price}) => {
     const [iconclicked, setIconClicked] = useState(false);
 
     const handleDoubleClick = () => {
@@ -10,7 +10,7 @@ export const RentalCard = ({image, name, address, price, width}) => {
     };
 
     return(
-        <div className="display-card" style={{width: width}}>
+        <div className="display-card" >
             <div className="card-image">
             <img src={image} alt="" />
             </div>
@@ -39,7 +39,7 @@ export const RentalCard = ({image, name, address, price, width}) => {
 
 } 
 
-export const RestaurantCard = ({image, name, address, width}) => {
+export const RestaurantCard = ({image, name, address}) => {
     const [iconclicked, setIconClicked] = useState(false);
 
     const handleDoubleClick = () => {
@@ -47,7 +47,7 @@ export const RestaurantCard = ({image, name, address, width}) => {
     };
 
     return(
-        <div className="display-card" style={{width: width}}>
+        <div className="display-card" >
             <div className="card-image">
             <img src={image} alt="" />
             </div>

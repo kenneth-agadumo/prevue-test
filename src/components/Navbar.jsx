@@ -44,7 +44,7 @@ console.log(isActive)
     }
 
     return (
-        <nav ref={navRef}  style={{left: isActive ? '0' : '5%'}}>
+        <nav ref={navRef}  style={{left: isActive ? '0' : '5%'}} >
             <Link to='/'>
                 <img src={location.pathname === '/' &&  {isActive} ? '/prevue.png' : '/prevue.svg'} className="logo" alt="" />
             </Link>
@@ -54,7 +54,7 @@ console.log(isActive)
             </div>
                 
             
-            <div className={`nav-menu ${isActive ? 'active' : ''}`}>
+            <div className={`nav-menu ${isActive ? 'active' : ''}`} >
                 <div className="responsive-nav-x">
                     <img src="/prevue.svg" alt="" className="logo-black" />
                     <img src="/X.svg" alt="" className="X" onClick={() => setIsActive(false)} />

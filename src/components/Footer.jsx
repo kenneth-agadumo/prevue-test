@@ -2,7 +2,7 @@
 
 const Footer = () => {
     return(
-        <div className="footer">
+        <div className="footer ">
                 <div className="footer-row-1">
                     <div className="row1-left">
                         <p className="newsletter-header">Stay Updated</p>
