@@ -57,7 +57,7 @@ export const RentalSection = () => {
           varius enim in eros elementum tristique. Duis cursus, mi quis viverra
           ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.
         </p>
-        <div className="content-row grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
+        <div className="content-row ">
           <Dropdown
             itemNumber={3}
             placeholder={"All Types"}
@@ -65,7 +65,7 @@ export const RentalSection = () => {
             border={"none"}
             isSearchable={false}
           />
-          <div className=" content-item">
+          <div className=" content-item grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
             <RentalCard
               address={"adwdawd"}
               price={10000000}
