@@ -57,35 +57,39 @@ export const RentalSection = () => {
           varius enim in eros elementum tristique. Duis cursus, mi quis viverra
           ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.
         </p>
-        <div className="content-row ">
-          <Dropdown
-            itemNumber={3}
-            placeholder={"All Types"}
-            itemsArray={["Type 1", "Type 2"]}
-            border={"none"}
-            isSearchable={false}
-          />
-          <div className=" content-item grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
-            <RentalCard
-              address={"adwdawd"}
-              price={10000000}
-              image={"/hero-bg.png"}
-              width={"33%"}
-            />
-            <RentalCard
-              address={"adwdawd"}
-              price={10000000}
-              image={"/hero-bg.png"}
-              width={"33%"}
-            />
-            <RentalCard
-              address={"adwdawd"}
-              price={10000000}
-              image={"/hero-bg.png"}
-              width={"33%"}
+        <div>
+          <div className="">
+            <Dropdown
+              itemNumber={3}
+              placeholder={"All Types"}
+              itemsArray={["Type 1", "Type 2"]}
+              border={"none"}
+              isSearchable={false}
             />
           </div>
-        </div>
+
+          <div className="content-item grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
+          <RentalCard
+              name={"Crust Cafe"}
+              address={"10 Admiralty Way, Lekki, Lagos"}
+              image={"/crust.png"}
+              width={"43.3%"}
+            />
+            <RentalCard
+              address={"adwdawd"}
+              price={10000000}
+              image={"/hard-rock.png"}
+              width={"33%"}
+              />
+           
+            <RentalCard
+              name={"Pause Cafe"}
+              address={"10 Admiralty Way, Lekki, Lagos"}
+              image={"/pause.png"}
+              width={"43.3%"}
+            />
+          </div>
+        </div>{" "}
       </div>
     </div>
   );
