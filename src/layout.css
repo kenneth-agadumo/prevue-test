@@ -316,7 +316,7 @@
   
 }
 .step-1{
-    
+    text-align: start;
     margin-top: 24px;
 }
 
@@ -903,6 +903,7 @@ small, button{
     .step-1{
         margin-top: 0px;
         margin-bottom: 60px;
+        text-align: center;
     }
 
     .step-header{
@@ -935,11 +936,11 @@ small, button{
         align-items: center;
         width: 100%;
         padding: 0;
+
         margin-bottom: 40px;
     }
     .headline-left  h3{
        margin-top: 20px;
-        width:400px;
     }
 
     .headline-right{
@@ -949,7 +950,7 @@ small, button{
         padding: 0;
     }
     .headline-right p{
-        /* width: 95%; */
+        width: 95%;
     }
 
     .footer{

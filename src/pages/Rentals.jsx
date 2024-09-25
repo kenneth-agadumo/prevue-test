@@ -14,7 +14,7 @@ export const Rentals = () => {
 
     return (
         <>
-            <div className="rental-top-section">
+            <div className="rental-top-section px-[50px]">
                 <h1>Shortlets</h1>
                 <p>
                     Discover the perfect property. From short lets to long-term rentals and dream homes for sale, we offer a diverse range of housing options.
@@ -22,16 +22,16 @@ export const Rentals = () => {
                 </p>
             </div>
             <div className="rental-catalogue">
-                <div className="catalogue-top-row">
-                    <Dropdown itemNumber={3} itemsArray={['Filters', 'Type 1', 'Type 2']} />
+                <div className="catalogue-top-row" >
+                    <Dropdown itemNumber={3} itemsArray={['Filters', 'Type 1', 'Type 2']} border='none' />
                     <div className="rental-search-bar">
                         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                             <img src="/search.svg" alt="" />
                             <input type="text" placeholder="Search Property by name, type or location" />
                         </div>
-                        <Dropdown itemNumber={3} itemsArray={['All Types', 'Recent', 'Popular']} />
+                        <Dropdown itemNumber={3} itemsArray={['All Types', 'Recent', 'Popular']} border='none'  />
                     </div>
-                    <Dropdown itemNumber={3} itemsArray={['Featured', 'Recent', 'Popular']} />
+                    <Dropdown itemNumber={3} itemsArray={['Featured', 'Recent', 'Popular']} border='none'  />
                 </div>
                 <div className="catalogue">
                 {Object.entries(rentalImagesMap).map(([rentalId, rentalData]) => (

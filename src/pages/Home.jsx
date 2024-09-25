@@ -86,17 +86,17 @@ export const Home = () => {
                             <div className="step-1">
                                 <span className="step-number">01</span>
                                 <p className="step-header">Start by selecting a category</p>
-                                <p className="step-text">Whether it's a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
+                                <p className="">Whether it's a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
                             </div>
                             <div className="step-1">
                                 <span className="step-number">02</span>
                                 <p className="step-header">Start by selecting a category</p>
-                                <p className="step-text">Whether it's a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
+                                <p className="">Whether it's a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
                             </div>
                             <div className="step-1">
                                 <span className="step-number">03</span>
                                 <p className="step-header">Start by selecting a category</p>
-                                <p className="step-text">Whether it's a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
+                                <p className="">Whether it's a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
                             </div>
                         </div>
                     </div>
@@ -105,7 +105,7 @@ export const Home = () => {
 
             <div className="showcase-section">
                 <div className=" px-[70px] py-8 text-center">
-                    <div className="headline-left">
+                    <div className="headline-left ">
                         <p>Preview Locations</p>
                         <h3>Step into Your Favorite Locations with our panoramic virtual tours</h3>
                     </div>
