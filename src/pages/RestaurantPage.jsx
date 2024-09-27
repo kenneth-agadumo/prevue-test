@@ -28,7 +28,7 @@ export const RestaurantPage = () => {
 
   const imageUrls = restaurantData?.images?.map(image => image.url);
    return(
-    <>
+    <div >
             <div className="slider">
                 <ImageSlider images={imageUrls} />
             </div>
@@ -123,7 +123,7 @@ export const RestaurantPage = () => {
             </div>
         </div>
         <Footer />
-    </>
+    </div>
     )
 };
    

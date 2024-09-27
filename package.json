@@ -13,13 +13,16 @@
     "@radix-ui/themes": "^3.0.2",
     "@react-google-maps/api": "^2.19.3",
     "firebase": "^10.11.1",
+    "formik": "^2.4.6",
+    "framer-motion": "^11.8.0",
     "lottie-react": "^2.4.0",
     "react": "^18.2.0",
     "react-datepicker": "^7.3.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
     "react-router-dom": "^6.23.0",
-    "react-select": "^5.8.0"
+    "react-select": "^5.8.0",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@svgr/rollup": "^8.1.0",

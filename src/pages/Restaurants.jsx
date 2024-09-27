@@ -16,10 +16,10 @@ export const Restaurants = () => {
   };
 
   return (
-    <>
-      <div className="rental-top-section">
+    <div >
+      <div className="rental-top-section ">
         <h1>Restaurants</h1>
-        <p>
+        <p >
           Discover the perfect property. From short lets to long-term rentals and dream homes for sale, we offer a diverse range of housing options.
           Immerse yourself in virtual tours, calculate expenses, and stay updated with the latest listings.
         </p>
@@ -89,6 +89,6 @@ export const Restaurants = () => {
           <img src="/prevue.png" alt="" />
         </div>
       </div>
-    </>
+    </div>
   );
 };

@@ -1,45 +1,73 @@
-import { useState } from 'react'
-import {app} from '../firebaseConfig.jsx'
-import { getAuth, sendPasswordResetEmail  } from "firebase/auth";
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { Formik, Form } from "formik";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import InputField from "../components/AuthComponents/Input"; // InputField component
+import Btn from "../components/AuthComponents/Btn.jsx"; // Button component
 
-import '../layout.css'
+const PasswordReset = () => {
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState(null);
 
+  const initialValues = {
+    email: "",
+  };
 
-export const PasswordReset = () => {
+  const onSubmit = async (values) => {
+    setError(null);
+    setMessage("");
 
-  
+    try {
+      const auth = getAuth();
+      await sendPasswordResetEmail(auth, values.email);
+      setMessage("Password reset email sent. Please check your email inbox.");
+    } catch (error) {
+      setError(error.message);
+      console.error("Password reset error:", error);
+    }
+  };
 
-  return(
-    <div className='form-container'>
-      <div className="form">
-        <img style={{width:'50px'}} src="/key.svg" alt="" />
-        <h2>Forgot password?</h2>
-        <p> No worries, we'll send you reset instructions</p>
+  return (
+    <div className="grid place-items-center bg-primary pt-[50px] pb-[150px]">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.8,
+          delay: 0.2,
+          ease: [0, 0.71, 0.2, 1.01],
+        }}
+      >
+        <img
+          style={{ width: "50px", margin: "0 auto" }}
+          src="/key.svg"
+          alt="key icon"
+        />
+        <h2 className="text-2xl font-bold text-center mb-6">Password Reset</h2>
+        <p className="text-center mb-4">
+          Your password has been successfully reset. <br/> Click below to log in
+          magically.
+        </p>
 
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        {message && <p style={{ color: 'green' }}>{message}</p>}
+        <div className="flex items-center justify-center">
+          <Btn text="Continue" href="/login" color='bg-[#f2a20e]' />
+        </div>
 
-        <form className='fp-form' onSubmit={handleResetPassword}>
-          <div className='row-1'>
-            <label htmlFor="email"><small>Email:</small></label><br />
-            <input className='input' type="email" id="email" 
-            value={email}
-            placeholder='Enter your email' 
-            onChange={(e) => setEmail(e.target.value)} required />
-          </div>
-        
-          
-          <button type="submit" className='form-button'>Reset password</button>
-          <Link to={'/'}>
-          <button className='borderless-button'> <img src="" alt="" style={{width:'15px', paddingRight:'15px'}} /> Back to login</button>
-          
-          </Link>
-
-          
-        </form>
-      </div>
-  </div>
+        <div className="text-center mt-4 flex flex-col">
+          <p className="text-sm text-gray-600 mt-4">
+            Remember your password?{" "}
+            <Link
+              to="/login"
+              className="text-[#f2a20e] hover:text-[#f2a20f] font-semibold"
+            >
+              Back to Login
+            </Link>
+          </p>
+        </div>
+      </motion.div>
+    </div>
   );
-    
-}
+};
+
+export default PasswordReset;

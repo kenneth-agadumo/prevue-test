@@ -1,94 +1,149 @@
-import { useState } from 'react';
-import { app, auth } from '../firebaseConfig.jsx';
-import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, setPersistence, browserLocalPersistence, browserSessionPersistence } from "firebase/auth";
-import { Link, useNavigate } from 'react-router-dom';
-import '../layout.css';
+import React, { useState } from "react";
+import { Formik, Form } from "formik";
+import { loginValidationSchema } from "../auth/loginValidationSchema";
+import { motion } from "framer-motion";
+import InputField from "../components/AuthComponents/Input";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  setPersistence,
+  browserLocalPersistence,
+  browserSessionPersistence,
+  GoogleAuthProvider,
+} from "firebase/auth";
+import { auth } from "../firebaseConfig.jsx";
+import Btn from "../components/AuthComponents/Btn.jsx";
+import Google from "../components/AuthComponents/Google.jsx";
 
-export const Login = () => {
-  // State variables for email, password, error message, and "Remember me" checkbox
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
+const Login = () => {
   const [error, setError] = useState(null);
+  const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
 
-  // Function to handle login with email and password
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const initialValues = {
+    email: "",
+    password: "",
+  };
+
+  const onSubmit = async (values) => {
     setError(null);
+    const { email, password } = values;
 
     try {
       // Set persistence based on the "Remember me" checkbox
-      const persistence = rememberMe ? browserLocalPersistence : browserSessionPersistence;
+      const persistence = rememberMe
+        ? browserLocalPersistence
+        : browserSessionPersistence;
       await setPersistence(auth, persistence);
+
+      // Sign in with email and password
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/dashboard'); // Redirect to Dashboard after successful login
+
+      // Redirect to Dashboard after successful login
+      navigate("/dashboard");
     } catch (error) {
-      setError(error.message); // Set error message if login fails
-      console.error('Login error:', error);
+      setError(error.message);
+      console.error("Login error:", error);
     }
   };
 
-  // Function to handle login with Google
   const handleSignInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
 
     try {
       // Set persistence based on the "Remember me" checkbox
-      const persistence = rememberMe ? browserLocalPersistence : browserSessionPersistence;
+      const persistence = rememberMe
+        ? browserLocalPersistence
+        : browserSessionPersistence;
       await setPersistence(auth, persistence);
+
+      // Sign in with Google
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
+      console.log("User signed in with Google:", user);
 
-      console.log('User signed in with Google:', user);
-
-      navigate('/dashboard'); // Redirect to Dashboard after successful sign-in
+      // Redirect to Dashboard after successful sign-in
+      navigate("/dashboard");
     } catch (error) {
-      setError(error.message); // Set error message if sign-in fails
-      console.error('Google sign-in error:', error);
+      setError(error.message);
+      console.error("Google sign-in error:", error);
     }
   };
 
   return (
-    <div className='form-container'>
-      <div className="form">
-        <h2>Welcome back!</h2>
-        <p>Please enter your details to login</p>
-
-        <form onSubmit={handleLogin}>
-          {error && <small style={{ color: 'red' }}>{error}</small>}
-          <div className='row-1'>
-            <label htmlFor="email"><small>Email:</small></label><br />
-            <input className='input' type="email" id="email" 
-              value={email}
-              placeholder='Enter your email' 
-              onChange={(e) => setEmail(e.target.value)} required />
-          </div>
-          <div className='row-2'>
-            <label htmlFor="password"><small>Password:</small></label><br />
-            <input className='input' type="password" id="password" 
-              value={password}
-              placeholder='Password' 
-              onChange={(e) => setPassword(e.target.value)} required />
-          </div>
-          <div className='row-3'>
-            <span className='input-span'>
-              <input className='row-3-input' type="checkbox" id="remember" 
-                checked={rememberMe} 
-                onChange={(e) => setRememberMe(e.target.checked)} />
-              <label htmlFor="remember"><small>Remember for 30 days</small></label>
-            </span>
-            <Link to={'/forgot-password'} style={{ paddingTop: '10px' }}><small> Forgot Password</small></Link>
-          </div>
-
-          <button type="submit" className='form-button'>Sign in</button>
-          <button type="button" onClick={handleSignInWithGoogle} className='google-button'>
-            <img src="/google.svg" alt="" style={{ width: '15px', paddingRight: '15px' }} /> Sign in with Google
-          </button>
-
-          <small> Don't have an account? <Link to={'/register'}>Sign up</Link></small>
-        </form>
-      </div>
+    <div className="grid place-items-center bg-primary pt-[50px] pb-[150px]">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.8,
+          delay: 0.2,
+          ease: [0, 0.71, 0.2, 1.01],
+        }}
+      >
+        <h2 className="text-2xl font-bold text-center mb-6">Welcome back!</h2>
+        <p className="text-center mb-4">Please enter your details to login</p>
+        <small>{error && <p style={{ color: "red" }}>{error}</p>}</small>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={loginValidationSchema}
+          onSubmit={onSubmit}
+        >
+          {() => (
+            <Form>
+              <InputField
+                label="Email Address"
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+              />
+              <InputField
+                label="Password"
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+              />
+              <div className="flex justify-between items-center my-4">
+                <span className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="rememberMe"
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                    className="form-checkbox"
+                  />
+                  <label htmlFor="rememberMe">
+                    <small>Remember for 30 days</small>
+                  </label>
+                </span>
+                <Link to="/forgot-password" className="text-sm text-[#f2a20e]">
+                  Forgot Password?
+                </Link>
+              </div>
+              <div className="flex items-center justify-center">
+                <Btn text="Sign In" color="bg-[#f2a20e]" />
+              </div>
+            </Form>
+          )}
+        </Formik>
+        <div className="text-center mt-4 flex flex-col">
+          <Google onClick={handleSignInWithGoogle} text="Sign in with Google" />
+          <p className="text-sm text-gray-600 mt-4">
+            Don't have an account?{" "}
+            <Link
+              to="/signup"
+              className="text-[#f2a20e] hover:text-[#f2a20f] font-semibold"
+            >
+              Sign up
+            </Link>
+          </p>
+        </div>
+      </motion.div>
     </div>
   );
 };
+
+export default Login;
