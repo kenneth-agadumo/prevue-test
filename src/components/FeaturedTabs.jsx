@@ -71,20 +71,22 @@ export const RentalSection = () => {
           <div className="content-item grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
           <RentalCard
               name={"Crust Cafe"}
-              address={"10 Admiralty Way, Lekki, Lagos"}
+              address={"10, Admiralty Way, Lekki, Lagos"}
+              price={"1,500,000/year"}
               image={"/crust.png"}
               width={"43.3%"}
             />
             <RentalCard
-              address={"adwdawd"}
-              price={10000000}
+              address={"10, Admiralty Way, Lekki, Lagos"}
+              price={"1,500,000/year"}
               image={"/hard-rock.png"}
               width={"33%"}
               />
            
             <RentalCard
               name={"Pause Cafe"}
-              address={"10 Admiralty Way, Lekki, Lagos"}
+              address={"10, Admiralty Way, Lekki, Lagos"}
+              price={"1,500,000/year"}
               image={"/pause.png"}
               width={"43.3%"}
             />

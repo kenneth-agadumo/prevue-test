@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState, forwardRef } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -14,6 +15,7 @@ const ReservationForm = () => {
   const [selectedTime, setSelectedTime] = useState(null); // Initialize with null
 
   // Custom input for DatePicker
+  // eslint-disable-next-line react/display-name, react/prop-types
   const DateCustomInput = forwardRef(({ value, onClick, className }, ref) => (
     <button
     className={className}
@@ -27,6 +29,7 @@ const ReservationForm = () => {
   ));
 
   // Custom input for TimePicker
+  // eslint-disable-next-line react/display-name, react/prop-types
   const TimeCustomInput = forwardRef(({ value, onClick, className }, ref) => (
     <button
       className={className}

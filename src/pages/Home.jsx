@@ -1,9 +1,11 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import '../layout.css';
 import { FeaturedTabs } from '../components/FeaturedTabs';
 import { Dropdown } from '../components/Dropdown';
 import { EmbedScript } from '../components/VirtualTour';
 import Footer from '../components/Footer';
+import Carousel from '../components/Carousel';
 
 
 export const Home = () => {
@@ -63,9 +65,9 @@ export const Home = () => {
                     </div>
                     <div className="about-right">
                         <p>
-                            At Prevue, we're your gateway to unforgettable experiences. Our mission is to simplify your quest for the perfect property, dining experience, or outing.
+                            At Prevue, we are your gateway to unforgettable experiences. Our mission is to simplify your quest for the perfect property, dining experience, or outing.
                             Our platform offers immersive virtual reality tours, allowing you to step inside properties or explore dining destinations before you arrive.
-                            We're committed to transparency in your planning, with cost estimates that cover every detail, from property costs to VAT and caution fees.
+                            We are committed to transparency in your planning, with cost estimates that cover every detail, from property costs to VAT and caution fees.
                         </p>
                         <button className="learn-more">Learn More</button>
                     </div>
@@ -75,7 +77,7 @@ export const Home = () => {
 
             <div className="steps-section-container">
                 <div className="steps-section md:flex sm:grid my-[100px] mx-[20px] md:text-start sm:text-center justify-center">
-                    <div className="steps-left lg:block md:hidden sm:hidden">
+                    <div className=" lg:block md:hidden sm:hidden">
                         <img src="/steps-image.png" alt="" />
                     </div>
                     <div className="steps-right">
@@ -86,17 +88,17 @@ export const Home = () => {
                             <div className="step-1">
                                 <span className="step-number">01</span>
                                 <p className="step-header">Start by selecting a category</p>
-                                <p className="">Whether it's a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
+                                <p className="">Whether is a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
                             </div>
                             <div className="step-1">
                                 <span className="step-number">02</span>
                                 <p className="step-header">Start by selecting a category</p>
-                                <p className="">Whether it's a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
+                                <p className="">Whether its a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
                             </div>
                             <div className="step-1">
                                 <span className="step-number">03</span>
                                 <p className="step-header">Start by selecting a category</p>
-                                <p className="">Whether it's a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
+                                <p className="">Whether its a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
                             </div>
                         </div>
                     </div>
@@ -104,9 +106,9 @@ export const Home = () => {
             </div>
 
             <div className="showcase-section">
-                <div className=" px-[70px] py-8 text-center">
+                <div className="flex flex-row px-[70px] ">
                     <div className="headline-left ">
-                        <p>Preview Locations</p>
+                        <h4>Preview Locations</h4>
                         <h3>Step into Your Favorite Locations with our panoramic virtual tours</h3>
                     </div>
                     <div className="headline-right">
@@ -115,20 +117,7 @@ export const Home = () => {
                         </p>
                     </div>
                 </div>
-                <div className="showcase">
-                    <iframe width="100%" height="640px" frameBorder="0" allow="xr-spatial-tracking; gyroscope; accelerometer" allowFullScreen scrolling="no" src="https://kuula.co/share/N28FK?logo=1&info=1&fs=1&vr=0&sd=1&thumbs=1&margin=26&alpha=0.60"></iframe>
-                </div>
-                <div className="showcase-slider">
-                    <div className="slider-bars">
-                        <div className="slider-bar active"></div>
-                        <div className="slider-bar"></div>
-                        <div className="slider-bar"></div>
-                    </div>
-                    <div className="buttons">
-                        <button className="left-slider"> <img src="/left-arrow.png" alt="" style={{ width: "7px" }} /></button>
-                        <button className="right-slider"> <img src="/right-arrow.png" alt="" style={{ width: "7px" }} /></button>
-                    </div>
-                </div>
+                <Carousel/>
             </div>
             <Footer/>
         </>
