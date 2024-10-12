@@ -26,6 +26,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    document.title = "Prevue - Virtual Tours & Bookings"
     const preloadImages = async () => {
       const cacheImages = (srcArray) => {
         return Promise.all(
