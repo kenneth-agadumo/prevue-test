@@ -90,8 +90,8 @@ const previewStyle = {
 
 const imageContainerStyle = {
   position: 'relative',
-  width: '100px',
-  height: '100px',
+  width: '70px',
+  height: '70px',
   margin: '10px',
   border: '1px solid #cccccc',
   borderRadius: '5px',
