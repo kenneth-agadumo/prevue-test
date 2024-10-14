@@ -12,6 +12,8 @@ export const FeaturedTabs = () => {
     setSelectedTab(newValue);
   };
 
+  
+
   console.log(selectedTab);
 
   return (
