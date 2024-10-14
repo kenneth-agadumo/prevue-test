@@ -1,4 +1,3 @@
-
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {getAuth, GoogleAuthProvider} from 'firebase/auth'
@@ -10,7 +9,7 @@ import { getStorage, ref } from "firebase/storage";
 
 const firebaseConfig = {
   
-    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    apiKey: "AIzaSyDzoDjPIvcwsK55JpIO-XrgLPLMGyp5jrg",
     authDomain: "test-7c797.firebaseapp.com",
     projectId: "test-7c797",
     storageBucket: "test-7c797.appspot.com",

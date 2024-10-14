@@ -29,7 +29,7 @@ export const Dropdown = ({ itemNumber, itemsArray, width, height, border, border
       '&:hover': {
         borderColor: 'blue',
       },
-      padding: '6px',
+      padding: '4px',
       backgroundColor: backgroundColor,
       // Ensure the input doesn't resize
       maxWidth: 'fit-content', // Maintain width of the control

@@ -13,7 +13,6 @@ export const RentalModal = ({ isOpen, onClose }) => {
     address: '',
     rooms: '',
     phoneNumber: '',
-    virtualTourLink: ''
   });
 
   const handleChange = (e) => {
@@ -104,18 +103,6 @@ export const RentalModal = ({ isOpen, onClose }) => {
                   placeholder="+234..."
                 />
               </div>
-
-              <div className='row2'>
-                <label htmlFor="virtualTourLink">Virtual Tour</label>
-                <input 
-                type="text" 
-                name="virtualTourLink" 
-                value={formData.virtualTourLink} 
-                onChange={handleChange} 
-                placeholder='Link...' 
-                />
-              </div>
-
 
               <div className="row2">
                 <ImageDrop

@@ -3,7 +3,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import {Dashboard} from "./pages/Dashboard"
+import { Dashboard } from "./pages/Dashboard";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import PasswordReset from "./pages/PasswordReset";

@@ -136,7 +136,7 @@ const SignUp = () => {
           )}
         </Formik>
         <div className="text-center mt-4 flex flex-col">
-        <Google text="Sign up with Google" handleClick={handleSignInWithGoogle} />
+        <Google onClick={handleSignInWithGoogle} text="Sign up with Google" />
 
           <p className="text-sm text-gray-600 mt-4">
             Already have an account?{" "}
