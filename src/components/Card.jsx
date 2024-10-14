@@ -10,7 +10,8 @@ export const RentalCard = ({ image, name, address, price }) => {
   return (
     <div className="display-card">
       <div className="card-image">
-        <img src={image} alt="" />
+        <img src={image} alt=""  className="hidden sm:block"/>
+        
       </div>
 
       <div className="card-address mt-4">

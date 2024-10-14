@@ -21,14 +21,15 @@ export const Home = () => {
 
     //     loadComponents();
     // }, []);
+    
 
    
 
     return (
         <>
-            <div className="hero-section">
+            <div className="hero-section ">
                 <div className="hero-container">
-                    <h1 className="hero-text"> Discover, Preview, and Explore Locations of Your Choice</h1>
+                    <h1 className="hero-text opacity-0 animate-slideInLeft"> Discover, Preview, and Explore Locations of Your Choice</h1>
                     <div className="hero-search-bar gap-5 ">
                             <div className="dropdown-1">
                                 <label style={{ padding: '0 3px' }} htmlFor="">Category</label>
@@ -76,26 +77,26 @@ export const Home = () => {
             </div>
 
             <div className="steps-section-container">
-                <div className="steps-section md:flex sm:grid my-[100px] mx-[20px] md:text-start sm:text-center justify-center">
-                    <div className=" lg:block md:hidden sm:hidden">
-                        <img src="/steps-image.png" alt="" />
+                <div className="steps-section sm:grid-col-1  justify-center">
+                    <div className="hidden lg:block md:hidden  pl-10">
+                        <img src="/steps-image.png" alt=""  />
                     </div>
-                    <div className="steps-right">
+                    <div className="steps-right ">
                         <h3>
                             How it works <br /> in 3 simple steps
                         </h3>
-                        <div className="steps">
-                            <div className="step-1">
+                        <div className="steps p-4 te">
+                            <div className="step-1 text-left ">
                                 <span className="step-number">01</span>
                                 <p className="step-header">Start by selecting a category</p>
                                 <p className="">Whether is a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
                             </div>
-                            <div className="step-1">
+                            <div className="step-1 text-left">
                                 <span className="step-number">02</span>
                                 <p className="step-header">Start by selecting a category</p>
                                 <p className="">Whether its a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
                             </div>
-                            <div className="step-1">
+                            <div className="step-1 text-left">
                                 <span className="step-number">03</span>
                                 <p className="step-header">Start by selecting a category</p>
                                 <p className="">Whether its a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
@@ -106,13 +107,13 @@ export const Home = () => {
             </div>
 
             <div className="showcase-section">
-                <div className="flex flex-row px-[70px] ">
+                <div className="flex flex-col lg:flex-row pl-8 items-center ">
                     <div className="headline-left ">
-                        <h4>Preview Locations</h4>
-                        <h3>Step into Your Favorite Locations with our panoramic virtual tours</h3>
+                        <h4 className="pb-2">Preview Locations</h4>
+                        <h3 className=" text-balance">Step into Your Favorite Locations with our panoramic virtual tours</h3>
                     </div>
-                    <div className="headline-right">
-                        <p>
+                    <div className="headline-right ">
+                        <p className="">
                             Our 360° location previews take you on a mesmerizing journey to explore properties, restaurants, and activities like never before.
                         </p>
                     </div>
