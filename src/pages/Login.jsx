@@ -27,6 +27,7 @@ const Login = () => {
   };
 
   const onSubmit = async (values) => {
+    
     setError(null);
     const { email, password } = values;
 
@@ -41,6 +42,7 @@ const Login = () => {
       await signInWithEmailAndPassword(auth, email, password);
 
       // Redirect to Dashboard after successful login
+      console.log("Navigating to /dashboard");
       navigate("/dashboard");
     } catch (error) {
       setError(error.message);
@@ -49,6 +51,7 @@ const Login = () => {
   };
 
   const handleSignInWithGoogle = async () => {
+    console.log('Handling google Submit')
     const provider = new GoogleAuthProvider();
 
     try {
@@ -124,13 +127,13 @@ const Login = () => {
                 </Link>
               </div>
               <div className="flex items-center justify-center">
-                <Btn text="Sign In" color="bg-[#f2a20e]" />
+                <Btn type="submit" text="Sign In" color="bg-[#f2a20e]"  />
               </div>
             </Form>
           )}
         </Formik>
         <div className="text-center mt-4 flex flex-col">
-          <Google onClick={handleSignInWithGoogle} text="Sign in with Google" />
+          <Google  text="Sign in with Google" handleClick={handleSignInWithGoogle}/>
           <p className="text-sm text-gray-600 mt-4">
             Don't have an account?{" "}
             <Link

@@ -7,10 +7,13 @@ const Btn = ({ href, text, color, border, borderColor,textColor }) => {
 
   const handleClick = () => {
     setIsClicked(true);
-    setTimeout(() => {
-      window.location.href = href;
-      setIsClicked(false);
-    }, 200);
+    if (href != undefined){
+      setTimeout(() => {
+        window.location.href = href;
+        setIsClicked(false);
+      }, 200);
+    }
+    
   };
 
   return (

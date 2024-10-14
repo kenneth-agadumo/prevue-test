@@ -65,7 +65,7 @@ export const RestaurantPage = () => {
 
                 <div className="description-location">
                     <h4 style={{color:'var(--primary-color)', fontWeight:'300', marginBottom:'8px'}}>Location on map</h4>
-                    <Map/>
+                    <Map location={restaurantData.address}/>
                 </div>
             </div>
             <div className="description-right">

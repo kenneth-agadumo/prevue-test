@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 
 const mapContainerStyle = {
@@ -7,40 +7,76 @@ const mapContainerStyle = {
   borderRadius: '10px',
 };
 
-const center = {
+const defaultCenter = {
   lat: -3.745,
   lng: -38.523,
 };
 
-export const Map = () => {
+export const Map = ({ location }) => {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: 'AIzaSyDzoDjPIvcwsK55JpIO-XrgLPLMGyp5jrg',
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY, // Using Vite's env variable
   });
 
   const [map, setMap] = useState(null);
-  const [mapCenter, setMapCenter] = useState(center);
+  const [mapCenter, setMapCenter] = useState(defaultCenter);
+  const [error, setError] = useState('');
 
   const onLoad = useCallback((map) => {
-    const bounds = new window.google.maps.LatLngBounds(mapCenter);
-    map.fitBounds(bounds);
     setMap(map);
-  }, [mapCenter]);
+  }, []);
 
   const onUnmount = useCallback(() => {
     setMap(null);
   }, []);
 
+  // Effect to handle geocoding when the location prop changes
+  useEffect(() => {
+    if (location) {
+      const handleGeocode = async () => {
+        setError(''); // Reset error message
+
+        // Use the Geocoding API to fetch the coordinates
+        const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(location)}&key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}`;
+        
+        try {
+          const response = await fetch(geocodeUrl);
+          const data = await response.json();
+          if (data.status === 'OK') {
+            const newLocation = data.results[0].geometry.location;
+            setMapCenter({ lat: newLocation.lat, lng: newLocation.lng });
+            if (map) {
+              map.panTo({ lat: newLocation.lat, lng: newLocation.lng });
+            }
+          } else {
+            setError('Could not find the location. Please try again.');
+          }
+        } catch (err) {
+          setError('Geocoding failed. Please check the location and try again.');
+        }
+      };
+
+      handleGeocode(); // Call the geocode function whenever the location changes
+    }
+  }, [location, map]);
+
   return isLoaded ? (
-    <GoogleMap
-      mapContainerStyle={mapContainerStyle}
-      center={mapCenter}
-      zoom={8}
-      onLoad={onLoad}
-      onUnmount={onUnmount}
-    >
-      <Marker position={mapCenter} />
-    </GoogleMap>
+    <div>
+      {/* Display error message */}
+      {error && <div style={{ color: 'red' }}>{error}</div>}
+
+      {/* Google Map */}
+      <GoogleMap
+        mapContainerStyle={mapContainerStyle}
+        center={mapCenter}
+        zoom={14}
+        onLoad={onLoad}
+        onUnmount={onUnmount}
+      >
+        {/* Marker at the current center */}
+        <Marker position={mapCenter} />
+      </GoogleMap>
+    </div>
   ) : <></>;
 };
 

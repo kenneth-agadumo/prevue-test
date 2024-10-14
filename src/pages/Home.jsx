@@ -85,7 +85,7 @@ export const Home = () => {
                         <h3>
                             How it works <br /> in 3 simple steps
                         </h3>
-                        <div className="steps p-4 te">
+                        <div className="steps p-4 ">
                             <div className="step-1 text-left ">
                                 <span className="step-number">01</span>
                                 <p className="step-header">Start by selecting a category</p>
