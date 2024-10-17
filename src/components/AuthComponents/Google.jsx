@@ -2,16 +2,8 @@
 import React, { useState } from "react";
 
 
-const Google = ({ href }) => {
+const Google = ({ href, handleClick }) => {
   const [isClicked, setIsClicked] = useState(false);
-
-  const handleClick = () => {
-    setIsClicked(true);
-    setTimeout(() => {
-      window.location.href = href;
-      setIsClicked(false);
-    }, 200);
-  };
 
   return (
     <button

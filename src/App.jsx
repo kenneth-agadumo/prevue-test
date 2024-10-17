@@ -14,6 +14,7 @@ import { Restaurants } from "./pages/Restaurants";
 import { Rentals } from "./pages/Rentals";
 import EmailVerification from "./pages/EmailVerification";
 import { RestaurantPage } from "./pages/RestaurantPage";
+import { RentalPage } from "./pages/RentalPage";
 import Loading from "./house-loading.json";
 import "./App.css";
 import Lottie from "lottie-react";
@@ -94,6 +95,10 @@ const App = () => {
             <Route
               path="/restaurants/:restaurantId"
               element={<RestaurantPage />}
+            />
+            <Route
+              path="/rentals/:rentalId"
+              element={<RentalPage />}
             />
           </Routes>
         </div>

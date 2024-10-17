@@ -5,6 +5,7 @@ import { Dropdown } from "../components/Dropdown";
 import { RentalCard } from "../components/Card";
 import { useGlobalState } from "../Contexts/GlobalStateContext";
 import { storage } from "../firebaseConfig";
+import { Link } from "react-router-dom";
 
 export const Rentals = () => {
     const { userData, rentals, rentalImagesMap} = useGlobalState();
@@ -35,6 +36,7 @@ export const Rentals = () => {
                 </div>
                 <div className="catalogue">
                 {Object.entries(rentalImagesMap).map(([rentalId, rentalData]) => (
+                    <Link to={`/rentals/${rentalId}`} key={rentalId} style={{ textDecoration: 'none', width:'33%' }}>
                     <RentalCard
                     key={rentalId}  
                     address={rentalData.address}        
@@ -42,6 +44,7 @@ export const Rentals = () => {
                     image={rentalData.images.length > 0 ? rentalData.images[0].url : 'default-image.png'}
                     width={'33%'}
                     />
+                    </Link>
                 ))}
 
                 </div>

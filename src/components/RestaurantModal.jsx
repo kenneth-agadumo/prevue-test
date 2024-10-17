@@ -13,6 +13,7 @@ export const RestaurantModal = ({ isOpen, onClose }) => {
     name: '',
     address:'', 
     contactNumber: '',
+    virtualTourLink: '',
     // id: `res${}`
   });
 
@@ -80,6 +81,11 @@ export const RestaurantModal = ({ isOpen, onClose }) => {
               <div className='row2'>
                 <label htmlFor="contactNumber">Telephone</label>
                 <input type="text" name="contactNumber" value={formData.contactNumber} onChange={handleChange} placeholder='+234...' />
+              </div>
+              
+              <div className='row2'>
+                <label htmlFor="virtuatTour">Virtual Tour Link</label>
+                <input type="text" name="virtualTour" value={formData.virtualTourLink} onChange={handleChange} placeholder='https://...' />
               </div>
 
               <div className='row2' >

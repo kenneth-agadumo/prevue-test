@@ -44,12 +44,12 @@
 }
 
 .hero-search-bar {
-  max-width: 100%;
+  width: 100%;
   /* width: inherit; */
   height: auto;
   background: white;
   border-radius: 50px;
-  padding: 4px 32px;
+  padding: 4px 6px 4px 16px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
