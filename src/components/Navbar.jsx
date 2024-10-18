@@ -10,10 +10,10 @@ export const Navbar = () => {
     const navRef = useRef(null); // Ref to track the navbar element
   
     // Array of paths where Navbar should be visible
-    const visiblePaths = ['/', '/rentals', '/restaurants', '/activities', '/restaurant/id'];
+    const visiblePaths = ['/', '/rentals', '/restaurants', '/activities', '/restaurants/', '/rentals/'];
 
     // Check if the current path matches any of the visible paths or if it matches the pattern /restaurants/:restaurantId
-    const isVisible = visiblePaths.includes(location.pathname) || location.pathname.startsWith('/restaurants/');
+    const isVisible = visiblePaths.some(path => location.pathname.startsWith(path));
 
     useEffect(() => {
         const handleClickOutside = (event) => {

@@ -130,7 +130,7 @@ const Login = () => {
           )}
         </Formik>
         <div className="text-center mt-4 flex flex-col">
-          <Google onClick={handleSignInWithGoogle} text="Sign in with Google" />
+          <Google  text="Sign in with Google" handleClick={handleSignInWithGoogle} />
           <p className="text-sm text-gray-600 mt-4">
             Don't have an account?{" "}
             <Link
