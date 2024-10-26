@@ -44,3 +44,31 @@ a{
   text-decoration: none;
   color: inherit;
 }
+
+.display-card:hover {
+  scale: 1.1;
+}
+
+.para{
+  display: none;
+  position: relative;
+  bottom: 8rem;
+  left: 9rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.display-card:hover .para {
+  display: block;
+  color: rgb(240, 236, 236);
+
+}
+
+.display-card:hover .pics {
+  background-color: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.1));
+  opacity: 0.8;
+}
+
+.display-card {
+  transition: 300ms ease-in-out;
+}
