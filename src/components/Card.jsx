@@ -4,14 +4,17 @@ import Heart from "../heart.json";
 import HeartButton from "./Like";
 
 
-export const RentalCard = ({ image, name, address, price }) => {
+export const RentalCard = ({ image, name, address, price, note }) => {
   
 
   return (
-    <div className="display-card">
+    <div className="display-card ">
       <div className="card-image">
-        <img src={image} alt=""  className="hidden sm:block"/>
+        <img src={image} alt=""  className="pics hidden sm:block"/>
         
+      <div className="para">
+        {note}
+      </div>
       </div>
 
       <div className="card-address mt-4">
@@ -45,13 +48,16 @@ export const RentalCard = ({ image, name, address, price }) => {
   );
 };
 
-export const RestaurantCard = ({ image, name, address }) => {
+export const RestaurantCard = ({ image, name, address, note }) => {
   
 
   return (
     <div className="display-card">
       <div className="card-image">
-        <img src={image} alt="" />
+        <img src={image} alt="" className="pics"/>
+        <div className="para">
+        {note}
+      </div>
       </div>
       <div className="card-info-cont">
         <div className="rest-info">
