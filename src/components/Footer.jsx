@@ -9,7 +9,7 @@ const Footer = () => {
                         <p className="newsletter-text">Subscribe to our newsletter for the latest location previews and special offers</p>
                         <div className="newsletter">
                             <input type="email" name="n-email" placeholder="Yourown@gmail.com" id="" style={{ color: '#fdfdfd' }} />
-                            <button>Go- <img src="forward.svg" alt="" /></button>
+                            <button>Go <img src="forward.svg" alt="" /></button>
                         </div>
                     </div>
                     <div className="row1-right">
