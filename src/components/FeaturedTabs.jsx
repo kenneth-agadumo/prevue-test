@@ -18,6 +18,7 @@ export const FeaturedTabs = () => {
 
   return (
     <div className="featured-tabs">
+      <h3 className="featured-header">Browse Featured Properties</h3>
       <div className="tab-row">
         <div
           className={`tab-item  ${selectedTab === "rentals" ? "active" : ""}`}

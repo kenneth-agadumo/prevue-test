@@ -37,9 +37,11 @@ export const Home = () => {
             </div>
 
             <div className="featured-section">
-            <div className="oval"></div>
-                <img src="double-down-arrow.svg" alt="" style={{ width: '15px', margin: '20px 0' }} />
-                <h3 className="featured-header">Browse Featured Properties</h3>
+            <div className="oval">
+            <img src="double-down-arrow.svg" alt="" style={{ width: '15px', margin: '20px 0' }} />
+            </div>
+                
+                
                 <FeaturedTabs />
             </div>
             <div className="about-oval"></div>
