@@ -49,7 +49,7 @@ export const HeroSearch = () => {
 
     return (
         <div className="hero-search-bar ">
-            <div className="dropdown-1">
+            <div className="hero-dropdown-1">
                 <label htmlFor="">Category</label>
                 <Dropdown 
                     itemNumber={2} 
@@ -61,7 +61,7 @@ export const HeroSearch = () => {
                     onChange={handleCategoryChange}
                 />
             </div>
-            <div className="dropdown-2">
+            <div className="hero-dropdown-2">
                 <label htmlFor="">Sub-category</label>
                 <Dropdown 
                     itemNumber={3} 
@@ -73,7 +73,7 @@ export const HeroSearch = () => {
                     onChange={handleSubCategoryChange} 
                 />
             </div>
-            <div className="dropdown-3">
+            <div className="hero-dropdown-3">
                 <label htmlFor="">Location</label>
                 <Dropdown 
                     itemNumber={3} 
