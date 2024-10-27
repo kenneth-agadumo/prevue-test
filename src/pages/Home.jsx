@@ -79,9 +79,9 @@ export const Home = () => {
                                 <div>
                                     <span className="step-number">01</span>
                                 </div>
-                                <div>    
+                                <div className='step-col'>    
                                     <p className="step-header">Start by selecting a category</p>
-                                    <p style={{width:'500px'}}>Whether is a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
+                                    <p className='step-text' >Whether is a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
                                 </div>
                             </div>
 
@@ -89,9 +89,9 @@ export const Home = () => {
                                 <div>
                                     <span className="step-number">02</span>
                                 </div>
-                                <div>    
+                                <div className='step-col'>    
                                     <p className="step-header">Start by selecting a category</p>
-                                    <p style={{width:'500px'}}>Whether is a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
+                                    <p className='step-text' >Whether is a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
                                 </div>
                             </div>
 
@@ -99,9 +99,9 @@ export const Home = () => {
                                 <div>
                                     <span className="step-number">03</span>
                                 </div>
-                                <div>    
+                                <div className='step-col'>    
                                     <p className="step-header">Start by selecting a category</p>
-                                    <p style={{width:'500px'}}>Whether is a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
+                                    <p className='step-text' >Whether is a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
                                 </div>
                             </div>
                             
