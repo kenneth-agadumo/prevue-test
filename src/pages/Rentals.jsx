@@ -15,9 +15,9 @@ export const Rentals = () => {
 
     return (
         <>
-            <div className="rental-top-section px-[50px]">
-                <h1>Shortlets</h1>
-                <p>
+            <div className="rental-top-section px-[50px] ">
+                <h1 className="text-2xl mb-8 ">Shortlets</h1>
+                <p className="">
                     Discover the perfect property. From short lets to long-term rentals and dream homes for sale, we offer a diverse range of housing options.
                     Immerse yourself in virtual tours, calculate expenses, and stay updated with the latest listings.
                 </p>
