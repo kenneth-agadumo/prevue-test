@@ -33,10 +33,11 @@ export const Home = () => {
                     <h1 className="hero-text opacity-0 animate-slideInLeft"> Discover, Preview, and Explore Locations of Your Choice</h1>
                     <HeroSearch/>
                 </div>
-                <div className="oval"></div>
+                
             </div>
 
             <div className="featured-section">
+            <div className="oval"></div>
                 <img src="double-down-arrow.svg" alt="" style={{ width: '15px', margin: '20px 0' }} />
                 <h3 className="featured-header">Browse Featured Properties</h3>
                 <FeaturedTabs />
