@@ -65,6 +65,7 @@ export const Home = () => {
                 <div className="steps-section sm:grid-col-1  justify-left">
                     <div className="hidden lg:block md:hidden  pl-10">
                         <img src="/steps-image.png" alt=""  />
+
                     </div>
                     <div className="steps-right ">
                         <h3>

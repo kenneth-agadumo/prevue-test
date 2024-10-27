@@ -48,6 +48,7 @@ export const Restaurants = () => {
            </Link>
           ))}
         </div>
+        
         <div className="load-more justify-center grid">
           <button>Load More</button>
         </div>

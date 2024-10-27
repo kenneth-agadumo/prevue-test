@@ -79,12 +79,14 @@ export const RentalSection = () => {
               price={"1,500,000/year"}
               image={"/crust.png"}
               width={"43.3%"}
+              note={"prevue"}
             />
             <RentalCard
               address={"10, Admiralty Way, Lekki, Lagos"}
               price={"1,500,000/year"}
               image={"/hard-rock.png"}
               width={"33%"}
+              note={"prevue"}
               />
            
             <RentalCard
@@ -93,6 +95,7 @@ export const RentalSection = () => {
               price={"1,500,000/year"}
               image={"/pause.png"}
               width={"43.3%"}
+              note={"prevue"}
             />
           </div>
         </div>{" "}
@@ -126,18 +129,21 @@ export const RestaurantSection = () => {
               address={"10 Admiralty Way, Lekki, Lagos"}
               image={"/hard-rock.png"}
               width={"43.3%"}
+              note={"prevue"}
             />
             <RestaurantCard
               name={"Crust Cafe"}
               address={"10 Admiralty Way, Lekki, Lagos"}
               image={"/crust.png"}
               width={"43.3%"}
+              note={"prevue"}
             />
             <RestaurantCard
               name={"Pause Cafe"}
               address={"10 Admiralty Way, Lekki, Lagos"}
               image={"/pause.png"}
               width={"43.3%"}
+              note={"prevue"}
             />
           </div>
         </div>
