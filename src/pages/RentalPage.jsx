@@ -17,6 +17,7 @@ export const RentalPage = () => {
     const { rentalId } = useParams();
     const { rentalImagesMap } = useGlobalState();
     const rentalData = rentalImagesMap[rentalId];
+    console.log(rentalData)
   
     const [iconclicked, setIconClicked] = useState(false);
     

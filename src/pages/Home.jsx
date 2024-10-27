@@ -37,7 +37,7 @@ export const Home = () => {
             </div>
 
             <div className="featured-section">
-                <img src="double-down-arrow.svg" alt="" style={{ width: '15px', marginBottom: '56px' }} />
+                <img src="double-down-arrow.svg" alt="" style={{ width: '15px', margin: '20px 0' }} />
                 <h3 className="featured-header">Browse Featured Properties</h3>
                 <FeaturedTabs />
             </div>
@@ -62,7 +62,7 @@ export const Home = () => {
             </div>
 
             <div className="steps-section-container">
-                <div className="steps-section sm:grid-col-1  justify-center">
+                <div className="steps-section sm:grid-col-1  justify-left">
                     <div className="hidden lg:block md:hidden  pl-10">
                         <img src="/steps-image.png" alt=""  />
                     </div>
@@ -72,27 +72,42 @@ export const Home = () => {
                         </h3>
                         <div className="steps p-4 ">
                             <div className="step-1 text-left ">
-                                <span className="step-number">01</span>
-                                <p className="step-header">Start by selecting a category</p>
-                                <p className="">Whether is a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
+                                <div>
+                                    <span className="step-number">01</span>
+                                </div>
+                                <div>    
+                                    <p className="step-header">Start by selecting a category</p>
+                                    <p style={{width:'500px'}}>Whether is a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
+                                </div>
                             </div>
-                            <div className="step-1 text-left">
-                                <span className="step-number">02</span>
-                                <p className="step-header">Start by selecting a category</p>
-                                <p className="">Whether its a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
+
+                            <div className="step-1 text-left ">
+                                <div>
+                                    <span className="step-number">02</span>
+                                </div>
+                                <div>    
+                                    <p className="step-header">Start by selecting a category</p>
+                                    <p style={{width:'500px'}}>Whether is a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
+                                </div>
                             </div>
-                            <div className="step-1 text-left">
-                                <span className="step-number">03</span>
-                                <p className="step-header">Start by selecting a category</p>
-                                <p className="">Whether its a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
+
+                            <div className="step-1 text-left ">
+                                <div>
+                                    <span className="step-number">03</span>
+                                </div>
+                                <div>    
+                                    <p className="step-header">Start by selecting a category</p>
+                                    <p style={{width:'500px'}}>Whether is a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
+                                </div>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
             </div>
 
             <div className="showcase-section">
-                <div className="flex flex-col lg:flex-row pl-8 items-center ">
+                <div className="flex flex-col lg:flex-row pl-8 pr-8 items-center ">
                     <div className="headline-left ">
                         <h4 className="pb-2">Preview Locations</h4>
                         <h3 className=" text-balance">Step into Your Favorite Locations with our panoramic virtual tours</h3>

@@ -30,7 +30,7 @@ export const RestaurantPage = () => {
    return(
     <div >
             <div className="slider">
-                <ImageSlider images={imageUrls} />
+                <ImageSlider images={imageUrls} tourLink={restaurantData.virtualTourLink}/>
             </div>
             
         {/* <div className="restaurant-detail">
@@ -70,7 +70,7 @@ export const RestaurantPage = () => {
             </div>
             <div className="description-right">
                 <div className="dright-col-1">
-                    <h4 style={{color: "#50504F;"}}>Contact Information</h4>
+                    <h4 style={{color: "#50504F"}}>Contact Information</h4>
                     <div className="col1"> 
                         <p>Phone Number</p>
                         <p>+234 81 2345 6789</p>
@@ -108,7 +108,7 @@ export const RestaurantPage = () => {
                     </div>
                 </div>
                 <div className="dright-col-2">
-                    <h4 style={{color: "#50504F;"}}>Make Reservation</h4>
+                    <h4 style={{color: "#50504F"}}>Make Reservation</h4>
                     <ReservationForm />
                 </div>
             </div>
