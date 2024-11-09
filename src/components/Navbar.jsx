@@ -13,9 +13,10 @@ export const Navbar = () => {
     const visiblePaths = ['/rentals', '/restaurants', '/activities', '/restaurants/', '/rentals/'];
 
   // Check if the current path matches any of the visible paths or a pattern like /restaurants/:restaurantId
-    const isVisible = location.pathname === '/' || 
+  const isVisible = location.pathname === '/' || 
                     visiblePaths.includes(location.pathname) || 
-                    /\/restaurants\/[^/]+$/.test(location.pathname);
+                    /\/restaurants\/[^/]+$/.test(location.pathname) || 
+                    /\/rentals\/[^/]+$/.test(location.pathname);
 
     useEffect(() => {
         const handleClickOutside = (event) => {

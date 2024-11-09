@@ -45,6 +45,7 @@ export const PropertiesTab = (props) =>{
 
 export const RentalDashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const {  rentalImagesMap} = useGlobalState()
 
  const openModal = () => {
     setIsModalOpen(true);
@@ -66,6 +67,7 @@ export const RentalDashboard = () => {
     await deleteDoc(rentalDoc)
   }
 
+  console.log
 
 console.log(isModalOpen)
   
@@ -93,15 +95,16 @@ console.log(isModalOpen)
   </Table.Header>
 
   <Table.Body>
-    {rentals?.filter((doc) => doc.userId == auth?.currentUser?.uid ).map((rental, key) => (
+    {Object.entries(rentalImagesMap).map(([rentalId, rental]) =>(
+      
             
-            <Table.Row>
+            <Table.Row key={rentalId}>
             <Table.RowHeaderCell>{rental?.rooms}</Table.RowHeaderCell>
             <Table.Cell>{rental?.address}</Table.Cell>
             <Table.Cell>{rental?.price}</Table.Cell>
             <Table.Cell>{rental?.phoneNumber}</Table.Cell>
             <Table.Cell>
-            <button onClick={() =>  deleteRental(rental?.id)}>Delete</button>
+            <button onClick={() =>  deleteRental(rentalId)}>Delete</button>
             </Table.Cell>
           </Table.Row>
 
@@ -164,7 +167,7 @@ export const RestaurantDashboard = () => {
 
   <Table.Body>
     
-  {Object.entries(restaurantImagesMap).map(([restaurantId, restaurant]) => (
+  {Object.entries(restaurantImagesMap).map(([restaurantId, restaurant,]) => (
           
           <Table.Row>
             <Link to={`/restaurants/${restaurantId}`} key={restaurantId} style={{ textDecoration: 'none', width:'33%' }}>

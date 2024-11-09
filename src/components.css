@@ -177,8 +177,10 @@ nav button{
 .display-card{
   /* background: #000; */
   width: fit-content;
+  height: 10%  ;
   padding: 0;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .card-image, .card-name, .card-address{
@@ -188,6 +190,7 @@ nav button{
 }
 .card-image img{
   width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
