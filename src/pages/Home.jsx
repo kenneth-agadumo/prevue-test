@@ -30,7 +30,7 @@ export const Home = () => {
         <>
             <div className="hero-section ">
                 <div className="hero-container">
-                    <h1 className="hero-text opacity-0 animate-slideInLeft"> Discover, Preview, and Explore Locations of Your Choice</h1>
+                    <h1 className="hero-text opacity-0 animate-slideInLeft "> Discover, Preview, and Explore Locations of Your Choice</h1>
                     <HeroSearch/>
                 </div>
                 
@@ -48,6 +48,7 @@ export const Home = () => {
             <div className="about-section-container">
                 <div className="about-section">
                     <div className="about-left">
+                        
                         <p>About Prevue</p>
                         <h3>Headline with USP related to how your product or service works</h3>
                         <button className="learn-more">Learn More</button>

@@ -34,17 +34,25 @@ export const Rentals = () => {
                     </div>
                     <Dropdown itemNumber={3} itemsArray={['Featured', 'Recent', 'Popular']} border='none'  />
                 </div>
-                <div className="catalogue">
+
+
+                <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-6 mx-auto" style={{width: '90%'}}  >
                 {Object.entries(rentalImagesMap).map(([rentalId, rentalData]) => (
-                    <Link to={`/rentals/${rentalId}`} key={rentalId} style={{ textDecoration: 'none', width:'33%' }}>
+                    
                     <RentalCard
                     key={rentalId}  
+                    type="rentals"
+                    id={rentalId}
                     address={rentalData.address}        
                     price={rentalData.price}
                     image={rentalData.images.length > 0 ? rentalData.images[0].url : 'default-image.png'}
                     width={'33%'}
+                    onHeartClick={() => {
+                        // Handle the heart click (e.g., add to favorites)
+                        console.log(`Rental ${rentalId} favorited!`);
+                      }}
                     />
-                    </Link>  
+                
                 ))}
 
                 </div>
