@@ -9,11 +9,8 @@ export const Restaurants = () => {
   const { restaurantImagesMap } = useGlobalState();
   const navigate = useNavigate();
 
-  const handleCardClick = (restaurantId) => {
 
-    navigate(`/restaurants/${restaurantId}`);
-    console.log('clicked')
-  };
+  
 
   return (
     <div >
@@ -36,16 +33,19 @@ export const Restaurants = () => {
           </div>
           <Dropdown itemNumber={3} itemsArray={['Featured', 'Recent', 'Popular']} border='none'/>
         </div>
-        <div className="catalogue" >
+
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 py-6 mx-auto" style={{width: '90%'}} >
           {Object.entries(restaurantImagesMap).map(([restaurantId, restaurantData]) => (
-             <Link to={`/restaurants/${restaurantId}`} key={restaurantId} style={{ textDecoration: 'none', width:'33%' }}>
+            
              <RestaurantCard
+              type="restaurants"
+               id={restaurantId}
                name={restaurantData.name}
                address={restaurantData.address}
                image={restaurantData.images.length > 0 ? restaurantData.images[0].url : '/default-image.png'}
               
              />
-           </Link>
+           
           ))}
         </div>
         
