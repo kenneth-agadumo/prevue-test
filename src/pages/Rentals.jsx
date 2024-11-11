@@ -44,7 +44,7 @@ export const Rentals = () => {
                     image={rentalData.images.length > 0 ? rentalData.images[0].url : 'default-image.png'}
                     width={'33%'}
                     />
-                    </Link>
+                    </Link>  
                 ))}
 
                 </div>
