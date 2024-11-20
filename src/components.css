@@ -1,5 +1,8 @@
 /* Date Picker */
 /* Main container of the calendar */
+.react-datepicker__header{
+  background-color: white;
+}
 .date-custom-input, .time-custom-input{
   font-size: 14px;
   font-weight: 500;
@@ -12,6 +15,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.react-datepicker__day--outside-month {
+  color: rgba(163, 38, 38, 0.3); /* Dim the text color */
+  pointer-events: none;      /* Make them non-interactive */
 }
 
 .react-datepicker {
@@ -105,6 +112,10 @@
   font-size: 14px; /* Font size for 12-hour format */
 }
 
+.react-datepicker__day--outside-month {
+  color: rgba(0, 0, 0, 0.3); /* Dim the text color */
+  pointer-events: none;      /* Make them non-interactive */
+}
 
 /* NAv */
 nav{
@@ -177,7 +188,7 @@ nav button{
 .display-card{
   /* background: #000; */
   width: fit-content;
-
+  height: 10%  ;
   padding: 0;
   box-sizing: border-box;
   overflow: hidden;

@@ -20,6 +20,8 @@ import "./App.css";
 import Lottie from "lottie-react";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
+import "react-datepicker/dist/react-datepicker.css";
+import './components.css'
 
 const imageSources = ["/hero-bg.png", "/prevue.svg", "/prevue.png"];
 

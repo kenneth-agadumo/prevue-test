@@ -78,7 +78,7 @@ export const ImageSlider = ({ images, tourLink }) => {
 
       {/* Conditionally render iframe or image */}
       {showIframe ? (
-        <iframe
+        <iframe 
           src={tourLink}
           style={iframeStyle}
           frameBorder="0"

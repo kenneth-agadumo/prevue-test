@@ -12,8 +12,8 @@ export const RentalCard = ({ image, name, address, price, note, type, id}) => {
    
   <div className="bg-white shadow-sm rounded-sm overflow-hidden">
      <Link to={`/${type}/${id}`}>
-      <div className=" w-full overflow-hidden">
-        <img src={image} alt={name} className="w-full  object-cover" />
+      <div className="w-full h-64 overflow-hidden rounded-sm flex justify-center items-center">
+        <img src={image} alt={name} className="w-full h-full object-cover" />
       </div>
     </Link>
     <div className="py-4">
@@ -37,8 +37,8 @@ export const RestaurantCard = ({ image, name, address, note, id, type}) => {
 
   <div className="bg-white shadow-sm rounded-sm overflow-hidden">
     <Link to={`/${type}/${id}`}>
-    <div className=" w-full overflow-hidden">
-      <img src={image} alt={name} className="w-full  object-cover" />
+    <div className=" w-full h-64 overflow-hidden rounded-sm flex justify-center items-center">
+      <img src={image} alt={name} className="w-full h-full object-cover" />
     </div>
     </Link>
     <div className="py-4">

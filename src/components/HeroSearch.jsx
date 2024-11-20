@@ -88,7 +88,7 @@ export const HeroSearch = () => {
                 />
             </div>
             <button 
-                className="hero-search-button justify-center grid items-center" 
+                className="hero-search-button justify-center grid items-center hover:bg-stone-900" 
                 onClick={handleSearch}>
                 <img src="search-white.svg" alt="Search" />
             </button>

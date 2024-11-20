@@ -1,11 +1,11 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 
-const HeartButton = () => {
+const HeartButton = ({size}) => {
   const [liked, setLiked] = useState(false);
 
   return (
-    <button 
+    <button  className={''}
     onDoubleClick={() => setLiked(!liked)} 
     
     >
@@ -14,7 +14,7 @@ const HeartButton = () => {
         viewBox="0 0 24 24"
         fill={liked ? '#f43f5e' : 'none'}
         stroke="currentColor"
-        className="w-5 h-5"
+        className= {size ? size : 'w-5 h-5'}
       >
         <path
           strokeLinecap="round"
