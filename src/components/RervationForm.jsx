@@ -2,7 +2,7 @@
 import React, { useState, forwardRef } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { format } from 'date-fns'; // Import date-fns for date formatting
+
 import '../components.css'
 import { ReactComponent as Clock } from '../assets/clock.svg';
 import { ReactComponent as Calendar  } from '../assets/calendar.svg';
@@ -49,7 +49,6 @@ const ReservationForm = () => {
   // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
-    alert(`Reservation set for ${startDate ? format(startDate, 'dd/MM/yyyy') : 'No date selected'} at ${selectedTime ? format(selectedTime, 'HH:mm') : 'No time selected'}`);
     // Handle the form submission logic here
   };
 
