@@ -10,10 +10,13 @@ export const Navbar = () => {
     const navRef = useRef(null); // Ref to track the navbar element
   
     // Array of paths where Navbar should be visible
-    const visiblePaths = ['/', '/rentals', '/restaurants', '/activities', '/restaurants/', '/rentals/'];
+    const visiblePaths = ['/rentals', '/restaurants', '/activities', '/restaurants/', '/rentals/'];
 
-    // Check if the current path matches any of the visible paths or if it matches the pattern /restaurants/:restaurantId
-    const isVisible = visiblePaths.some(path => location.pathname.startsWith(path));
+  // Check if the current path matches any of the visible paths or a pattern like /restaurants/:restaurantId
+  const isVisible = location.pathname === '/' || 
+                    visiblePaths.includes(location.pathname) || 
+                    /\/restaurants\/[^/]+$/.test(location.pathname) || 
+                    /\/rentals\/[^/]+$/.test(location.pathname);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -59,13 +62,13 @@ console.log(isActive)
                     <img src="/prevue.svg" alt="" className="logo-black" />
                     <img src="/X.svg" alt="" className="X" onClick={() => setIsActive(false)} />
                 </div> 
-                <ul  style={{color: location.pathname === '/' &&  {isActive} ? 'white' : 'black'}} >
+                <ul  style={{color: location.pathname === '/' &&  {isActive} ? 'white' : 'black', fontWeight:'500'}} >
                     <li style={{color: location.pathname == '/' && 'var(--primary-color)'}}><Link to="/">Home</Link></li>
                     <li style={{color: location.pathname == '/rentals' && 'var(--primary-color)'}}><Link to="/rentals">Shortlets</Link></li>
                     <li style={{color: location.pathname == '/restaurants' && 'var(--primary-color)'}}><Link to="/restaurants">Restaurants</Link></li>
                     <li style={{color: location.pathname == '/activities' && 'var(--primary-color)'}}><Link to="/activities">Activities</Link></li>
                 </ul>
-                <Link to='/login'> <button>Sign In</button> </Link>
+                <Link to='/login'> <button style={{fontWeight:'500', background: 'var(--primary-color)'}}>Sign In</button> </Link>
 
             </div>    
             

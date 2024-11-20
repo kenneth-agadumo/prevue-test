@@ -84,8 +84,8 @@ export const RestaurantModal = ({ isOpen, onClose }) => {
               </div>
               
               <div className='row2'>
-                <label htmlFor="virtuatTour">Virtual Tour Link</label>
-                <input type="text" name="virtualTour" value={formData.virtualTourLink} onChange={handleChange} placeholder='https://...' />
+                <label htmlFor="virtuatTourLink">Virtual Tour Link</label>
+                <input type="text" name="virtualTourLink" value={formData.virtualTourLink} onChange={handleChange} placeholder='https://...' />
               </div>
 
               <div className='row2' >

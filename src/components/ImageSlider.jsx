@@ -15,6 +15,60 @@ export const ImageSlider = ({ images, tourLink }) => {
   const toggleIframe = () => {
     setShowIframe(!showIframe);
   };
+  const sliderStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    width: '90%',
+    height: '523px',  // Ensure a fixed height for the slider
+    margin: 'auto',
+    borderRadius: '20px',
+  };
+  
+  const buttonStyle = {
+   
+    width: '40px',
+    height: '40px',
+    position: 'absolute',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    color: 'white',
+    border: 'none',
+    cursor: 'pointer',
+    padding: '10px',
+    zIndex: 1,
+    borderRadius: '50%',
+    display: showIframe ? 'none' : 'block',
+  };
+  
+  const imageStyle = {
+    width: '100%',
+    maxHeight: '500px',
+    objectFit: 'cover',
+  };
+  
+  const iframeStyle = {
+    width: '100%',
+    height: '100%', // Set iframe height to fill its parent container
+    borderRadius: '20px',
+  };
+  
+  const bottomButtonStyle = {
+    position: 'absolute',
+    bottom: '20px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    backgroundColor: 'white',
+    color: '#232324',
+    border: 'none',
+    padding: '10px 20px',
+    borderRadius: '20px',
+    cursor: 'pointer',
+    zIndex: 1,
+  };
+  
 
   return (
     <div style={sliderStyle}>
@@ -24,7 +78,7 @@ export const ImageSlider = ({ images, tourLink }) => {
 
       {/* Conditionally render iframe or image */}
       {showIframe ? (
-        <iframe
+        <iframe 
           src={tourLink}
           style={iframeStyle}
           frameBorder="0"
@@ -51,56 +105,5 @@ export const ImageSlider = ({ images, tourLink }) => {
   );
 };
 
-const sliderStyle = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  position: 'relative',
-  width: '90%',
-  height: '523px',  // Ensure a fixed height for the slider
-  margin: 'auto',
-  borderRadius: '20px',
-};
-
-const buttonStyle = {
-  width: '40px',
-  height: '40px',
-  position: 'absolute',
-  top: '50%',
-  transform: 'translateY(-50%)',
-  backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  color: 'white',
-  border: 'none',
-  cursor: 'pointer',
-  padding: '10px',
-  zIndex: 1,
-  borderRadius: '50%',
-};
-
-const imageStyle = {
-  width: '100%',
-  maxHeight: '500px',
-  objectFit: 'cover',
-};
-
-const iframeStyle = {
-  width: '100%',
-  height: '100%', // Set iframe height to fill its parent container
-  borderRadius: '20px',
-};
-
-const bottomButtonStyle = {
-  position: 'absolute',
-  bottom: '20px',
-  left: '50%',
-  transform: 'translateX(-50%)',
-  backgroundColor: 'white',
-  color: '#232324',
-  border: 'none',
-  padding: '10px 20px',
-  borderRadius: '20px',
-  cursor: 'pointer',
-  zIndex: 1,
-};
 
 export default ImageSlider;

@@ -38,7 +38,9 @@ p, input, label, button, span{
 button{
   cursor: pointer;
 }
-
+.react-datepicker__header{
+  background-color: white;
+}
 a{
 
   text-decoration: none;

@@ -2,72 +2,56 @@ import { useState } from "react";
 import Lottie from "lottie-react";
 import Heart from "../heart.json";
 import HeartButton from "./Like";
+import { Link } from "react-router-dom";
 
 
-export const RentalCard = ({ image, name, address, price, note }) => {
+export const RentalCard = ({ image, name, address, price, note, type, id}) => {
   
 
   return (
-    <div className="display-card ">
-      <div className="card-image">
-        <img src={image} alt=""  className="pics hidden sm:block"/>
-        
-      <div className="para">
-        {note}
+   
+  <div className="bg-white shadow-sm rounded-sm overflow-hidden">
+     <Link to={`/${type}/${id}`}>
+      <div className="w-full h-64 overflow-hidden rounded-sm flex justify-center items-center">
+        <img src={image} alt={name} className="w-full h-full object-cover" />
       </div>
-      </div>
-
-      <div className="card-address mt-4">
-        <span>{address}</span>
-      </div>
-
-      <div className="card-info-cont" style={{ marginTop: "" }}>
-        <div className="flex items-center space-x-2 ">
-        <img src="/bed.png" alt="" /> 
-          <span className="name text-sm text-slate-600 font-normal">
-            2 Bedrooms
-          </span>
-          <img src="/bath.png" alt="" />
-          <span className="name text-sm text-slate-600 font-normal ">
-            2 Baths
-          </span>
-          <img src="/ruler.png" alt="" />
-          <span className="name text-sm text-slate-600 font-normal">
-            1,200 sqft
-          </span>
+    </Link>
+    <div className="py-4">
+    <div className="flex justify-between">
+        <div>
+          <h3 className="text-lg font-semibold mb-2">{note}</h3>
+          <p className="text-gray-600">{address}</p>
+          <p className="text-gray-600">{price}</p>
         </div>
-        <div className="">
         <HeartButton/>
-        </div>
-        
-      </div>
-      <div className="card-price mt-4">
-        <span>₦{price}</span>
       </div>
     </div>
+  </div>
   );
 };
 
-export const RestaurantCard = ({ image, name, address, note }) => {
+export const RestaurantCard = ({ image, name, address, note, id, type}) => {
   
 
   return (
-    <div className="display-card">
-      <div className="card-image">
-        <img src={image} alt="" className="pics"/>
-        <div className="para">
-        {note}
-      </div>
-      </div>
-      <div className="card-info-cont">
-        <div className="rest-info">
-          <span className="name">{name}</span>
-          <span className="address text-slate-600 text-sm">{address}</span> 
-        </div>
-        <HeartButton/>
-       
-      </div>
-      <div className="card-address"></div>
+
+  <div className="bg-white shadow-sm rounded-sm overflow-hidden">
+    <Link to={`/${type}/${id}`}>
+    <div className=" w-full h-64 overflow-hidden rounded-sm flex justify-center items-center">
+      <img src={image} alt={name} className="w-full h-full object-cover" />
     </div>
+    </Link>
+    <div className="py-4">
+      <div className="flex justify-between">
+        <div className=" w-full">
+          <h3 className="text-lg font-semibold mb-2 ">{name}</h3>
+          <p className="text-gray-600">{address}</p>
+        </div>
+        <HeartButton 
+        />
+      </div>
+    </div>
+  </div>
+
   );
 };

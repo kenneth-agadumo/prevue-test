@@ -1,17 +1,20 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 
-const HeartButton = () => {
+const HeartButton = ({size}) => {
   const [liked, setLiked] = useState(false);
 
   return (
-    <button onClick={() => setLiked(!liked)} className="p-2 ">
+    <button  className={''}
+    onDoubleClick={() => setLiked(!liked)} 
+    
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
-        fill={liked ? 'black' : 'none'}
+        fill={liked ? '#f43f5e' : 'none'}
         stroke="currentColor"
-        className="w-6 h-6"
+        className= {size ? size : 'w-5 h-5'}
       >
         <path
           strokeLinecap="round"

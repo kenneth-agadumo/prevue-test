@@ -10,6 +10,7 @@ import Heart from  '../heart.json'
 import Footer from "../components/Footer";
 import { RestaurantCard } from "../components/Card";
 import '../layout.css'
+import HeartButton from "../components/Like";
 
 export const RestaurantPage = () => {
   const { restaurantId } = useParams();
@@ -29,18 +30,9 @@ export const RestaurantPage = () => {
   const imageUrls = restaurantData?.images?.map(image => image.url);
    return(
     <div >
-            <div className="slider">
-                <ImageSlider images={imageUrls} />
+            <div className="slider pt-6">
+                <ImageSlider images={imageUrls} tourLink={restaurantData.virtualTourLink}/>
             </div>
-            
-        {/* <div className="restaurant-detail">
-        <h1>{restaurantData.name}</h1>
-        <p>{restaurantData.address}</p>
-        {restaurantData.images.map((image, index) => (
-            <img key={index} src={image.url} alt={restaurantData.name} />
-        ))}
-        <p>{restaurantData.description}</p>
-        </div> */}
         <div className="description">
             <div className="description-left">
                 <div className="description-header">
@@ -50,9 +42,11 @@ export const RestaurantPage = () => {
                             <p>{restaurantData.address}</p>
                         </div>
                     
-                        <div className="like-share" style={{boxSizing:'border-box', overflow: 'hidden'}}>
-                            {!iconclicked ? <img className="like" style={{width: '25px', padding:'15px'}} src ='/unlike.svg' alt="" onDoubleClick={handleDoubleClick} /> : <Lottie style={{width:'60px'}} animationData={Heart} loop={false} onDoubleClick={handleDoubleClick} />}
-                            <img className="share"  src ='/share.svg' alt="" onDoubleClick={handleDoubleClick} /> 
+                        <div className="flex justify-center al" style={{boxSizing:'border-box', overflow: 'hidden'}}>
+                            <HeartButton size={'w-6 h-6'}/>
+                            <button>
+                                <img className="w-12 h-12"  src ='/share.svg' alt="" onDoubleClick={handleDoubleClick} /> 
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -70,7 +64,7 @@ export const RestaurantPage = () => {
             </div>
             <div className="description-right">
                 <div className="dright-col-1">
-                    <h4 style={{color: "#50504F;"}}>Contact Information</h4>
+                    <h4 style={{color: "#50504F"}}>Contact Information</h4>
                     <div className="col1"> 
                         <p>Phone Number</p>
                         <p>+234 81 2345 6789</p>
@@ -108,7 +102,7 @@ export const RestaurantPage = () => {
                     </div>
                 </div>
                 <div className="dright-col-2">
-                    <h4 style={{color: "#50504F;"}}>Make Reservation</h4>
+                    <h4 style={{color: "#50504F"}}>Make Reservation</h4>
                     <ReservationForm />
                 </div>
             </div>

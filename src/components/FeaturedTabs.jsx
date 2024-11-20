@@ -18,12 +18,13 @@ export const FeaturedTabs = () => {
 
   return (
     <div className="featured-tabs">
+      <h3 className="featured-header">Browse Featured Properties</h3>
       <div className="tab-row">
         <div
           className={`tab-item  ${selectedTab === "rentals" ? "active" : ""}`}
           onClick={() => handleTabChange("rentals")}
         >
-          Rentals
+          Shortlets
         </div>
         <div
           className={`tab-item  ${
@@ -55,19 +56,21 @@ export const RentalSection = () => {
     <div className="tab-content-container">
       <div className="tab-content">
         <p className="tab-content-text  ">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          varius enim in eros elementum tristique. Duis cursus, mi quis viverra
-          ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.
+        Discover the perfect property. From short lets to long-term 
+        rentals and dream homes for sale, 
+        we offer a diverse range of housing options. 
+        Immerse yourself in virtual tours, calculate expenses, 
+        and stay updated with the latest listings.
         </p>
         <div>
           <div className="">
-            <Dropdown
+            {/* <Dropdown
               itemNumber={3}
               placeholder={"All Types"}
               itemsArray={["Type 1", "Type 2"]}
               border={"none"}
               isSearchable={false}
-            />
+            /> */}
           </div>
 
           <div className="content-item grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
@@ -106,19 +109,19 @@ export const RestaurantSection = () => {
     <div className="tab-content-container">
       <div className="tab-content">
         <p className="tab-content-text  ">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          varius enim in eros elementum tristique. Duis cursus, mi quis viverra
-          ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.
+        Discover the perfect property. From short lets to long-term rentals
+         and dream homes for sale, we offer a diverse range of housing options. 
+        Immerse yourself in virtual tours, calculate expenses, and stay updated with the latest listings.
         </p>
         <div>
           <div className="">
-            <Dropdown
+            {/* <Dropdown
               itemNumber={3}
               placeholder={"All Types"}
               itemsArray={["Type 1", "Type 2"]}
               border={"none"}
               isSearchable={false}
-            />
+            /> */}
           </div>
 
           <div className="content-item grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
@@ -159,13 +162,13 @@ export const ActivitiesSection = () => {
           ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.
         </p>
         <div className="content-row">
-          <Dropdown
+          {/* <Dropdown
             itemNumber={3}
             placeholder={"All Types"}
             itemsArray={["Type 1", "Type 2"]}
             border={"none"}
             isSearchable={false}
-          />
+          /> */}
           <div className="content-item">
             <Lottie style={{ width: "250px" }} animationData={ComingSoon} />
           </div>
