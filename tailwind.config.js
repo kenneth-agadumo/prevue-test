@@ -6,6 +6,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        customBlue: {
+          light: '#85d7ff',
+          DEFAULT: '#1fb6ff',
+          dark: '#009eeb',
+        },
+        primary : '#F2A20E',
+        grey : '#666665',
+      },
       keyframes: {
         slideInLeft: {
           '0%': { transform: 'translateX(-100%)', opacity: 0 },

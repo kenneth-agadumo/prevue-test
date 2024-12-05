@@ -1,254 +1,230 @@
-import React from 'react';
-import {  signOut, onAuthStateChanged} from 'firebase/auth';
-import {  useNavigate, Link } from 'react-router-dom';
-import {auth, db, storage} from '../firebaseConfig.jsx'
+// Import React and necessary hooks
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+
+// Firebase imports
+import { auth, db, storage } from '../firebaseConfig.jsx';
+import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc, getDocs, query, where, collection } from 'firebase/firestore';
-import { SegmentedControl, Table } from '@radix-ui/themes';
-import { useState, useEffect } from 'react';
-import {  ref, uploadBytes, getDownloadURL} from 'firebase/storage'
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+
+// Global state and custom components
 import { useGlobalState } from '../Contexts/GlobalStateContext.jsx';
 import { PropertiesTab } from '../components/PropertiesTab.jsx';
 import { SettingsTab } from '../components/SettingsTab.jsx';
-import '../dashboard.css'
 
+// Styles
+// import '../dashboard.css';
+
+// Main Dashboard Component
 export const Dashboard = () => {
-  const {userData, setUserData, loading, setLoading, userImageUrl} = useGlobalState();
-  const [documentID, setDocumentID] = useState('')
- 
+  // Destructure state and setters from global context
+  const { userData, setUserData, loading, setLoading, userImageUrl } = useGlobalState();
+
+  // State variables
+  const [documentID, setDocumentID] = useState('');
   const [imageUrl, setImageUrl] = useState();
-  const imageRef = ref(storage, `/userImages/${auth?.currentUser?.uid}/image-1`)
+  const [dropdownActive, setDropdownActive] = useState(false);
+  const [selectedTab, setSelectedTab] = useState('account'); // Default tab is 'account'
 
-  const [ dropdownActive, setDropdownActive] = useState(true);
+  // Firebase reference
+  const userRef = collection(db, 'users');
   const navigate = useNavigate();
-  
 
-  const userRef = collection(db, 'users')
+  // Reference for user profile image in Firebase Storage
+  const imageRef = ref(storage, `/userImages/${auth?.currentUser?.uid}/image-1`);
 
+  // Logout handler
   const handleLogout = async () => {
     await signOut(auth);
     navigate('/login'); // Redirect to Login after logout
   };
 
-  useEffect(() => {
-    const getActiveUser = async () =>{
-      const unsubscribe = onAuthStateChanged(auth, async (user) => {
-        if (!user) {
-
-           // User is not signed in, handle accordingly
-           navigate('/login');
-           setUserData(null); // Clear user data when user signs out
-           setLoading(false);
-            
-            
-        } else {
-          const q = query(userRef, where("uid", "==", user.uid));
-          getDocs(q)
-          .then(snapshot => {
-            snapshot.forEach(doc => {
-              const documentId = doc.id;
-              setDocumentID(documentId)
-              console.log("Document ID:", documentId);
-            });
-          })
-          .catch(error => {
-            console.error("Error getting documents:", error);
-          });
-          
-          try {
-              const querySnapshot = await getDocs(q);
-              
-              querySnapshot.forEach((doc) => {
-                
-                  const user = doc.data(); // Access document data using the data() method
-                 
-                  setUserData(user);
-              });
-          } catch (error) {
-              console.error("Error fetching user data:", error);
-              // Handle error (e.g., show an error message to the user)
-          }
-            
-      }
-      setDropdownActive(false)
-    });
-            
-        return () => unsubscribe();
-    }
-
-
-    getActiveUser()
-    
-  }, []);
-   
-
-  const [selectedTab, setSelectedTab] = useState('account');
-
+  // Handle tab change
   const handleTabChange = (newValue) => {
     setSelectedTab(newValue);
   };
- 
-  console.log
+
+  // Fetch active user data on component mount
+  useEffect(() => {
+    const getActiveUser = async () => {
+      const unsubscribe = onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+          // User is not signed in, redirect to login
+          navigate('/login');
+          setUserData(null);
+          setLoading(false);
+        } else {
+          // Query the user data from Firestore
+          const q = query(userRef, where('uid', '==', user.uid));
+          try {
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+              const documentId = doc.id;
+              setDocumentID(documentId); // Store document ID
+              setUserData(doc.data());  // Update user data in global state
+            });
+          } catch (error) {
+            console.error('Error fetching user data:', error);
+          }
+        }
+      });
+
+      return () => unsubscribe(); // Cleanup subscription
+    };
+
+    getActiveUser();
+  }, [navigate, setUserData, setLoading]);
 
   return (
-    <div className='dashboard'>
-      
-      
+    <div className="dashboard">
+      {/* Sidebar Navigation */}
       <div className="dashboard-nav-section">
-       
-        <div className="dashboard-navbar ">
-
+        <div className="dashboard-navbar">
+          {/* Navigation Items */}
           <div className="nav-items">
-            <div   className={`dashboard-navbar-item ${selectedTab === 'account' ? 'active' : ''}`}value="inbox" onClick={() => handleTabChange('account')} >
-              <img src="/dashboard.svg" alt="" className='prof-img'/> <span className="nav-item-text">Dashboard</span> 
+            <div
+              className={`dashboard-navbar-item ${selectedTab === 'account' ? 'active' : ''}`}
+              onClick={() => handleTabChange('account')}
+            >
+              <img src="/dashboard.svg" alt="" className="prof-img" />
+              <span className="nav-item-text">Dashboard</span>
             </div>
-            <div className={`dashboard-navbar-item ${selectedTab === 'reservations' ? 'active' : ''}`} value="drafts" onClick={() => handleTabChange('reservations')} >
-            <img src="/stack.svg" alt="" className='res-img'/> <span className="nav-item-text">Reservations</span> 
+            <div
+              className={`dashboard-navbar-item ${selectedTab === 'reservations' ? 'active' : ''}`}
+              onClick={() => handleTabChange('reservations')}
+            >
+              <img src="/stack.svg" alt="" className="res-img" />
+              <span className="nav-item-text">Reservations</span>
             </div>
-            <div className={`dashboard-navbar-item ${selectedTab === 'properties' ? 'active' : ''}`} value="sent" onClick={() => handleTabChange('properties')} >
-            <img src="/prop.svg" alt="" className='res-img' />  <span className="nav-item-text">Properties</span> 
+            <div
+              className={`dashboard-navbar-item ${selectedTab === 'properties' ? 'active' : ''}`}
+              onClick={() => handleTabChange('properties')}
+            >
+              <img src="/prop.svg" alt="" className="res-img" />
+              <span className="nav-item-text">Properties</span>
             </div>
           </div>
 
+          {/* Bottom Section */}
           <div className="dashboard-nav-bottom">
-            <div className={`dashboard-navbar-item ${selectedTab === 'settings' ? 'active' : ''}`} value="settings" onClick={() => handleTabChange('settings')} >
-            <img src="/gears.svg" alt=""  className='prof-img'/> Settings
+            {/* Settings */}
+            <div
+              className={`dashboard-navbar-item ${selectedTab === 'settings' ? 'active' : ''}`}
+              onClick={() => handleTabChange('settings')}
+            >
+              <img src="/gears.svg" alt="" className="prof-img" /> Settings
             </div>
             <div className="bb"></div>
-            <div className="logout " >
-              
-              <div style={{width:'80%', boxSizing:'border-box'}} onClick={handleLogout}>
-                <small style={{display:'block', fontWeight:'600', cursor:'pointer'}}>Logout</small>
-                <small style={{minWidth:'fit-content'}}> {userData?.email}</small>
+            {/* Logout */}
+            <div className="logout" onClick={handleLogout}>
+              <div style={{ width: '80%', boxSizing: 'border-box' }}>
+                <small style={{ display: 'block', fontWeight: '600', cursor: 'pointer' }}>Logout</small>
+                <small style={{ minWidth: 'fit-content' }}>{userData?.email}</small>
               </div>
-              
-              <img src="/logout.svg" alt=""  style={{cursor:'pointer'}}/>
+              <img src="/logout.svg" alt="" style={{ cursor: 'pointer' }} />
             </div>
-         </div>
+          </div>
         </div>
-
       </div>
 
+      {/* Main Content Section */}
       <div className="dashboard-body-section">
-        <div className="top-row" style={{ display : selectedTab == 'settings' &&  'none'}}>
+        {/* Top Bar */}
+        <div className="top-row" style={{ display: selectedTab === 'settings' && 'none' }}>
           <div className="search-bar-column">
-            <img className='search-icon' src="/search.svg" alt="" />
-            <input className='search-input' type="text"placeholder='Search' />
+            <img className="search-icon" src="/search.svg" alt="" />
+            <input className="search-input" type="text" placeholder="Search" />
           </div>
           <div className="account-column">
             <div className="notification">
-              <img src="/bell.svg" alt="" style={{width:'17px'}}/>
+              <img src="/bell.svg" alt="" style={{ width: '17px' }} />
             </div>
             <div className="user-dropdown">
-            <img src={userImageUrl} alt=""  style={{width:'50px', height:'50px', borderRadius:'50%'}}/>
+              <img
+                src={userImageUrl}
+                alt=""
+                style={{ width: '50px', height: '50px', borderRadius: '50%' }}
+              />
               <div className="info">
-                <small className='dash-name'>{userData?.fullName.split(' ')[0]}</small>
-                <small className='dash-name'>{userData?.fullName.split(' ')[1]}</small>
+                <small className="dash-name">{userData?.fullName.split(' ')[0]}</small>
+                <small className="dash-name">{userData?.fullName.split(' ')[1]}</small>
               </div>
-              <img src="/down-arrow.svg" alt=""  style={{width:'17px'}} onClick={() => setDropdownActive(!dropdownActive)} />
-              
+              <img
+                src="/down-arrow.svg"
+                alt=""
+                style={{ width: '17px' }}
+                onClick={() => setDropdownActive(!dropdownActive)}
+              />
+              {/* Dropdown Menu */}
               <div className={`dropdown-content ${dropdownActive && 'active'}`}>
-                <span onClick={() =>  setSelectedTab('settings')}>My Profile</span>
-                <hr style={{background: '#f2f4f7', height:'2px', border:'none'}}/>
-                <Link to={'/login'} style={{color:'var(--primary-color)'}}>Logout</Link>
+                <span onClick={() => setSelectedTab('settings')}>My Profile</span>
+                <hr style={{ background: '#f2f4f7', height: '2px', border: 'none' }} />
+                <Link to={'/login'} style={{ color: 'var(--primary-color)' }}>
+                  Logout
+                </Link>
               </div>
             </div>
           </div>
         </div>
 
         {/* Render content based on selected tab */}
-        {selectedTab === 'account' && <AccountContent loading = {loading} userData={userData} />}
+        {selectedTab === 'account' && <AccountContent userData={userData} />}
         {selectedTab === 'reservations' && <PropertyContent />}
-        {selectedTab === 'properties' && <PropertiesTab userData ={userData}  />} 
-        {selectedTab === 'settings' && <SettingsTab userData={userData} documentID={documentID}/>} 
+        {selectedTab === 'properties' && <PropertiesTab userData={userData} />}
+        {selectedTab === 'settings' && <SettingsTab userData={userData} documentID={documentID} />}
       </div>
     </div>
   );
 };
 
-
-// Sample content components
-function AccountContent(props) {
-  // const data = props.userData
-  // const email = data.email
+// Account Tab Content
+function AccountContent({ userData }) {
   return (
-    <div className='account-tab'>
+    <div className="account-tab">
       <div className="title">
-        <h2 style={{fontWeight:'500'}}>Welcome back, {props.userData?.fullName.charAt(0).toUpperCase() + props.userData?.fullName.slice(1)}</h2>
-        <p>Track, mangage and forecast your customer and orders data</p>
+        <h2>Welcome back, {userData?.fullName}</h2>
+        <p>Track, manage, and forecast your customer and orders data</p>
       </div>
+      {/* Statistics */}
       <div className="data-row">
-
-        <div className="reservation-data card">
-
-          <div className='row1'>
-            <h4 style={{fontWeight:'500'}}>Total Reservations</h4>
-            <img src="/Dropdown.svg" alt="" />
-          </div>
-
-          <div className='row-2'>
-            <p className='big-number'>12</p>
-          </div>
-
-          <div className='row-3'>
-            <div className="change-rate">
-              <img src="/green-arrow-up.svg" alt="" /><p> <span style={{color:'green'}}>40%</span> vs last month</p>
-            </div>
-          </div>
-
-        </div>
-
-
-        <div className="restaurant-data card">
-
-          <div className='row1'>
-            <h4 style={{fontWeight:'500'}}>Total Restaurants</h4>
-            <img src="/Dropdown.svg" alt="" />
-          </div>
-
-          <div className='row-2'>
-            <p className='big-number'>8</p>
-          </div>
-
-          <div className='row-3'>
-            <div className="change-rate">
-              <img src="/green-arrow-up.svg" alt="" /><p> <span style={{color:'green'}}>40%</span> vs last month</p>
-            </div>
-          </div>
-
-        </div>
-
-        <div className="entry-data card">
-
-        <div className='row1'>
-            <h4 style={{fontWeight:'500'}}>Total Entries</h4>
-            <img src="/Dropdown.svg" alt="" />
-          </div>
-
-          <div className='row-2'>
-            <p className='big-number'>20</p>
-          </div>
-
-          <div className='row-3'>
-            <div className="change-rate">
-              <img src="/green-arrow-up.svg" alt="" /><p> <span style={{color:'green'}}>20%</span> vs last month</p>
-            </div>
-          </div>
-
-        </div>
-
+        {/* Reservation Data */}
+        <Card title="Total Reservations" value="12" change="40%" />
+        {/* Restaurant Data */}
+        <Card title="Total Restaurants" value="8" change="40%" />
+        {/* Entry Data */}
+        <Card title="Total Entries" value="20" change="20%" />
       </div>
     </div>
-    
-  )
+  );
 }
 
-function RestaurantContent() {
- 
+// Generic Card Component
+function Card({ title, value, change }) {
+  return (
+    <div className="card">
+      <div className="row1">
+        <h4>{title}</h4>
+        <img src="/Dropdown.svg" alt="" />
+      </div>
+      <div className="row-2">
+        <p className="big-number">{value}</p>
+      </div>
+      <div className="row-3">
+        <div className="change-rate">
+          <img src="/green-arrow-up.svg" alt="" />
+          <p>
+            <span style={{ color: 'green' }}>{change}</span> vs last month
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 }
 
+// Placeholder for Property Content
 function PropertyContent() {
   return <div>View Reservations</div>;
 }
-
 
 export default Dashboard;
