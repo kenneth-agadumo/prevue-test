@@ -9,11 +9,11 @@ const DateRangePicker = () => {
     const [startDate, endDate] = dateRange;
 
   return (
-    <div style={{ padding: "20px", textAlign: "center" }}>
-    <h2>Date Range Picker</h2>
+    <div className="w-full " style={{ padding: "20px", textAlign: "center",  }}>
+    
 
     {/* Date Picker with range selection */}
-    <div style={{ marginBottom: "20px" }}>
+    <div className="" style={{ marginBottom: "20px" }}>
       <DatePicker
         selected={startDate}
         onChange={(update) => setDateRange(update)} // Updates the date range
@@ -21,20 +21,21 @@ const DateRangePicker = () => {
         endDate={endDate}
         selectsRange
         placeholderText="Select Date Range"
-        className="date-picker"
+        className="date-picker "
         
         inline
       />
     </div>
 
     {/* Display Selected Dates */}
-    <div style={{ marginTop: "20px" }}>
-      <div style={{ marginBottom: "10px" }}>
-        <strong>Start Date:</strong> {startDate ? startDate.toDateString() : "Not Selected"}
+    <div className="w-full flex border border-neutral-300 rounded-md" style={{}}>
+      <div className="box-border p-1">
+        <p >CHECK-IN </p> <br /> {startDate ? startDate.toDateString() : "--/--/--"}
       </div>
-      <div>
-        <strong>End Date:</strong> {endDate ? endDate.toDateString() : "Not Selected"}
+      <div className="box-border">
+        <p>Check-OUT</p> {endDate ? endDate.toDateString() : "--/--/--"}
       </div>
+
     </div>
   </div>
 );

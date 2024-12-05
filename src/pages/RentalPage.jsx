@@ -108,7 +108,15 @@ export const RentalPage = () => {
                     </div>
                 </div>
                 <div className="dright-col-2">
-                    <h4 style={{color: "#50504F;"}}>Make Reservation</h4>
+                    <h4 className="text-primary text-lg font-normal">Cost Estimation</h4>
+                    <div className="w-full flex justify-between">
+                        <p className="text-grey">Cost/Night</p>
+                        <p className="text-grey">$1000000</p>
+                    </div>
+                    <div className="w-full flex justify-between text-neutral-600">
+                        <p className="text-grey">Caution Fee</p>
+                        <p className="text-grey">$10000</p>
+                    </div>
                     <DateRangePicker />
                     <ReservationForm />
                 </div>

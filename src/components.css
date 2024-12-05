@@ -26,12 +26,45 @@
   border: 1px solid #ddd; /* Border around the calendar */
   border-radius: 4px; /* Rounded corners */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  width: 100%;
+  border-color: #D0D5DD;
+  position: static;
+}
+.react-datepicker__navigation{
+  position: static;
 }
 
 /* Header of the calendar */
 .react-datepicker__header {
   background-color: #007bff; /* Background color of the header */
   color: #fff; /* Text color in the header */
+}
+
+.react-datepicker__month-container {
+  float: inherit !important;
+  
+
+}
+
+.react-datepicker__month{
+  display: flex;
+  flex-direction: column;
+  align-items: normal;
+}
+
+.react-datepicker__day-names{
+  display: flex;
+  justify-content: space-around;
+}
+
+.react-datepicker__day{
+  font-size: 14px;
+  width: 34px;
+}
+
+.react-datepicker__week {
+  display: flex;
+  justify-content: space-between;
 }
 
 /* Single day cell in the calendar */
