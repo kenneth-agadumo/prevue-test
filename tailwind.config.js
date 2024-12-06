@@ -13,7 +13,9 @@ module.exports = {
           dark: '#009eeb',
         },
         primary : '#F2A20E',
+        primarylight : '#FFF5EA',
         grey : '#666665',
+        dashboard_grey : '#EFF0F3'
       },
       keyframes: {
         slideInLeft: {
