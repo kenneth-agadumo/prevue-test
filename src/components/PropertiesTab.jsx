@@ -112,7 +112,7 @@ export const PropertiesTab = () => {
   const handlePreviousPage = (page, pageSetter) =>
     page > 1 && pageSetter(page - 1);
 
-  if (loading) return <div>Loading properties...</div>;
+  if (loading) return <div>Loading reservations...</div>;
 
   const renderTable = (title, properties, currentPage, totalPages, pageSetter) => (
     <div className="mt-2">
