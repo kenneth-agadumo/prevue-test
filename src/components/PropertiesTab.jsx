@@ -1,194 +1,204 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { auth, db } from "../firebaseConfig";
-import {collection, getDocs, doc, onSnapshot,deleteDoc } from 'firebase/firestore'
-import RestaurantModal from './RestaurantModal.jsx';
-import RentalModal from './RentalModal.jsx';
-import { SegmentedControl, Table } from '@radix-ui/themes';
-import { useGlobalState } from "../Contexts/GlobalStateContext.jsx";
+import React, { useEffect, useState } from "react";
+import { HiOutlineDotsVertical } from "react-icons/hi";
 
-export const PropertiesTab = (props) =>{
-    
-    const [selectedTab, setSelectedTab] = useState('restaurants');
-    const handleTabChange = (newValue) => {
-      setSelectedTab(newValue);
+export const PropertiesTab = () => {
+  const [pendingProperties, setPendingProperties] = useState([]);
+  const [approvedProperties, setApprovedProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const [pendingPage, setPendingPage] = useState(1);
+  const [approvedPage, setApprovedPage] = useState(1);
+
+  const propertiesPerPage = 2; // Number of properties per page
+
+  const mockPendingProperties = [
+    {
+      id: "1",
+      name: "Ocean View Villa",
+      customerName: "John Doe",
+      type: "Villa",
+      dateAdded: "2024-01-15",
+      reservationPeriod: "2024-02-01 to 2024-02-15",
+    },
+    {
+      id: "2",
+      name: "Mountain Cabin",
+      customerName: "Jane Smith",
+      type: "Cabin",
+      dateAdded: "2024-02-01",
+      reservationPeriod: "2024-03-10 to 2024-03-20",
+    },
+    {
+      id: "3",
+      name: "Downtown Apartment",
+      customerName: "Emily Brown",
+      type: "Apartment",
+      dateAdded: "2024-03-05",
+      reservationPeriod: "2024-04-15 to 2024-04-25",
+    },
+    {
+      id: "4",
+      name: "Luxury Penthouse",
+      customerName: "Michael Green",
+      type: "Penthouse",
+      dateAdded: "2024-04-12",
+      reservationPeriod: "2024-05-01 to 2024-05-10",
+    },
+  ];
+
+  const mockApprovedProperties = [
+    {
+      id: "5",
+      name: "Suburban House",
+      customerName: "Alice Johnson",
+      type: "House",
+      dateAdded: "2024-05-20",
+      reservationPeriod: "2024-06-01 to 2024-06-15",
+    },
+    {
+      id: "6",
+      name: "Beachfront Condo",
+      customerName: "Robert Williams",
+      type: "Condo",
+      dateAdded: "2024-06-18",
+      reservationPeriod: "2024-07-05 to 2024-07-20",
+    },
+    {
+      id: "7",
+      name: "Farmhouse",
+      customerName: "Olivia Martinez",
+      type: "Farmhouse",
+      dateAdded: "2024-07-25",
+      reservationPeriod: "2024-08-01 to 2024-08-10",
+    },
+    {
+      id: "8",
+      name: "Lake House",
+      customerName: "David Lee",
+      type: "House",
+      dateAdded: "2024-08-02",
+      reservationPeriod: "2024-09-01 to 2024-09-15",
+    },
+  ];
+
+  useEffect(() => {
+    const fetchProperties = () => {
+      setLoading(true);
+      setTimeout(() => {
+        setPendingProperties(mockPendingProperties);
+        setApprovedProperties(mockApprovedProperties);
+        setLoading(false);
+      }, 1000);
     };
-   
 
-    
-   
-    return (
-    <div>
-      <div className="tab-bar">
+    fetchProperties();
+  }, []);
 
-      <div className={`properties-tab-item ${selectedTab === 'rentals' ? 'active' : ''}`} value="" onClick={() => handleTabChange('rentals')} >
-        <span> Rentals </span>
-      </div>
-
-      <div   className={`properties-tab-item ${selectedTab === 'restaurants' ? 'active' : ''}`}value="" onClick={() => handleTabChange('restaurants')} >
-        <span> Restaurants </span>
-      </div>
-
-      
-      </div>
-            
-      {selectedTab === 'restaurants' && <RestaurantDashboard/> }
-      {selectedTab === 'rentals' &&  <RentalDashboard/> }
-
-
-      
-    </div>
-  )
-}
-
-
-
-export const RentalDashboard = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const {  rentalImagesMap} = useGlobalState()
-
- const openModal = () => {
-    setIsModalOpen(true);
+  // Pagination Calculations
+  const paginate = (data, page) => {
+    const startIndex = (page - 1) * propertiesPerPage;
+    return data.slice(startIndex, startIndex + propertiesPerPage);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-  
-  const {rentals, setRentals} = useGlobalState()
-    
-  const rentalRef = collection(db, 'rentals')
+  const pendingTotalPages = Math.ceil(pendingProperties.length / propertiesPerPage);
+  const approvedTotalPages = Math.ceil(approvedProperties.length / propertiesPerPage);
 
+  const currentPending = paginate(pendingProperties, pendingPage);
+  const currentApproved = paginate(approvedProperties, approvedPage);
 
-  
+  const handlePageChange = (pageSetter, page) => pageSetter(page);
+  const handleNextPage = (page, totalPages, pageSetter) =>
+    page < totalPages && pageSetter(page + 1);
+  const handlePreviousPage = (page, pageSetter) =>
+    page > 1 && pageSetter(page - 1);
 
-  const deleteRental = async (id) =>{
-    const rentalDoc = doc(db,'rentals', id)
-    await deleteDoc(rentalDoc)
-  }
+  if (loading) return <div>Loading properties...</div>;
 
-  console.log
-
-console.log(isModalOpen)
-  
-  return(
-    <div>
-      <div className="dash-section restaurant-record " >
-        <div className="top-row">
-          <h3>Rentals Records</h3>
-            <button className='add-button' onClick={openModal} ><img src="/plus.svg" alt="" className='plus' />Add New</button>
-          
-          <RentalModal isOpen={isModalOpen} onClose={closeModal} />
-        </div>
-        
-        <div className=" restaurant-list "> 
-          
-          <Table.Root>
-  <Table.Header>
-    <Table.Row>
-      <Table.ColumnHeaderCell> Description</Table.ColumnHeaderCell>
-      <Table.ColumnHeaderCell>Location </Table.ColumnHeaderCell>
-      <Table.ColumnHeaderCell>Price</Table.ColumnHeaderCell>
-      <Table.ColumnHeaderCell>Contact Number</Table.ColumnHeaderCell>
-      <Table.ColumnHeaderCell>Action</Table.ColumnHeaderCell>
-    </Table.Row>
-  </Table.Header>
-
-  <Table.Body>
-    {Object.entries(rentalImagesMap).map(([rentalId, rental]) =>(
-      
-            
-            <Table.Row key={rentalId}>
-            <Table.RowHeaderCell>{rental?.rooms}</Table.RowHeaderCell>
-            <Table.Cell>{rental?.address}</Table.Cell>
-            <Table.Cell>{rental?.price}</Table.Cell>
-            <Table.Cell>{rental?.phoneNumber}</Table.Cell>
-            <Table.Cell>
-            <button onClick={() =>  deleteRental(rentalId)}>Delete</button>
-            </Table.Cell>
-          </Table.Row>
-
-          ))}
-    
-  </Table.Body>
-</Table.Root>
-
-
-
-
-        </div>
-        
+  const renderTable = (title, properties, currentPage, totalPages, pageSetter) => (
+    <div className="mt-2">
+      <h3 className="text-lg font-semibold mb-2">{title}</h3>
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white border border-gray-300 shadow-md rounded-md table-auto">
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Property Name</th>
+              <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Customer Name</th>
+              <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Property Type</th>
+              <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Date Added</th>
+              <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Reservation Period</th>
+              <th className="py-3 px-4"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {properties.map((property) => (
+              <tr key={property.id} className="hover:bg-gray-50">
+                <td className="py-3 px-4 border-b border-gray-200 text-xs">{property.name}</td>
+                <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs">
+                  {property.customerName}
+                </td>
+                <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs">
+                  {property.type}
+                </td>
+                <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs">
+                  {property.dateAdded}
+                </td>
+                <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs">
+                  {property.reservationPeriod}
+                </td>
+                <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs">
+                  <HiOutlineDotsVertical />
+                </td>
+              </tr>
+            ))}
+            {/* Pagination Row */}
+            <tr>
+              <td colSpan="6" className="py-3 px-4">
+                <div className="flex items-center justify-between">
+                  <button
+                    onClick={() => handlePreviousPage(currentPage, pageSetter)}
+                    disabled={currentPage === 1}
+                    className="px-4 py-2 text-xs border rounded-full hover:bg-gray-100 disabled:opacity-50"
+                  >
+                    Previous
+                  </button>
+                  <div className="flex space-x-2">
+                    {Array.from({ length: totalPages }, (_, index) => (
+                      <button
+                        key={index + 1}
+                        onClick={() => handlePageChange(pageSetter, index + 1)}
+                        className={`px-3 py-1 text-sm border rounded-full ${
+                          currentPage === index + 1
+                            ? "bg-green-100 text-green-600"
+                            : "hover:bg-gray-100"
+                        }`}
+                      >
+                        {index + 1}
+                      </button>
+                    ))}
+                  </div>
+                  <button
+                    onClick={() => handleNextPage(currentPage, totalPages, pageSetter)}
+                    disabled={currentPage === totalPages}
+                    className="px-4 py-2 text-xs border rounded-full hover:bg-gray-100 disabled:opacity-50"
+                  >
+                    Next
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-  )
-}
+  );
 
-export const RestaurantDashboard = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const { restaurantImagesMap, rentalImagesMap} = useGlobalState()
-
- 
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-  
-  
-    
-  const deleteRestaurant = async (id) =>{
-    const restaurantDoc = doc(db,'restaurants', id)
-    await deleteDoc(restaurantDoc)
-  }
-
-  return(
-    <div>
-      <div className="dash-section restaurant-record " >
-        <div className="top-row">
-          <h3>Restaurants Records</h3>
-            <button className='add-button' onClick={openModal} ><img src="/plus.svg" alt="" className='plus' />Add New</button>
-          
-          <RestaurantModal isOpen={isModalOpen} onClose={closeModal} />
-        </div>
-        
-        <div className=" restaurant-list "> 
-        <Table.Root>
-  <Table.Header>
-    <Table.Row>
-      <Table.ColumnHeaderCell> Name</Table.ColumnHeaderCell>
-      <Table.ColumnHeaderCell>Location </Table.ColumnHeaderCell>
-      <Table.ColumnHeaderCell>Contact Number</Table.ColumnHeaderCell>
-      <Table.ColumnHeaderCell>Action</Table.ColumnHeaderCell>
-    </Table.Row>
-  </Table.Header>
-
-  <Table.Body>
-    
-  {Object.entries(restaurantImagesMap).map(([restaurantId, restaurant,]) => (
-          
-          <Table.Row>
-            <Link to={`/restaurants/${restaurantId}`} key={restaurantId} style={{ textDecoration: 'none', width:'33%' }}>
-              <Table.RowHeaderCell>{restaurant?.name}</Table.RowHeaderCell>
-            </Link>
-            <Table.Cell>{restaurant?.address}</Table.Cell>
-            <Table.Cell>{restaurant?.contactNumber}</Table.Cell>
-            <Table.Cell>
-            <button onClick={() =>  deleteRestaurant(restaurantId)}>Delete</button>
-            </Table.Cell>
-          </Table.Row>
-       
-          ))}
-
-    
-  </Table.Body>
-</Table.Root>
-        
-        </div>
-      </div>
+  return (
+    <div className="p-8">
+      <h2 className="text-2xl font-semibold">Reservations</h2>
+      {renderTable("Pending", currentPending, pendingPage, pendingTotalPages, setPendingPage)}
+      {renderTable("Approved", currentApproved, approvedPage, approvedTotalPages, setApprovedPage)}
     </div>
-  )
-}
+  );
+};
+
 
