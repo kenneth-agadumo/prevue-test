@@ -13,6 +13,9 @@ import { useGlobalState } from '../Contexts/GlobalStateContext.jsx';
 import { PropertiesTab } from '../components/PropertiesTab.jsx';
 import { SettingsTab } from '../components/SettingsTab.jsx';
 import { Overview, Properties, Reservation, Settings } from '../components/DashboardIcons.jsx';
+import { PropertiesContent } from '../components/PropertyContent.jsx';
+import { TourCapture } from '../components/TourCapture.jsx';
+
 
 // Styles
 // import '../dashboard.css';
@@ -171,12 +174,12 @@ export const Dashboard = () => {
 
           {/* Main Content Section */}
           <div className="  h-full bg-white basis-3/4">
-          <h1>adasd</h1>
+          <h1></h1>
 
             {/* Render content based on selected tab */}
             {selectedTab === 'account' && <AccountContent userData={userData} />}
-            {selectedTab === 'reservations' && <PropertyContent />}
-            {selectedTab === 'properties' && <PropertiesTab userData={userData} />}
+            {selectedTab === 'properties' && <PropertyContent />}
+            {selectedTab === 'reservations' && <PropertiesTab userData={userData} />}
             {selectedTab === 'settings' && <SettingsTab userData={userData} documentID={documentID} />}
           </div>
               
@@ -203,6 +206,7 @@ function AccountContent({ userData }) {
         {/* Entry Data */}
         <Card title="Total Entries" value="20" change="20%" />
       </div>
+      <TourCapture/>
     </div>
   );
 }
@@ -232,7 +236,7 @@ function Card({ title, value, change }) {
 
 // Placeholder for Property Content
 function PropertyContent() {
-  return <div>View Reservations</div>;
+  return <div><PropertiesContent/></div>;
 }
 
 export default Dashboard;
