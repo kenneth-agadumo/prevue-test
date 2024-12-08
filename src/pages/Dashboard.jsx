@@ -120,7 +120,7 @@ export const Dashboard = () => {
           </div>
         </header>
 
-      <div className='flex flex-row gap-2 h-full'>
+      <div className='flex flex-row overflow-auto gap-2 h-full'>
            {/* Sidebar Navigation */}
           <div className="bg-white basis-1/4 h-full p-3">
             <div className=" bg-white h-full flex flex-col justify-between py-4">
