@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import DashboardFilter from "./DashboardFilter";
 import DashboardSearch from "./DashboardSearch";
 import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
+import DropdownFilter from "./DropdownFilter";
 
 import { HiOutlineDotsVertical } from "react-icons/hi";
 
@@ -66,7 +67,7 @@ export const PropertiesContent = () => {
       <div className="overflow-x-auto bg-white border rounded-xl">
         <div className="flex items-center justify-between pt-2 px-3">
           <div><DashboardSearch /></div>
-          <div><DashboardFilter /></div>
+          <div className="flex gap-2"><DropdownFilter/><DashboardFilter /> </div>
         </div>
         <table className="min-w-full bg-white border shadow-md rounded-md table-auto">
           <thead className="bg-gray-100">

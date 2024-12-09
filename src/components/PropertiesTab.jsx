@@ -3,6 +3,7 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import DashboardFilter from "./DashboardFilter";
 import DashboardSearch from "./DashboardSearch";
 import { GrLinkNext, GrLinkPrevious } from "react-icons/gr"
+import DropdownFilter from "./DropdownFilter";
 
 export const PropertiesTab = () => {
   const [pendingProperties, setPendingProperties] = useState([]);
@@ -123,7 +124,7 @@ export const PropertiesTab = () => {
       <div className="overflow-x-auto bg-white border rounded-xl">
       <div className="flex items-center justify-between pt-2 px-3">
           <div><DashboardSearch /></div>
-          <div><DashboardFilter /></div>
+          <div className="flex gap-2"><DropdownFilter/><DashboardFilter /> </div>
         </div>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border shadow-md rounded-md table-auto">
@@ -165,9 +166,10 @@ export const PropertiesTab = () => {
                   <button
                     onClick={() => handlePreviousPage(currentPage, pageSetter)}
                     disabled={currentPage === 1}
-                    className="px-4 py-2 text-xs border rounded-full hover:bg-gray-100 disabled:opacity-50"
+                    className="flex flex-items space-x-1 px-4 py-2 text-xs border rounded-full hover:bg-gray-100 disabled:opacity-50"
                   >
-                    Previous
+                    <GrLinkPrevious className="text-gray-500 text-lg text-xs" />
+                    <span className="text-gray-500 text-xs">Previous</span>
                   </button>
                   <div className="flex space-x-2">
                     {Array.from({ length: totalPages }, (_, index) => (
@@ -187,9 +189,10 @@ export const PropertiesTab = () => {
                   <button
                     onClick={() => handleNextPage(currentPage, totalPages, pageSetter)}
                     disabled={currentPage === totalPages}
-                    className="px-4 py-2 text-xs border rounded-full hover:bg-gray-100 disabled:opacity-50"
+                    className="flex flex-items space-x-1 px-4 py-2 text-xs border rounded-full hover:bg-gray-100 disabled:opacity-50"
                   >
-                    Next
+                    <span className="text-gray-500 text-xs">Next</span>
+                    <GrLinkNext className="text-gray-500 text-lg text-xs" />
                   </button>
                 </div>
               </td>
