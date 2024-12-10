@@ -74,8 +74,8 @@ export const PropertiesContent = () => {
             <tr>
               <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Property Name</th>
               <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Property Type</th>
-              <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Date Added</th>
-              <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">No. of Reservations</th>
+              <th className="py-3 px-4 hidden sm:table-cell text-left text-gray-500 font-medium text-xs">Date Added</th>
+              <th className="py-3 px-4 hidden lg:table-cell text-left text-gray-500 font-medium text-xs">No. of Reservations</th>
               <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs"></th>
             </tr>
           </thead>
@@ -84,8 +84,8 @@ export const PropertiesContent = () => {
               <tr key={property.id} className="hover:bg-gray-50">
                 <td className="py-3 px-4 border-b border-gray-200 text-xs">{property.name}</td>
                 <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs">{property.type}</td>
-                <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs">{property.dateAdded}</td>
-                <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs">{property.reservations}</td>
+                <td className="py-3 px-4 hidden sm:table-cell border-b border-gray-200 text-gray-500 text-xs">{property.dateAdded}</td>
+                <td className="py-3 px-4 hidden lg:table-cell border-b border-gray-200 text-gray-500 text-xs">{property.reservations}</td>
                 <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs"><HiOutlineDotsVertical/></td>
               </tr>
             ))}
