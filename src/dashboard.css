@@ -232,16 +232,30 @@
 
 
 .data-row{
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr;
     justify-content: space-between;
-    gap: 24px;
+    gap: 16px;
 
 }
 
+
+@media (min-width: 768px) {
+    .data-row {
+      grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+    }
+  }
+  
+
+  @media (min-width: 1024px) {
+    .data-row {
+      grid-template-columns: repeat(3, 1fr); /* 3 columns on large screens */
+    }
+  }
+
 .card {
     
-    width: 30%;
-    height: px;
+    height: 140px;
     box-sizing: border-box;
     padding: 16px 24px;
     

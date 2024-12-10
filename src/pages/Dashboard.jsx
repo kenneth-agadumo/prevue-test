@@ -85,7 +85,7 @@ export const Dashboard = () => {
       {/* Dashboard Header */}
          <header className=" col-span-12 flex justify-between items-center py-7 pl-5 pr-9 h-2 ">
           <div>
-            <img src="/prevue-orange.svg" alt="" />
+            <Link to=""><img src="/prevue-orange.svg" alt="" /></Link>
           </div>
           
           <div className="account-column">
@@ -131,21 +131,21 @@ export const Dashboard = () => {
                   onClick={() => handleTabChange('account')}
                 >
                   <Overview color = {selectedTab === 'account' ? '#E99D43' : '#3A3A39'}/>
-                  <span className= {` text-gray-600 font-medium  ${selectedTab === 'account' && 'text-primary'}`}>Overview</span>
+                  <span className= {`hidden sm:block text-gray-600 font-medium  ${selectedTab === 'account' && 'text-primary'}`}>Overview</span>
                 </div>
                 <div
                   className={`px-4 py-3 flex gap-2  rounded  hover:bg-primarylight ${selectedTab === 'reservations' && 'bg-primarylight'}`}
                   onClick={() => handleTabChange('reservations')}
                 >
                   <Reservation color = {selectedTab === 'reservations' ? '#E99D43' : '#3A3A39'} />
-                  <span className= {` text-gray-600 font-medium  ${selectedTab === 'reservations' && 'text-primary'}`}>Reservations</span>
+                  <span className= {`hidden sm:block text-gray-600 font-medium  ${selectedTab === 'reservations' && 'text-primary'}`}>Reservations</span>
                 </div>
                 <div
                   className={`px-4 py-3 flex gap-2  rounded  hover:bg-primarylight ${selectedTab === 'properties' && 'bg-primarylight'}`}
                   onClick={() => handleTabChange('properties')}
                 >
                   <Properties color = {selectedTab === 'properties' ? '#E99D43' : '#3A3A39'}/>
-                  <span className= {` text-gray-600 font-medium  ${selectedTab === 'properties' && 'text-primary'}`}>Properties</span>
+                  <span className= {`hidden sm:block text-gray-600 font-medium  ${selectedTab === 'properties' && 'text-primary'}`}>Properties</span>
                 </div>
               </div>
 
@@ -157,14 +157,14 @@ export const Dashboard = () => {
                   onClick={() => handleTabChange('settings')}
                 >
                  <Settings color = {selectedTab === 'settings' ? '#E99D43' : '#3A3A39'} /> 
-                  <span className= {` text-gray-600 font-medium  ${selectedTab === 'settings' && 'text-primary'}`}> Settings</span>
+                  <span className= {`hidden sm:block text-gray-600 font-medium  ${selectedTab === 'settings' && 'text-primary'}`}> Settings</span>
                 </div>
                 <div className="bb w-full"></div>
                 {/* Logout */}
                 <div className="px-4 py-5 flex rounded hover:bg-primarylight" onClick={handleLogout}>
                   <div style={{ width: '80%', boxSizing: 'border-box' }}>
-                    <p className='text-sm' style={{ display: 'block', fontWeight: '600', cursor: 'pointer' }}>Logout</p>
-                    <p className='text-sm' style={{ minWidth: 'fit-content' }}>{userData?.email}</p>
+                    <p className='hidden sm:block text-sm' style={{ display: 'block', fontWeight: '600', cursor: 'pointer' }}>Logout</p>
+                    <p className='hidden sm:block text-sm' style={{ minWidth: 'fit-content' }}>{userData?.email}</p>
                   </div>
                   <img src="/logout.svg" alt="" style={{ cursor: 'pointer' }} />
                 </div>
@@ -173,7 +173,7 @@ export const Dashboard = () => {
           </div>
 
           {/* Main Content Section */}
-          <div className="  h-full bg-white basis-3/4">
+          <div className="overflow-auto  h-full bg-white basis-3/4">
           <h1></h1>
 
             {/* Render content based on selected tab */}
@@ -198,7 +198,7 @@ function AccountContent({ userData }) {
         <p className='text-sm text-gray-500'>Showing data for the last 30 days</p>
       </div>
       {/* Statistics */}
-      <div className="data-row pl-8 pr-8 ">
+      <div className="data-row pl-8 pr-8  ">
         {/* Reservation Data */}
         <Card title="Total Reservations" value="12" change="40%" />
         {/* Restaurant Data */}

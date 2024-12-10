@@ -149,23 +149,23 @@ export const MyProfile = (props) => {
   
   return(
     <>
-    <div className="personal-info">
+    <div className="personal-info ">
 
       <div className="info-header">
         <div>
-          <h3>Personal information</h3>
-          <p>Update your photo and other personal details here</p>
+          <h3 className="pb-1">Personal information</h3>
+          <p className="text-sm text-gray-500">Update your photo and other personal details here</p>
         </div>
         <hr style={{background: '#eaecf0', height:'1px', border:'none'}} />
       </div>
 
       <div className="full-name">
         <div className="flex-row">  
-          <label htmlFor="">Name</label>
+          <label className="text-sm text-gray-700" htmlFor="">Name</label>
           <div style={{display: 'flex', gap:'24px'}}>
             <input type="text"id="first-name" value={firstName} onChange={(e) => handleInputChange(e)}  className="profile-input"/>
             <input type="text" id="last-name" value={lastName} onChange={(e) => handleInputChange(e)} className="profile-input"/>
-            <span style={{cursor:'pointer'}}>edit</span>
+            <span className="text-sm text-gray-700" style={{cursor:'pointer'}}>edit</span>
           </div>
         </div>
         <hr style={{background: '#eaecf0', height:'1px', border:'none' }} />
@@ -173,14 +173,14 @@ export const MyProfile = (props) => {
       </div>
       <div className="email">
         <div className="flex-row">  
-          <label htmlFor="">Email</label>
+          <label className="text-sm text-gray-700" htmlFor="">Email</label>
           <input type="email"id="email"  value={email} 
           onChange={(e) => {
             setEmailChanged(true)
             handleInputChange(e)
           }} 
           className="profile-input"/>
-          <span style={{cursor:'pointer'}}>edit</span>
+          <span className="text-sm text-gray-700" style={{cursor:'pointer'}}>edit</span>
 
         </div>
 
@@ -188,9 +188,9 @@ export const MyProfile = (props) => {
       </div>
       <div className="phone-number">
         <div className="flex-row">
-          <label htmlFor="">Phone </label>
+          <label className="text-sm text-gray-700" htmlFor="">Phone </label>
           <input type="text"id="phone-number" value={phoneNumber} onChange={(e) => handleInputChange(e)} className="profile-input"/>
-          <span style={{cursor:'pointer'}}>edit</span>
+          <span className="text-sm text-gray-700" style={{cursor:'pointer'}}>edit</span>
     
         </div>
         <hr style={{background: '#eaecf0', height:'1px', border:'none' }} />
@@ -198,8 +198,8 @@ export const MyProfile = (props) => {
       </div>
 
       <div className="user-photo">
-        <h4>Your Photo</h4>
-        <p>This will be displayed on your profile</p>
+        <h4 className="text-sm text-gray-700">Your Photo</h4>
+        <p className="text-sm text-gray-500">This will be displayed on your profile</p>
         <div className="upload-photo">
         <img src={imageUrl} alt=""  style={{width:'100px', height:'100px', borderRadius:'50%'}}/>
         <ImageDrop imageNumber={1} onImagesChange={handleImagesChange} width={'80%'} height={'100px'} />

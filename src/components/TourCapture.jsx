@@ -64,8 +64,8 @@ export const TourCapture = () => {
               <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Property Name</th>
               <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Property Type</th>
               <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Phone Number</th>
-              <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Date of Request</th>
-              <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Preferred Tour Date</th>
+              <th className="py-3 px-4 hidden sm:table-cell text-left text-gray-500 font-medium text-xs">Date of Request</th>
+              <th className="py-3 px-4 hidden lg:table-cell text-left text-gray-500 font-medium text-xs">Preferred Tour Date</th>
               <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs"></th>
             </tr>
           </thead>
@@ -75,8 +75,8 @@ export const TourCapture = () => {
                 <td className="py-3 px-4 border-b border-gray-200 text-xs">{tour.name}</td>
                 <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs">{tour.type}</td>
                 <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs">{tour.phone}</td>
-                <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs">{tour.requestDate}</td>
-                <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs">{tour.tourDate}</td>
+                <td className="py-3 px-4 hidden sm:table-cell border-b border-gray-200 text-gray-500 text-xs">{tour.requestDate}</td>
+                <td className="py-3 px-4 hidden lg:table-cell border-b border-gray-200 text-gray-500 text-xs">{tour.tourDate}</td>
                 <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs">
                   <HiOutlineDotsVertical />
                 </td>
