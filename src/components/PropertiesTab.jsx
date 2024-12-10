@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { HiOutlineDotsVertical } from "react-icons/hi";
+import DashboardFilter from "./DashboardFilter";
+import DashboardSearch from "./DashboardSearch";
+import { GrLinkNext, GrLinkPrevious } from "react-icons/gr"
+import DropdownFilter from "./DropdownFilter";
 
 export const PropertiesTab = () => {
   const [pendingProperties, setPendingProperties] = useState([]);
@@ -9,7 +13,7 @@ export const PropertiesTab = () => {
   const [pendingPage, setPendingPage] = useState(1);
   const [approvedPage, setApprovedPage] = useState(1);
 
-  const propertiesPerPage = 2; // Number of properties per page
+  const propertiesPerPage = 1; // Number of properties per page
 
   const mockPendingProperties = [
     {
@@ -116,9 +120,14 @@ export const PropertiesTab = () => {
 
   const renderTable = (title, properties, currentPage, totalPages, pageSetter) => (
     <div className="mt-2">
-      <h3 className="text-lg font-semibold mb-2">{title}</h3>
+      <h3 className="text-lg font-weight-700 mb-2">{title}</h3>
+      <div className="overflow-x-auto bg-white border rounded-xl">
+      <div className="flex items-center justify-between pt-2 px-3">
+          <div><DashboardSearch /></div>
+          <div className="flex gap-2"><DropdownFilter/><DashboardFilter /> </div>
+        </div>
       <div className="overflow-x-auto">
-        <table className="min-w-full bg-white border border-gray-300 shadow-md rounded-md table-auto">
+        <table className="min-w-full bg-white border shadow-md rounded-md table-auto">
           <thead className="bg-gray-100">
             <tr>
               <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Property Name</th>
@@ -157,9 +166,10 @@ export const PropertiesTab = () => {
                   <button
                     onClick={() => handlePreviousPage(currentPage, pageSetter)}
                     disabled={currentPage === 1}
-                    className="px-4 py-2 text-xs border rounded-full hover:bg-gray-100 disabled:opacity-50"
+                    className="flex flex-items space-x-1 px-4 py-2 text-xs border rounded-full hover:bg-gray-100 disabled:opacity-50"
                   >
-                    Previous
+                    <GrLinkPrevious className="text-gray-500 text-lg text-xs" />
+                    <span className="text-gray-500 text-xs">Previous</span>
                   </button>
                   <div className="flex space-x-2">
                     {Array.from({ length: totalPages }, (_, index) => (
@@ -179,9 +189,10 @@ export const PropertiesTab = () => {
                   <button
                     onClick={() => handleNextPage(currentPage, totalPages, pageSetter)}
                     disabled={currentPage === totalPages}
-                    className="px-4 py-2 text-xs border rounded-full hover:bg-gray-100 disabled:opacity-50"
+                    className="flex flex-items space-x-1 px-4 py-2 text-xs border rounded-full hover:bg-gray-100 disabled:opacity-50"
                   >
-                    Next
+                    <span className="text-gray-500 text-xs">Next</span>
+                    <GrLinkNext className="text-gray-500 text-lg text-xs" />
                   </button>
                 </div>
               </td>
@@ -189,12 +200,13 @@ export const PropertiesTab = () => {
           </tbody>
         </table>
       </div>
+      </div>
     </div>
   );
 
   return (
     <div className="p-8">
-      <h2 className="text-2xl font-semibold">Reservations</h2>
+      <h2 className="text-xl font-weight-700">Reservations</h2>
       {renderTable("Pending", currentPending, pendingPage, pendingTotalPages, setPendingPage)}
       {renderTable("Approved", currentApproved, approvedPage, approvedTotalPages, setApprovedPage)}
     </div>

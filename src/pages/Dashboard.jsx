@@ -120,7 +120,7 @@ export const Dashboard = () => {
           </div>
         </header>
 
-      <div className='flex flex-row gap-2 h-full'>
+      <div className='flex flex-row overflow-auto gap-2 h-full'>
            {/* Sidebar Navigation */}
           <div className="bg-white basis-1/4 h-full p-3">
             <div className=" bg-white h-full flex flex-col justify-between py-4">
@@ -193,12 +193,12 @@ export const Dashboard = () => {
 function AccountContent({ userData }) {
   return (
     <div className="account-tab">
-      <div className="title">
+      <div className="title pl-7 pt-2">
         <h2>Welcome back, {userData?.fullName}</h2>
-        <p>Track, manage, and forecast your customer and orders data</p>
+        <p className='text-sm text-gray-500'>Showing data for the last 30 days</p>
       </div>
       {/* Statistics */}
-      <div className="data-row">
+      <div className="data-row pl-8 pr-8 ">
         {/* Reservation Data */}
         <Card title="Total Reservations" value="12" change="40%" />
         {/* Restaurant Data */}

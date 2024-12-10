@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react";
+import DashboardFilter from "./DashboardFilter";
+import DashboardSearch from "./DashboardSearch";
+import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
+import DropdownFilter from "./DropdownFilter";
 
 import { HiOutlineDotsVertical } from "react-icons/hi";
 
@@ -6,7 +10,7 @@ export const PropertiesContent = () => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const propertiesPerPage = 8; // Number of properties per page (updated to 8)
+  const propertiesPerPage = 7; // Number of properties per page (updated to 8)
 
   // mock properties data to ensure 16 properties (2 pages with 8 properties each)
   const mockProperties = [
@@ -52,17 +56,20 @@ export const PropertiesContent = () => {
   if (!properties.length) return <div>No properties found.</div>;
 
   return (
-    <div className="p-8 ">
+    <div className="p-8 overflow-hidden ">
       <div>
-       <h2 className="text-2xl font-bold mb-1"> Properties</h2>
-        <p className="text-gray-500 text-xs mb-3">showing data for the last 30 days</p>
+       <h2 className="text-xl font-weight-700 mb-1"> Properties</h2>
+        <p className="text-gray-500 text-sm mb-3">showing data for the last 30 days</p>
 
       </div>
-      
-       
-      
+        
       <div className="overflow-x-auto  ">
-        <table className="min-w-full bg-white border border-gray-300 shadow-md rounded-md table-auto">
+      <div className="overflow-x-auto bg-white border rounded-xl">
+        <div className="flex items-center justify-between pt-2 px-3">
+          <div><DashboardSearch /></div>
+          <div className="flex gap-2"><DropdownFilter/><DashboardFilter /> </div>
+        </div>
+        <table className="min-w-full bg-white border shadow-md rounded-md table-auto">
           <thead className="bg-gray-100">
             <tr>
               <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Property Name</th>
@@ -91,37 +98,44 @@ export const PropertiesContent = () => {
                   <button
                     onClick={handlePreviousPage}
                     disabled={currentPage === 1}
-                    className={`px-4 py-2 text-xs border border-gray-300 rounded-full ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-100"}`}
+                    className={`flex items-center space-x-1 px-4 py-2 text-xs border border-gray-300 rounded-full ${
+                      currentPage === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-100"
+                    }`}
                   >
-                    Previous
+                    <GrLinkPrevious className="text-gray-500 text-lg text-xs" />
+                    <span className="text-gray-500 text-xs">Previous</span>
                   </button>
-
-                  {/* Page Numbers */}
+                  {/* Pagination */}
                   <div className="flex space-x-2">
                     {Array.from({ length: totalPages }, (_, index) => (
                       <button
                         key={index + 1}
                         onClick={() => handlePageChange(index + 1)}
-                        className={`px-3 py-1 text-sm border rounded-full ${currentPage === index + 1 ? "bg-green-100 text-green-300" : "hover:bg-gray-100"}`}
+                        className={`px-3 py-1 text-xs border rounded-full ${
+                          currentPage === index + 1 ? "bg-green-100 text-green-600" : "hover:bg-gray-100"
+                        }`}
                       >
                         {index + 1}
                       </button>
                     ))}
                   </div>
-
                   {/* Next Button */}
                   <button
                     onClick={handleNextPage}
                     disabled={currentPage === totalPages}
-                    className={`px-4 py-2 text-xs border border-gray-300 rounded-full ${currentPage === totalPages ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-100"}`}
+                    className={`flex items-center space-x-1 px-4 py-2 text-xs border border-gray-300 rounded-full ${
+                      currentPage === totalPages ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-100"
+                    }`}
                   >
-                    Next
+                    <span className="text-gray-500 text-xs">Next</span>
+                    <GrLinkNext className="text-gray-500 text-lg text-xs" />
                   </button>
                 </div>
               </td>
             </tr>
           </tbody>
         </table>
+      </div>
       </div>
     </div>
   );

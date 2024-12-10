@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { HiOutlineDotsVertical } from "react-icons/hi";
+import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
+import DashboardSearch from "./DashboardSearch";
+import DashboardFilter from "./DashboardFilter";
 
 export const TourCapture = () => {
   const [tours, setTours] = useState([]);
@@ -47,25 +50,16 @@ export const TourCapture = () => {
 
   return (
     <div className="p-8">
-      <div>
-        <h2 className="text-2xl font-bold mb-1">Tour Capture</h2>
-      </div>
-
-      {/* Search Input */}
-      <div className="mb-4">
-        <input
-          type="text"
-          placeholder="Search tours..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-64 p-4 border border-gray-300 rounded-md text-sm"
-        />
-      </div>
-
-      {/* Table */}
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white border border-gray-300 shadow-md rounded-md table-auto">
-          <thead className="bg-gray-100">
+      <div className="overflow-x-auto bg-white border rounded-xl">
+        <div>
+          <h2 className="text-lg font-weight-700 mb-1 px-3 pt-3">Tour capture requests</h2>
+        </div>
+        <div className="flex items-center justify-between pt-4 px-3">
+          <DashboardSearch />
+          <DashboardFilter />
+        </div>
+        <table className="min-w-full bg-white border shadow-md rounded-md table-auto">
+          <thead className="bg-gray-100 border">
             <tr>
               <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Property Name</th>
               <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Property Type</th>
@@ -88,25 +82,27 @@ export const TourCapture = () => {
                 </td>
               </tr>
             ))}
-            {/* Pagination Row */}
             <tr>
               <td colSpan="6" className="py-2 px-4 border-t border-gray-200">
                 <div className="flex items-center justify-between">
+                  {/* Previous Button */}
                   <button
                     onClick={handlePreviousPage}
                     disabled={currentPage === 1}
-                    className={`px-4 py-2 text-xs border border-gray-300 rounded-full ${
+                    className={`flex items-center space-x-1 px-4 py-2 text-xs border border-gray-300 rounded-full ${
                       currentPage === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-100"
                     }`}
                   >
-                    Previous
+                    <GrLinkPrevious className="text-gray-500 text-lg text-xs" />
+                    <span className="text-gray-500 text-xs">Previous</span>
                   </button>
+                  {/* Pagination */}
                   <div className="flex space-x-2">
                     {Array.from({ length: totalPages }, (_, index) => (
                       <button
                         key={index + 1}
                         onClick={() => handlePageChange(index + 1)}
-                        className={`px-3 py-1 text-sm border rounded-full ${
+                        className={`px-3 py-1 text-xs border rounded-full ${
                           currentPage === index + 1 ? "bg-green-100 text-green-600" : "hover:bg-gray-100"
                         }`}
                       >
@@ -114,14 +110,16 @@ export const TourCapture = () => {
                       </button>
                     ))}
                   </div>
+                  {/* Next Button */}
                   <button
                     onClick={handleNextPage}
                     disabled={currentPage === totalPages}
-                    className={`px-4 py-2 text-xs border border-gray-300 rounded-full ${
+                    className={`flex items-center space-x-1 px-4 py-2 text-xs border border-gray-300 rounded-full ${
                       currentPage === totalPages ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-100"
                     }`}
                   >
-                    Next
+                    <span className="text-gray-500 text-xs">Next</span>
+                    <GrLinkNext className="text-gray-500 text-lg text-xs" />
                   </button>
                 </div>
               </td>
