@@ -195,7 +195,9 @@ function AccountContent({ userData }) {
     <div className="account-tab">
       <div className="title pl-7 pt-2">
         <h2>Welcome back, {userData?.fullName}</h2>
-        <p className='text-sm text-gray-500'>Showing data for the last 30 days</p>
+        <p className="text-gray-500 text-sm mb-3">
+         Showing data for the last<span className="text-orange-400 text-sm border-b-2 border-orange-400"> 30 days</span>
+       </p>
       </div>
       {/* Statistics */}
       <div className="data-row pl-8 pr-8  ">

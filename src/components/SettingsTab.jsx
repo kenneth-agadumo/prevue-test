@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { auth, db, storage } from "../firebaseConfig";
 import {collection, getDocs, doc, onSnapshot,deleteDoc, updateDoc } from 'firebase/firestore'
 import { updateEmail, updatePassword, sendPasswordResetEmail } from "firebase/auth";
-import RestaurantModal from './RestaurantModal.jsx';
+import RestaurantModal from './RestaurantModalCopy.jsx';
 import RentalModal from './RentalModal.jsx';
 import { SegmentedControl, Table } from '@radix-ui/themes';
 import {ImageDrop} from './ImageDrop.jsx'
