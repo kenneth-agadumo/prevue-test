@@ -16,6 +16,7 @@ export const PropertiesTab = () => {
   const [selectedReservation, setSelectedReservation] = useState(null); // Track the selected reservation
   const [showSidePanel, setShowSidePanel] = useState(false); // Toggle the side panel visibility
 
+  
   const propertiesPerPage = 2; // Number of properties per page
 
   const mockPendingProperties = [
@@ -259,7 +260,7 @@ export const PropertiesTab = () => {
       <button onClick={handleApproved} className="px-10 py-2 bg-green-100 text-green-500 rounded-3xl">Approve</button>
       <button onClick={handleDecline} className="px-10 py-2 bg-red-100 text-red-500 rounded-3xl">Decline</button>
     </div>
-    <button onClick={handleCloseSidePanel} className="absolute top-2 right-2 text-2xl text-gray-700">×</button>
+    <button onClick={handleCloseSidePanel} className="absolute top-2 right-2 text-2xl">×</button>
   </div>
 )}
 

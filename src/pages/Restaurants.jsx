@@ -37,6 +37,7 @@ export const Restaurants = () => {
         <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 py-6 mx-auto" style={{width: '90%'}} >
           {Object.entries(restaurantImagesMap).map(([restaurantId, restaurantData]) => (
             
+             // eslint-disable-next-line react/jsx-key
              <RestaurantCard
               type="restaurants"
                id={restaurantId}

@@ -4,7 +4,7 @@ import DashboardSearch from "./DashboardSearch";
 import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
 import DropdownFilter from "./DropdownFilter";
 import { HiOutlineDotsVertical } from "react-icons/hi";
-import RestaurantModal from "./RestaurantModalCopy";
+import RestaurantModal from "./RestaurantModal";
 import AddPropertyButton from "./AddProperty";
 
 export const PropertiesContent = () => {
@@ -84,7 +84,7 @@ export const PropertiesContent = () => {
     <div className="p-8 overflow-hidden">
       <div>
         <h2 className="text-xl font-weight-700 mb-1">Properties</h2>
-        <p className="text-gray-500 text-sm mb-3">
+        <p className="text-gray-500 text-sm mb-2">
           Showing data for the last<span className="text-orange-400 text-sm border-b-2 border-orange-400"> 30 days</span>
         </p>
         <div className="flex flex-row-reverse mb-2"> <AddPropertyButton /></div>

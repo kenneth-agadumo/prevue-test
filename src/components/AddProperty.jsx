@@ -3,7 +3,7 @@ import { GoPlus } from "react-icons/go";
 import { AiOutlineHome } from "react-icons/ai"; // Home icon for Shortlet
 import { RiCupLine } from "react-icons/ri"; // Cup icon for Restaurant
 import { IoClose } from "react-icons/io5"; // Close icon
-import RestaurantModal from './RestaurantModalCopy'; // Import Restaurant Modal
+import RestaurantModal from './RestaurantModal'; // Import Restaurant Modal
 import ShortletModal from './ShortletModal';     // Import Shortlet Modal
 
 const AddPropertyButton = () => {
