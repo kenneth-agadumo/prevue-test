@@ -314,7 +314,7 @@ p, input, label{
     width: 50%;
     min-height: 80vh;
     background-color: #fff;
-    padding: 15px 12px;
+    padding: 12px 12px;
     border-radius: 8px;
     box-sizing: border-box;
     overflow: hidden;
@@ -322,11 +322,11 @@ p, input, label{
 
 }
   .modal-content input{
-    width: 90%;
+    width: 70%;
     border: 1px solid #D0D5DD;
-    padding: 10px 12px;
+    padding: 18px 12px;
     border-radius: 5px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
 
   .modal-row1{
@@ -339,7 +339,7 @@ p, input, label{
   
   /* Close button */
   .close img {
-    width: 12px;
+
     cursor: pointer;
 
   }
@@ -358,7 +358,8 @@ p, input, label{
   }
 
   .button-row{
-    width: 95%;
+    
+    width: 70%;
    margin: 16px 0;
     display: flex;
     gap: 12px;

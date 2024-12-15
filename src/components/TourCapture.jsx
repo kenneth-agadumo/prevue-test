@@ -8,7 +8,7 @@ export const TourCapture = () => {
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState(""); // State for the search term
   const toursPerPage = 2;
 
   const mockTours = [
@@ -33,6 +33,7 @@ export const TourCapture = () => {
     fetchTours();
   }, []);
 
+  // Filter tours based on searchTerm
   const filteredTours = tours.filter((tour) =>
     tour.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -55,7 +56,8 @@ export const TourCapture = () => {
           <h2 className="text-lg font-weight-700 mb-1 px-3 pt-3">Tour capture requests</h2>
         </div>
         <div className="flex items-center justify-between pt-4 px-3">
-          <DashboardSearch />
+          {/* Pass setSearchTerm as a prop to the DashboardSearch component */}
+          <DashboardSearch onSearch={setSearchTerm} />
           <DashboardFilter />
         </div>
         <table className="min-w-full bg-white border shadow-md rounded-md table-auto">
@@ -85,7 +87,6 @@ export const TourCapture = () => {
             <tr>
               <td colSpan="6" className="py-2 px-4 border-t border-gray-200">
                 <div className="flex items-center justify-between">
-                  {/* Previous Button */}
                   <button
                     onClick={handlePreviousPage}
                     disabled={currentPage === 1}
@@ -96,7 +97,6 @@ export const TourCapture = () => {
                     <GrLinkPrevious className="text-gray-500 text-lg text-xs" />
                     <span className="text-gray-500 text-xs">Previous</span>
                   </button>
-                  {/* Pagination */}
                   <div className="flex space-x-2">
                     {Array.from({ length: totalPages }, (_, index) => (
                       <button
@@ -110,7 +110,6 @@ export const TourCapture = () => {
                       </button>
                     ))}
                   </div>
-                  {/* Next Button */}
                   <button
                     onClick={handleNextPage}
                     disabled={currentPage === totalPages}

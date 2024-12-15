@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import Loading from './Loading';  // Import the Loading component
+import { FiUploadCloud } from 'react-icons/fi';
 
 export const ImageDrop = ({ imageNumber, width, height, onImagesChange }) => {
   const [images, setImages] = useState([]);
@@ -56,8 +57,9 @@ export const ImageDrop = ({ imageNumber, width, height, onImagesChange }) => {
         </>
         :
         <>
-          <img src='/upload.png' alt='' />
-          <p style={{ fontWeight:'500'}}><span style={{color:'#158b8d', fontWeight:'500'}}>Click to upload</span> or drag and drop</p>
+          
+          <FiUploadCloud className="text-lg mr-2" />
+        Upload Images
         </>
       }
       <div style={previewStyle}>
@@ -76,10 +78,10 @@ export const ImageDrop = ({ imageNumber, width, height, onImagesChange }) => {
 const dropzoneStyle = {
   border: '1px solid #86708530',
   borderRadius: '8px',
-  padding: '20px',
+  padding: '10px',
   textAlign: 'center',
   cursor: 'pointer',
-  width: ''
+  width: '70%'
 };
 
 const previewStyle = {
