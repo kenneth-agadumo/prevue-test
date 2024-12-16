@@ -8,8 +8,6 @@ import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc, getDocs, query, where, collection } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
-// Global state and custom components
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 // Global state and custom components
 import { useGlobalState } from '../Contexts/GlobalStateContext.jsx';
@@ -17,8 +15,6 @@ import { ReservationsTab } from '../components/ReservationsTab.jsx';
 import { SettingsTab } from '../components/SettingsTab.jsx';
 import { Overview, Properties, Reservation, Settings } from '../components/DashboardIcons.jsx';
 import { PropertiesTab } from '../components/PropertiesTab.jsx';
-import { SettingsTab } from '../components/SettingsTab.jsx';
-import { Overview, Properties, Reservation, Settings } from '../components/DashboardIcons.jsx';
 
 // Styles
 // import '../dashboard.css';
