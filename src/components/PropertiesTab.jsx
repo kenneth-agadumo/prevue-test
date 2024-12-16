@@ -1,96 +1,42 @@
 import React, { useEffect, useState } from "react";
-import { HiOutlineDotsVertical } from "react-icons/hi";
 import DashboardFilter from "./DashboardFilter";
 import DashboardSearch from "./DashboardSearch";
-import { GrLinkNext, GrLinkPrevious } from "react-icons/gr"
+import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
 import DropdownFilter from "./DropdownFilter";
 
+import { HiOutlineDotsVertical } from "react-icons/hi";
+
 export const PropertiesTab = () => {
-  const [pendingProperties, setPendingProperties] = useState([]);
-  const [approvedProperties, setApprovedProperties] = useState([]);
+  const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const propertiesPerPage = 7; // Number of properties per page (updated to 8)
 
-  const [pendingPage, setPendingPage] = useState(1);
-  const [approvedPage, setApprovedPage] = useState(1);
-
-  const propertiesPerPage = 1; // Number of properties per page
-
-  const mockPendingProperties = [
-    {
-      id: "1",
-      name: "Ocean View Villa",
-      customerName: "John Doe",
-      type: "Villa",
-      dateAdded: "2024-01-15",
-      reservationPeriod: "2024-02-01 to 2024-02-15",
-    },
-    {
-      id: "2",
-      name: "Mountain Cabin",
-      customerName: "Jane Smith",
-      type: "Cabin",
-      dateAdded: "2024-02-01",
-      reservationPeriod: "2024-03-10 to 2024-03-20",
-    },
-    {
-      id: "3",
-      name: "Downtown Apartment",
-      customerName: "Emily Brown",
-      type: "Apartment",
-      dateAdded: "2024-03-05",
-      reservationPeriod: "2024-04-15 to 2024-04-25",
-    },
-    {
-      id: "4",
-      name: "Luxury Penthouse",
-      customerName: "Michael Green",
-      type: "Penthouse",
-      dateAdded: "2024-04-12",
-      reservationPeriod: "2024-05-01 to 2024-05-10",
-    },
-  ];
-
-  const mockApprovedProperties = [
-    {
-      id: "5",
-      name: "Suburban House",
-      customerName: "Alice Johnson",
-      type: "House",
-      dateAdded: "2024-05-20",
-      reservationPeriod: "2024-06-01 to 2024-06-15",
-    },
-    {
-      id: "6",
-      name: "Beachfront Condo",
-      customerName: "Robert Williams",
-      type: "Condo",
-      dateAdded: "2024-06-18",
-      reservationPeriod: "2024-07-05 to 2024-07-20",
-    },
-    {
-      id: "7",
-      name: "Farmhouse",
-      customerName: "Olivia Martinez",
-      type: "Farmhouse",
-      dateAdded: "2024-07-25",
-      reservationPeriod: "2024-08-01 to 2024-08-10",
-    },
-    {
-      id: "8",
-      name: "Lake House",
-      customerName: "David Lee",
-      type: "House",
-      dateAdded: "2024-08-02",
-      reservationPeriod: "2024-09-01 to 2024-09-15",
-    },
+  // mock properties data to ensure 16 properties (2 pages with 8 properties each)
+  const mockProperties = [
+    { id: "1", name: "Ocean View Villa", type: "Villa", dateAdded: "2024-01-15", reservations: 12 },
+    { id: "2", name: "Mountain Cabin", type: "Cabin", dateAdded: "2024-02-01", reservations: 8 },
+    { id: "3", name: "Downtown Apartment", type: "Apartment", dateAdded: "2024-03-05", reservations: 15 },
+    { id: "4", name: "Luxury Penthouse", type: "Penthouse", dateAdded: "2024-04-12", reservations: 5 },
+    { id: "5", name: "Suburban House", type: "House", dateAdded: "2024-05-20", reservations: 9 },
+    { id: "6", name: "Beachfront Condo", type: "Condo", dateAdded: "2024-06-18", reservations: 18 },
+    { id: "7", name: "Farmhouse", type: "Farmhouse", dateAdded: "2024-07-25", reservations: 4 },
+    { id: "8", name: "Lake House", type: "House", dateAdded: "2024-08-02", reservations: 10 },
+    { id: "9", name: "City Loft", type: "Loft", dateAdded: "2024-09-10", reservations: 7 },
+    { id: "10", name: "Countryside Cottage", type: "Cottage", dateAdded: "2024-10-05", reservations: 3 },
+    { id: "11", name: "Forest Retreat", type: "Cabin", dateAdded: "2024-11-01", reservations: 4 },
+    { id: "12", name: "Riverfront Villa", type: "Villa", dateAdded: "2024-12-15", reservations: 5 },
+    { id: "13", name: "Downtown Loft", type: "Loft", dateAdded: "2025-01-10", reservations: 2 },
+    { id: "14", name: "Seaside Cottage", type: "Cottage", dateAdded: "2025-02-22", reservations: 6 },
+    { id: "15", name: "Hilltop Mansion", type: "Mansion", dateAdded: "2025-03-13", reservations: 20 },
+    { id: "16", name: "City Penthouse", type: "Penthouse", dateAdded: "2025-04-08", reservations: 3 },
   ];
 
   useEffect(() => {
     const fetchProperties = () => {
       setLoading(true);
       setTimeout(() => {
-        setPendingProperties(mockPendingProperties);
-        setApprovedProperties(mockApprovedProperties);
+        setProperties(mockProperties);
         setLoading(false);
       }, 1000);
     };
@@ -98,98 +44,88 @@ export const PropertiesTab = () => {
     fetchProperties();
   }, []);
 
-  // Pagination Calculations
-  const paginate = (data, page) => {
-    const startIndex = (page - 1) * propertiesPerPage;
-    return data.slice(startIndex, startIndex + propertiesPerPage);
-  };
+  const totalPages = Math.ceil(properties.length / propertiesPerPage); // 2 pages with 8 properties per page
+  const startIndex = (currentPage - 1) * propertiesPerPage;
+  const currentProperties = properties.slice(startIndex, startIndex + propertiesPerPage);
 
-  const pendingTotalPages = Math.ceil(pendingProperties.length / propertiesPerPage);
-  const approvedTotalPages = Math.ceil(approvedProperties.length / propertiesPerPage);
+  const handlePageChange = (page) => setCurrentPage(page);
+  const handleNextPage = () => currentPage < totalPages && setCurrentPage(currentPage + 1);
+  const handlePreviousPage = () => currentPage > 1 && setCurrentPage(currentPage - 1);
 
-  const currentPending = paginate(pendingProperties, pendingPage);
-  const currentApproved = paginate(approvedProperties, approvedPage);
+  if (loading) return <div>Loading properties...</div>;
+  if (!properties.length) return <div>No properties found.</div>;
 
-  const handlePageChange = (pageSetter, page) => pageSetter(page);
-  const handleNextPage = (page, totalPages, pageSetter) =>
-    page < totalPages && pageSetter(page + 1);
-  const handlePreviousPage = (page, pageSetter) =>
-    page > 1 && pageSetter(page - 1);
+  return (
+    <div className="p-8 overflow-hidden ">
+      <div>
+       <h2 className="text-xl font-weight-700 mb-1"> Properties</h2>
+        <p className="text-gray-500 text-sm mb-3">showing data for the last 30 days</p>
 
-  if (loading) return <div>Loading reservations...</div>;
-
-  const renderTable = (title, properties, currentPage, totalPages, pageSetter) => (
-    <div className="mt-2">
-      <h3 className="text-lg font-weight-700 mb-2">{title}</h3>
+      </div>
+        
+      <div className="overflow-x-auto  ">
       <div className="overflow-x-auto bg-white border rounded-xl">
-      <div className="flex items-center justify-between pt-2 px-3">
+        <div className="flex items-center justify-between pt-2 px-3">
           <div><DashboardSearch /></div>
           <div className="flex gap-2"><DropdownFilter/><DashboardFilter /> </div>
         </div>
-      <div className="overflow-x-auto">
         <table className="min-w-full bg-white border shadow-md rounded-md table-auto">
           <thead className="bg-gray-100">
             <tr>
               <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Property Name</th>
-              <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Customer Name</th>
               <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Property Type</th>
               <th className="py-3 px-4 hidden sm:table-cell text-left text-gray-500 font-medium text-xs">Date Added</th>
-              <th className="py-3 px-4 hidden lg:table-cell text-left text-gray-500 font-medium text-xs">Reservation Period</th>
-              <th className="py-3 px-4"></th>
+              <th className="py-3 px-4 hidden lg:table-cell text-left text-gray-500 font-medium text-xs">No. of Reservations</th>
+              <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs"></th>
             </tr>
           </thead>
           <tbody>
-            {properties.map((property) => (
+            {currentProperties.map((property) => (
               <tr key={property.id} className="hover:bg-gray-50">
                 <td className="py-3 px-4 border-b border-gray-200 text-xs">{property.name}</td>
-                <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs">
-                  {property.customerName}
-                </td>
-                <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs">
-                  {property.type}
-                </td>
-                <td className="py-3 px-4 hidden sm:table-cell border-b border-gray-200 text-gray-500 text-xs">
-                  {property.dateAdded}
-                </td>
-                <td className="py-3 px-4 hidden lg:table-cell border-b border-gray-200 text-gray-500 text-xs">
-                  {property.reservationPeriod}
-                </td>
-                <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs">
-                  <HiOutlineDotsVertical />
-                </td>
+                <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs">{property.type}</td>
+                <td className="py-3 px-4 hidden sm:table-cell border-b border-gray-200 text-gray-500 text-xs">{property.dateAdded}</td>
+                <td className="py-3 px-4 hidden lg:table-cell border-b border-gray-200 text-gray-500 text-xs">{property.reservations}</td>
+                <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs"><HiOutlineDotsVertical/></td>
               </tr>
             ))}
             {/* Pagination Row */}
             <tr>
-              <td colSpan="6" className="py-3 px-4">
+              <td colSpan="4" className="py-1 px-4 border-t border-gray-200">
+                {/* Pagination Controls */}
                 <div className="flex items-center justify-between">
+                  {/* Previous Button */}
                   <button
-                    onClick={() => handlePreviousPage(currentPage, pageSetter)}
+                    onClick={handlePreviousPage}
                     disabled={currentPage === 1}
-                    className="flex flex-items space-x-1 px-4 py-2 text-xs border rounded-full hover:bg-gray-100 disabled:opacity-50"
+                    className={`flex items-center space-x-1 px-4 py-2 text-xs border border-gray-300 rounded-full ${
+                      currentPage === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-100"
+                    }`}
                   >
                     <GrLinkPrevious className="text-gray-500 text-lg text-xs" />
                     <span className="text-gray-500 text-xs">Previous</span>
                   </button>
+                  {/* Pagination */}
                   <div className="flex space-x-2">
                     {Array.from({ length: totalPages }, (_, index) => (
                       <button
                         key={index + 1}
-                        onClick={() => handlePageChange(pageSetter, index + 1)}
-                        className={`px-3 py-1 text-sm border rounded-full ${
-                          currentPage === index + 1
-                            ? "bg-green-100 text-green-600"
-                            : "hover:bg-gray-100"
+                        onClick={() => handlePageChange(index + 1)}
+                        className={`px-3 py-1 text-xs border rounded-full ${
+                          currentPage === index + 1 ? "bg-green-100 text-green-600" : "hover:bg-gray-100"
                         }`}
                       >
                         {index + 1}
                       </button>
                     ))}
                   </div>
+                  {/* Next Button */}
                   <button
-                    onClick={() => handleNextPage(currentPage, totalPages, pageSetter)}
+                    onClick={handleNextPage}
                     disabled={currentPage === totalPages}
-                    className="flex flex-items space-x-1 px-4 py-2 text-xs border rounded-full hover:bg-gray-100 disabled:opacity-50"
+                    className={`flex items-center space-x-1 px-4 py-2 text-xs border border-gray-300 rounded-full ${
+                      currentPage === totalPages ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-100"
+                    }`}
                   >
                     <span className="text-gray-500 text-xs">Next</span>
                     <GrLinkNext className="text-gray-500 text-lg text-xs" />
@@ -203,14 +139,4 @@ export const PropertiesTab = () => {
       </div>
     </div>
   );
-
-  return (
-    <div className="p-8">
-      <h2 className="text-xl font-weight-700">Reservations</h2>
-      {renderTable("Pending", currentPending, pendingPage, pendingTotalPages, setPendingPage)}
-      {renderTable("Approved", currentApproved, approvedPage, approvedTotalPages, setApprovedPage)}
-    </div>
-  );
 };
-
-

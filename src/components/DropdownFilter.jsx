@@ -5,7 +5,7 @@ const DropdownFilter = () => {
   const [isOpen, setIsOpen] = useState(false); // To toggle the dropdown visibility
   const [selectedOption, setSelectedOption] = useState("All"); // To keep track of the selected option
 
-  const options = ["Restaurants", "Shortlets"];
+  const options = ["All", "Restaurants", "Shortlets"];
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
