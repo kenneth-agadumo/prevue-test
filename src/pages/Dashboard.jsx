@@ -9,12 +9,16 @@ import { doc, getDoc, getDocs, query, where, collection } from 'firebase/firesto
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 // Global state and custom components
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+
+// Global state and custom components
 import { useGlobalState } from '../Contexts/GlobalStateContext.jsx';
 import { ReservationsTab } from '../components/ReservationsTab.jsx';
 import { SettingsTab } from '../components/SettingsTab.jsx';
 import { Overview, Properties, Reservation, Settings } from '../components/DashboardIcons.jsx';
 import { PropertiesTab } from '../components/PropertiesTab.jsx';
-import AccountsTab from '../components/AccountsTab.jsx';
+import { SettingsTab } from '../components/SettingsTab.jsx';
+import { Overview, Properties, Reservation, Settings } from '../components/DashboardIcons.jsx';
 
 // Styles
 // import '../dashboard.css';
@@ -84,7 +88,7 @@ export const Dashboard = () => {
       {/* Dashboard Header */}
          <header className=" col-span-12 flex justify-between items-center py-7 pl-5 pr-9 h-2 ">
           <div>
-            <Link to=""><img src="/prevue-orange.svg" alt="" /></Link>
+            <img src="/prevue-orange.svg" alt="" />
           </div>
           
           <div className="account-column">
@@ -119,53 +123,51 @@ export const Dashboard = () => {
           </div>
         </header>
 
-      <div className='flex flex-row overflow-auto gap-2 h-full'>
+      <div className='flex flex-row gap-2 h-full'>
            {/* Sidebar Navigation */}
           <div className="bg-white basis-1/4 h-full p-3">
             <div className=" bg-white h-full flex flex-col justify-between py-4">
               {/* Navigation Items */}
               <div className=" flex flex-col gap-1">
                 <div
-                  className={`px-4 py-3 flex gap-2  rounded  hover:bg-primarylight cursor-pointer ${selectedTab === 'account' && 'bg-primarylight'}`}
+                  className={`px-4 py-3 flex gap-2  rounded  hover:bg-primarylight ${selectedTab === 'account' && 'bg-primarylight'}`}
                   onClick={() => handleTabChange('account')}
                 >
                   <Overview color = {selectedTab === 'account' ? '#E99D43' : '#3A3A39'}/>
-                  <span className= {`hidden sm:block text-gray-600 font-medium  ${selectedTab === 'account' && 'text-primary'}`}>Overview</span>
-                </div>
-
-                <div
-                  className={`px-4 py-3 flex gap-2  rounded  hover:bg-primarylight cursor-pointer ${selectedTab === 'properties' && 'bg-primarylight'}`}
-                  onClick={() => handleTabChange('properties')}
-                >
-                  <Properties color = {selectedTab === 'properties' ? '#E99D43' : '#3A3A39'}/>
-                  <span className= {`hidden sm:block text-gray-600 font-medium  ${selectedTab === 'properties' && 'text-primary'}`}>Properties</span>
+                  <span className= {` text-gray-600 font-medium  ${selectedTab === 'account' && 'text-primary'}`}>Overview</span>
                 </div>
                 <div
-                  className={`px-4 py-3 flex gap-2  rounded  hover:bg-primarylight cursor-pointer ${selectedTab === 'reservations' && 'bg-primarylight'}`}
+                  className={`px-4 py-3 flex gap-2  rounded  hover:bg-primarylight ${selectedTab === 'reservations' && 'bg-primarylight'}`}
                   onClick={() => handleTabChange('reservations')}
                 >
                   <Reservation color = {selectedTab === 'reservations' ? '#E99D43' : '#3A3A39'} />
-                  <span className= {`hidden sm:block text-gray-600 font-medium  ${selectedTab === 'reservations' && 'text-primary'}`}>Reservations</span>
+                  <span className= {` text-gray-600 font-medium  ${selectedTab === 'reservations' && 'text-primary'}`}>Reservations</span>
                 </div>
-               
+                <div
+                  className={`px-4 py-3 flex gap-2  rounded  hover:bg-primarylight ${selectedTab === 'properties' && 'bg-primarylight'}`}
+                  onClick={() => handleTabChange('properties')}
+                >
+                  <Properties color = {selectedTab === 'properties' ? '#E99D43' : '#3A3A39'}/>
+                  <span className= {` text-gray-600 font-medium  ${selectedTab === 'properties' && 'text-primary'}`}>Properties</span>
+                </div>
               </div>
 
               {/* Bottom Section */}
               <div className="dashboard-nav-bottom">
                 {/* Settings */}
                 <div
-                  className={`px-4 py-3 flex gap-2  rounded  hover:bg-primarylight cursor-pointer ${selectedTab === 'settings' && 'bg-primarylight'}`}
+                  className={`px-4 py-3 flex gap-2  rounded  hover:bg-primarylight ${selectedTab === 'settings' && 'bg-primarylight'}`}
                   onClick={() => handleTabChange('settings')}
                 >
                  <Settings color = {selectedTab === 'settings' ? '#E99D43' : '#3A3A39'} /> 
-                  <span className= {`hidden sm:block text-gray-600 font-medium  ${selectedTab === 'settings' && 'text-primary'}`}> Settings</span>
+                  <span className= {` text-gray-600 font-medium  ${selectedTab === 'settings' && 'text-primary'}`}> Settings</span>
                 </div>
                 <div className="bb w-full"></div>
                 {/* Logout */}
-                <div className="px-4 py-5 flex rounded hover:bg-primarylight cursor-pointer" onClick={handleLogout}>
+                <div className="px-4 py-5 flex rounded hover:bg-primarylight" onClick={handleLogout}>
                   <div style={{ width: '80%', boxSizing: 'border-box' }}>
-                    <p className='hidden sm:block text-sm' style={{ display: 'block', fontWeight: '600', cursor: 'pointer' }}>Logout</p>
-                    <p className='hidden sm:block text-sm' style={{ minWidth: 'fit-content' }}>{userData?.email}</p>
+                    <p className='text-sm' style={{ display: 'block', fontWeight: '600', cursor: 'pointer' }}>Logout</p>
+                    <p className='text-sm' style={{ minWidth: 'fit-content' }}>{userData?.email}</p>
                   </div>
                   <img src="/logout.svg" alt="" style={{ cursor: 'pointer' }} />
                 </div>
@@ -174,13 +176,13 @@ export const Dashboard = () => {
           </div>
 
           {/* Main Content Section */}
-          <div className="overflow-auto  h-full bg-white basis-3/4">
-          <h1></h1>
+          <div className="  h-full bg-white basis-3/4">
+          <h1>adasd</h1>
 
             {/* Render content based on selected tab */}
-            {selectedTab === 'account' && <AccountsTab userData={userData} />}
-            {selectedTab === 'properties' &&  < PropertiesTab userData={userData} />}
-            {selectedTab === 'reservations' &&  <ReservationsTab userData={userData} />}
+            {selectedTab === 'account' && <AccountContent userData={userData} />}
+            {selectedTab === 'reservations' && <PropertyContent />}
+            {selectedTab === 'properties' && <PropertiesTab userData={userData} />}
             {selectedTab === 'settings' && <SettingsTab userData={userData} documentID={documentID} />}
           </div>
               
@@ -190,6 +192,49 @@ export const Dashboard = () => {
   );
 };
 
+// Account Tab Content
+function AccountContent({ userData }) {
+  return (
+    <div className="account-tab">
+      <div className="title">
+        <h2>Welcome back, {userData?.fullName}</h2>
+        <p>Track, manage, and forecast your customer and orders data</p>
+      </div>
+      {/* Statistics */}
+      <div className="data-row">
+        {/* Reservation Data */}
+        <Card title="Total Reservations" value="12" change="40%" />
+        {/* Restaurant Data */}
+        <Card title="Total Restaurants" value="8" change="40%" />
+        {/* Entry Data */}
+        <Card title="Total Entries" value="20" change="20%" />
+      </div>
+    </div>
+  );
+}
+
+// Generic Card Component
+function Card({ title, value, change }) {
+  return (
+    <div className="card">
+      <div className="row1">
+        <h4>{title}</h4>
+        <img src="/Dropdown.svg" alt="" />
+      </div>
+      <div className="row-2">
+        <p className="big-number">{value}</p>
+      </div>
+      <div className="row-3">
+        <div className="change-rate">
+          <img src="/green-arrow-up.svg" alt="" />
+          <p>
+            <span style={{ color: 'green' }}>{change}</span> vs last month
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 
 // Placeholder for Property Content

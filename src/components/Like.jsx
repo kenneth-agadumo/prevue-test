@@ -14,7 +14,7 @@ const HeartButton = ({size}) => {
         viewBox="0 0 24 24"
         fill={liked ? '#f43f5e' : 'none'}
         stroke="currentColor"
-        className= {size ? size : 'w-5 h-5'}
+        className="w-4 h-4"
       >
         <path
           strokeLinecap="round"
