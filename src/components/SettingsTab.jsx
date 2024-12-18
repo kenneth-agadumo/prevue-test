@@ -25,11 +25,11 @@ export const SettingsTab  = (props) => {
         <div className="tab-bar">
 
           <div className={`properties-tab-item ${selectedTab === 'my-profile' ? 'active' : ''}`} value="" onClick={() => handleTabChange('my-profile')} >
-            <span> My Profile </span>
+            <span className="text-sm text-gray-600">Profile </span>
           </div>
 
           <div   className={`properties-tab-item ${selectedTab === 'password' ? 'active' : ''}`}value="" onClick={() => handleTabChange('password')} >
-            <span> Password </span>
+            <span className="text-sm text-gray-600"> Password </span>
           </div>
 
         </div>
@@ -149,11 +149,11 @@ export const MyProfile = (props) => {
   
   return(
     <>
-    <div className="personal-info ">
+    <div className="personal-info  ">
 
       <div className="info-header">
         <div>
-          <h3 className="pb-1">Personal information</h3>
+          <h3 className="pb-1">Personal info</h3>
           <p className="text-sm text-gray-500">Update your photo and other personal details here</p>
         </div>
         <hr style={{background: '#eaecf0', height:'1px', border:'none'}} />
@@ -263,28 +263,28 @@ export const Password = (props) => {
       <div className="password">
 
 <div className="password-header">
-  <div>
-    <h3>Password</h3>
-    <p>Reset your password</p>
+  <div className="ml-5">
+    <h3 className="text-gray-800 text-normal">Password</h3>
+    <p className="text-sm text-gray-500">Reset your password</p>
   </div>
   <hr style={{background: '#eaecf0', height:'1px', border:'none'}} />
 </div>
 
-<div className="password-reset">
-  <h4 style={{marginBottom: '24px'}}>Change password</h4>
+<div className="password-reset ml-8">
+  <h4 className="mb-6 mt-2 text-gray-700">Change password</h4>
   <div className="flex-row" style={{marginBottom: '20px'}}>
-    <div className="column-1">
-      <label htmlFor="current-password"> Current Password</label>
-      <input type="password"  id="current-password" placeholder="Your current password" className="profile-input"/>
+    <div className="column-1 ">
+      <label htmlFor="current-password" className="text-sm"> Current Password</label>
+      <input type="password"  id="current-password" placeholder="Enter password" className="profile-input text-sm"/>
     </div>
     <div className="column-2">
-    <label htmlFor="new-password"> New Password</label>
-    <input type="password"  id="new-password" placeholder="Your new password" className="profile-input"/>
+    <label htmlFor="new-password" className="text-sm"> New Password</label>
+    <input type="password"  id="new-password" placeholder="Enter password" className="profile-input text-sm"/>
     </div>
   </div>
     <div className="row">
-      <label htmlFor="confirm-password"> Confirm Password</label>
-      <input type="password"  id="confirm-password" placeholder="confirm yourpassword" className="profile-input"/>
+      <label htmlFor="confirm-password " className="text-sm"> Confirm Password</label>
+      <input type="password"  id="confirm-password" placeholder="Enter password" className="profile-input text-sm"/>
     </div>
  
   <hr style={{background: '#eaecf0', height:'1px', border:'none' }} />
