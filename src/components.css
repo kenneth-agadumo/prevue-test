@@ -312,7 +312,6 @@ p, input, label{
   /* Modal content */
   .modal-content {
     width: 50%;
-    min-height: 80vh;
     background-color: #fff;
     padding: 12px 12px;
     border-radius: 8px;
@@ -322,7 +321,7 @@ p, input, label{
 
 }
   .modal-content input{
-    width: 70%;
+    width: 100%;
     border: 1px solid #D0D5DD;
     padding: 18px 12px;
     border-radius: 5px;

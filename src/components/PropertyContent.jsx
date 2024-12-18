@@ -7,6 +7,7 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import RestaurantModal from "./RestaurantModal";
 import AddPropertyButton from "./AddProperty";
 
+
 export const PropertiesContent = () => {
   const [properties, setProperties] = useState([]); // Original data
   const [filteredProperties, setFilteredProperties] = useState([]); // Filtered data
