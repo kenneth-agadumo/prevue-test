@@ -4,7 +4,7 @@ import { useGlobalState } from "../Contexts/GlobalStateContext";
 import {ImageSlider} from '../components/ImageSlider'
 import {Map} from '../components/Map'
 import Lottie from "lottie-react" 
-import ReservationForm from "../components/RervationForm";
+import ReservationForm from "../components/ReservationForm";
 import { Dropdown } from "../components/Dropdown";
 import Heart from  '../heart.json'  
 import Footer from "../components/Footer";
