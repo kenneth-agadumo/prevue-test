@@ -9,12 +9,16 @@ export const ImageDrop = ({ imageNumber, width, height, onImagesChange }) => {
   const [uploadProgress, setUploadProgress] = useState(null);
 
   const onDrop = useCallback((acceptedFiles) => {
+    // Check if the total number of images exceeds the limit
     if (images.length + acceptedFiles.length <= imageNumber) {
       setIsLoading(true);
-      const newImages = acceptedFiles.map(file => {
+  
+      // Process each new file to add a preview URL
+      const newImages = acceptedFiles.map((file) => {
         const preview = URL.createObjectURL(file);
-        return Object.assign(file, { preview });
+        return Object.assign(file, { preview }); // Attach preview URL to file object
       });
+  
       // Simulate upload progress
       let progress = 0;
       const interval = setInterval(() => {
@@ -22,11 +26,17 @@ export const ImageDrop = ({ imageNumber, width, height, onImagesChange }) => {
           clearInterval(interval);
           setIsLoading(false);
           setUploadProgress(null);
+  
+          // Combine the existing images with the new ones
           const updatedImages = [...images, ...newImages];
+  
+          // Update local state
           setImages(updatedImages);
-          onImagesChange(updatedImages); // Call the callback function with updated images
+  
+          // Notify parent component of the updated image array
+          onImagesChange(updatedImages);
         } else {
-          progress += 10;
+          progress += 10; // Increment progress
           setUploadProgress(progress);
         }
       }, 200);
@@ -34,6 +44,7 @@ export const ImageDrop = ({ imageNumber, width, height, onImagesChange }) => {
       alert(`You can only upload a maximum of ${imageNumber} images.`);
     }
   }, [images, imageNumber, onImagesChange]);
+  
 
   const removeImage = (index) => {
     const updatedImages = images.filter((_, i) => i !== index);

@@ -9,43 +9,16 @@ const GlobalStateContext = createContext();
 // Create a provider component
 export const GlobalStateProvider = ({ children }) => {
   const [restaurants, setRestaurants] = useState([]);
-  const [rentals, setRentals] = useState([]);
+  const [shortlets, setShortlets] = useState([]);
   const [userData, setUserData] = useState();
   const [loading, setLoading] = useState(false);
   const [userImageUrl, setUserImageUrl] = useState();
   const [restaurantId, setRestaurantId] = useState();
   const [restaurantImagesMap, setRestaurantImagesMap] = useState({});
-  const [rentalImagesMap, setRentalImagesMap] = useState({});
+  const [shortletImagesMap, setShortletImagesMap] = useState({});
 
   const restaurantRef = collection(db, 'restaurants');
-  const rentalRef = collection(db, 'rentals'); // Assuming you have a rentals collection
-
-  // useEffect(() => {
-  //   const fetchRestaurants = async () => {
-  //     try {
-  //       const data = await getDocs(restaurantRef);
-  //       const filteredData = data.docs.map((doc) => ({
-  //         ...doc.data(),
-  //         id: doc.id,
-  //       }));
-  //       setRestaurants(filteredData);
-  //     } catch (error) {
-  //       console.error("Error fetching restaurants:", error);
-  //     }
-  //   };
-
-  //   fetchRestaurants();
-
-  //   const unsubscribeRestaurants = onSnapshot(restaurantRef, (snapshot) => {
-  //     const updatedRestaurants = snapshot.docs.map((doc) => ({
-  //       id: doc.id,
-  //       ...doc.data(),
-  //     }));
-  //     setRestaurants(updatedRestaurants);
-  //   });
-
-  //   return () => unsubscribeRestaurants();
-  // }, []);
+  const shortletRef = collection(db, 'shortlets'); // Assuming you have a shortlets collection
 
   useEffect(() => {
     const fetchUserImage = async () => {
@@ -68,38 +41,11 @@ export const GlobalStateProvider = ({ children }) => {
     fetchUserImage();
   }, [auth.currentUser]);
 
-  // useEffect(() => {
-  //   const fetchRentals = async () => {
-  //     try {
-  //       const data = await getDocs(rentalRef);
-  //       const filteredData = data.docs.map((doc) => ({
-  //         ...doc.data(),
-  //         id: doc.id,
-  //       }));
-  //       setRentals(filteredData);
-  //     } catch (error) {
-  //       console.error("Error fetching rentals:", error);
-  //     }
-  //   };
-
-  //   fetchRentals();
-
-  //   const unsubscribeRentals = onSnapshot(rentalRef, (snapshot) => {
-  //     const updatedRentals = snapshot.docs.map((doc) => ({
-  //       id: doc.id,
-  //       ...doc.data(),
-  //     }));
-  //     setRentals(updatedRentals);
-  //   });
-
-  //   return () => unsubscribeRentals();
-  // }, []);
-
   useEffect(() => {
     const fetchAll = async () => {
       try {
         const restaurantImagesMap = {};
-        const rentalImagesMap = {};
+        const shortletImagesMap = {};
 
         // Fetching restaurant images
         const restaurantsRef = ref(storage, 'restaurants');
@@ -138,42 +84,42 @@ export const GlobalStateProvider = ({ children }) => {
 
         setRestaurantImagesMap(restaurantImagesMap);
 
-        // Fetching rental images
-        const rentalsRef = ref(storage, 'rentals');
-        const rentalImageFiles = await listAll(rentalsRef);
+        // Fetching shortlet images
+        const shortletsRef = ref(storage, 'shortlets');
+        const shortletImageFiles = await listAll(shortletsRef);
 
-        for (const imageFile of rentalImageFiles.items) {
+        for (const imageFile of shortletImageFiles.items) {
           const downloadURL = await getDownloadURL(imageFile);
           const imageName = imageFile.name;
 
-          // Assuming the image name follows the convention rentalId-imageName
-          const [rentalId, ...imageNameParts] = imageName.split('-');
+          // Assuming the image name follows the convention shortletId-imageName
+          const [shortletId, ...imageNameParts] = imageName.split('-');
           const imageNameWithoutId = imageNameParts.join('-');
 
-          // Fetch the rental document to get rental data if needed
-          const rentalDocRef = doc(db, 'rentals', rentalId);
-          const rentalDoc = await getDoc(rentalDocRef);
+          // Fetch the shortlet document to get shortlet data if needed
+          const shortletDocRef = doc(db, 'shortlets', shortletId);
+          const shortletDoc = await getDoc(shortletDocRef);
 
-          if (rentalDoc.exists()) {
-            const rentalData = rentalDoc.data();
+          if (shortletDoc.exists()) {
+            const shortletData = shortletDoc.data();
             
             // Initialize the array if it doesn't exist
-            if (!rentalImagesMap[rentalId]) {
-              rentalImagesMap[rentalId] = {
-                ...rentalData,
+            if (!shortletImagesMap[shortletId]) {
+              shortletImagesMap[shortletId] = {
+                ...shortletData,
                 images: []
               };
             }
 
-            // Add the image URL to the rental's images array
-            rentalImagesMap[rentalId].images.push({
+            // Add the image URL to the shortlet's images array
+            shortletImagesMap[shortletId].images.push({
               name: imageNameWithoutId,
               url: downloadURL
             });
           }
         }
 
-        setRentalImagesMap(rentalImagesMap);
+        setShortletImagesMap(shortletImagesMap);
         
       } catch (error) {
         console.error('Error fetching images:', error);
@@ -186,11 +132,11 @@ export const GlobalStateProvider = ({ children }) => {
   return (
     <GlobalStateContext.Provider value={{
       restaurants, setRestaurants,
-      rentals, setRentals,
+      shortlets, setShortlets,
       userData, setUserData,
       loading, setLoading,
       restaurantImagesMap,
-      rentalImagesMap,
+      shortletImagesMap,
       userImageUrl
     }}>
       {children}
