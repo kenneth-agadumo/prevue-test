@@ -18,7 +18,7 @@ import { TbAirConditioning } from 'react-icons/tb';
 import { MdBalcony, MdOutlinePets } from 'react-icons/md';
 import { FaWifi, FaKitchenSet, FaDumbbell   } from 'react-icons/fa6'; // Import some icons
 import { BiCloset } from 'react-icons/bi';
-import { LuWashingMachine } from 'react-icons/lu';
+// import { LuWashingMachine } from 'react-icons/lu';
 import { RiTwitterXFill, RiTiktokFill, RiInstagramFill, RiFacebookFill } from "react-icons/ri";
 
 
