@@ -32,7 +32,7 @@ export const RentalPage = () => {
         'Air Conditioning' : <TbAirConditioning className="w-6 h-6" />,
         'TV' : <FaTv className="w-6 h-6"/>,
         'Kitchen' : <FaKitchenSet className="w-6 h-6"/>,
-        'Washing Machine' : <LuWashingMachine className="w-6 h-6"/>,
+        'Washing Machine' : <FaKitchenSet className="w-6 h-6"/>,
         'Parking Space' : <FaParking className="w-6 h-6"  />,
         'Swimming Pool' : <FaSwimmingPool className="w-6 h-6"/>,
         'Gym' :  <FaDumbbell className="w-6 h-6 "/>,
