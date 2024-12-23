@@ -147,11 +147,11 @@ export const RentalPage = () => {
                     <h4 className="text-primary text-lg font-normal">Cost Estimation</h4>
                     <div className="w-full flex justify-between">
                         <p className="text-grey">Cost/Night</p>
-                        <p className="text-grey">₦{rentalData.costPerNight.toLocaleString()}</p>
+                        <p className="text-grey">₦{Number(rentalData.costPerNight).toLocaleString()}</p>
                     </div>
                     <div className="w-full flex justify-between text-neutral-600">
                         <p className="text-grey">Caution Fee</p>
-                        <p className="text-grey">₦{rentalData.cautionFee}</p>
+                        <p className="text-grey">₦{Number(rentalData.cautionFee).toLocaleString()}</p>
                     </div>
                     <DateRangePicker  costPerNight={rentalData.costPerNight} cautionFee={rentalData.cautionFee} />
                

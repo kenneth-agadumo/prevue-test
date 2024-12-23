@@ -5,8 +5,13 @@ import { RentalCard, RestaurantCard } from "./Card";
 import Lottie from "lottie-react";
 import ComingSoon from "../coming-soon.json";
 
+import { useGlobalState } from "../Contexts/GlobalStateContext";
+
+
+
 export const FeaturedTabs = () => {
   const [selectedTab, setSelectedTab] = useState("restaurants");
+  const { restaurantImagesMap, shortletImagesMap } = useGlobalState();
 
   const handleTabChange = (newValue) => {
     setSelectedTab(newValue);
@@ -14,7 +19,7 @@ export const FeaturedTabs = () => {
 
   
 
-  console.log(selectedTab);
+  console.log(shortletImagesMap);
 
   return (
     <div className="featured-tabs">
@@ -44,14 +49,14 @@ export const FeaturedTabs = () => {
         </div>
       </div>
 
-      {selectedTab === "rentals" && <RentalSection />}
-      {selectedTab === "restaurants" && <RestaurantSection />}
+      {selectedTab === "rentals" && <RentalSection shortletImagesMap={shortletImagesMap} />}
+      {selectedTab === "restaurants" && <RestaurantSection restaurantImagesMap={restaurantImagesMap} />}
       {selectedTab === "activities" && <ActivitiesSection />}
     </div>
   );
 };
 
-export const RentalSection = () => {
+export const RentalSection = ({shortletImagesMap}) => {
   return (
     <div className="tab-content-container">
       <div className="tab-content">
@@ -74,37 +79,31 @@ export const RentalSection = () => {
           </div>
 
           <div className="content-item grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
-          <RentalCard
-              name={"Crust Cafe"}
-              address={"10, Admiralty Way, Lekki, Lagos"}
-              price={"1,500,000/year"}
-              image={"/crust.png"}
+          {Object.entries(shortletImagesMap)
+          .filter(([shortletId, shortletData]) => 
+            shortletData.attributes && shortletData.attributes.includes("Featured")
+          )
+          .map(([shortletId, shortletData]) => (
+            <RentalCard
+              key={shortletId}
+              type="rentals"
+              id={shortletId}
+              name={shortletData.name}
+              address={shortletData.address}
+              price={shortletData.price}
+              image={shortletData.images.length > 0 ? shortletData.images[0].url : 'default-image.png'}
               width={"43.3%"}
               note={"prevue"}
             />
-            <RentalCard
-              address={"10, Admiralty Way, Lekki, Lagos"}
-              price={"1,500,000/year"}
-              image={"/hard-rock.png"}
-              width={"33%"}
-              note={"prevue"}
-              />
-           
-            <RentalCard
-              name={"Pause Cafe"}
-              address={"10, Admiralty Way, Lekki, Lagos"}
-              price={"1,500,000/year"}
-              image={"/pause.png"}
-              width={"43.3%"}
-              note={"prevue"}
-            />
+          ))}
+        
           </div>
         </div>{" "}
       </div>
     </div>
   );
 };
-export const RestaurantSection = () => {
+export const RestaurantSection = ({restaurantImagesMap}) => {
   return (
     <div className="tab-content-container">
       <div className="tab-content">
@@ -125,27 +124,23 @@ export const RestaurantSection = () => {
           </div>
 
           <div className="content-item grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
+          {Object.entries(restaurantImagesMap)
+          .filter(([restaurantId, restaurantData]) => 
+            restaurantData.attributes && restaurantData.attributes.includes("Featured")
+          )
+          .map(([restaurantId, restaurantData]) => (
             <RestaurantCard
-              name={"Hard Rock Cafe"}
-              address={"10 Admiralty Way, Lekki, Lagos"}
-              image={"/hard-rock.png"}
+              key={restaurantId}
+              type="restaurants"
+              id={restaurantId}
+              name={restaurantData.name}
+              address={restaurantData.address}
+              image={restaurantData.images.length > 0 ? restaurantData.images[0].url : 'default-image.png'}
               width={"43.3%"}
               note={"prevue"}
             />
-            <RestaurantCard
-              name={"Crust Cafe"}
-              address={"10 Admiralty Way, Lekki, Lagos"}
-              image={"/crust.png"}
-              width={"43.3%"}
-              note={"prevue"}
-            />
-            <RestaurantCard
-              name={"Pause Cafe"}
-              address={"10 Admiralty Way, Lekki, Lagos"}
-              image={"/pause.png"}
-              width={"43.3%"}
-              note={"prevue"}
-            />
+          ))}
+           
           </div>
         </div>
       </div>
