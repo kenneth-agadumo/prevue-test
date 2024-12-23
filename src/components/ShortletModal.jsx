@@ -36,6 +36,16 @@ export const ShortletModal = ({ isOpen, onClose }) => {
     rooms: 1,
     bathrooms: 1,
     parking: 1,
+    likes: 0, 
+    attributes: [],
+    virtualTourLink:'',
+    socialMedia: {
+      twitter: '',
+      tiktok: '',
+      instagram: '' ,
+      facebook: ''
+    }
+
   });
 
   // Handle form input changes

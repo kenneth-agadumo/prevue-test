@@ -77,7 +77,6 @@ export const Dropdown = ({ onChange, itemNumber, itemsArray, width, maxWidth, he
       styles={customStyles}
       className="react-select-container"
       classNamePrefix="react-select"
-      isSearchable={isSearchable}
       placeholder={placeholder}
     />
   );

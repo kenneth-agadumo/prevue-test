@@ -19,7 +19,7 @@ export const RentalCard = ({ image, name, address, price, note, type, id}) => {
     <div className="py-4">
     <div className="flex justify-between">
         <div>
-          <h3 className="text-lg font-semibold mb-2">{note}</h3>
+          <h3 className="text-lg font-semibold mb-2">{name}</h3>
           <p className="text-gray-600">{address}</p>
           <p className="text-gray-600">{price}</p>
         </div>
