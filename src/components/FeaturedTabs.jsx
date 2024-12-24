@@ -12,31 +12,42 @@ export const FeaturedTabs = () => {
     setSelectedTab(newValue);
   };
 
-  
-
-  console.log(selectedTab);
-
   return (
-    <div className="featured-tabs">
-      <h3 className="featured-header">Browse Featured Properties</h3>
-      <div className="tab-row">
+    <div className="featured-tabs bg-gradient-to-b from-gray-50 to-white py-12">
+      <h3 className="text-4xl font-bold text-center text-gray-800 mb-4">
+        Browse Featured Properties
+      </h3>
+      <p className="text-center text-gray-600 mb-8 leading-relaxed">
+        Discover the perfect property. From short lets to long-term rentals and
+        dream homes for sale, we offer a diverse range of housing options.
+      </p>
+
+      <div className="flex justify-center space-x-4 mb-6">
         <div
-          className={`tab-item  ${selectedTab === "rentals" ? "active" : ""}`}
+          className={`cursor-pointer px-4 py-2 border-b-2 ${
+            selectedTab === "rentals"
+              ? "border-green-500 text-green-500 font-semibold"
+              : "border-transparent text-primary hover:text-primary hover:border-primary"
+          }`}
           onClick={() => handleTabChange("rentals")}
         >
           Shortlets
         </div>
         <div
-          className={`tab-item  ${
-            selectedTab === "restaurants" ? "active" : ""
+          className={`cursor-pointer px-4 py-2 border-b-2 ${
+            selectedTab === "restaurants"
+              ? "border-green-500 text-green-500 font-semibold"
+              : "border-transparent text-primary hover:text-primary hover:border-primary"
           }`}
           onClick={() => handleTabChange("restaurants")}
         >
           Restaurants
         </div>
         <div
-          className={`tab-item  ${
-            selectedTab === "activities" ? "active" : ""
+          className={`cursor-pointer px-4 py-2 border-b-2 ${
+            selectedTab === "activities"
+              ? "border-green-500 text-green-500 font-semibold"
+              : "border-transparent text-primary hover:text-primary hover:border-primary"
           }`}
           onClick={() => handleTabChange("activities")}
         >
@@ -54,14 +65,25 @@ export const FeaturedTabs = () => {
 export const RentalSection = () => {
   return (
     <div className="tab-content-container">
-      <div className="tab-content">
-        <p className="tab-content-text  ">
-        Discover the perfect property. From short lets to long-term 
-        rentals and dream homes for sale, 
-        we offer a diverse range of housing options. 
-        Immerse yourself in virtual tours, calculate expenses, 
-        and stay updated with the latest listings.
+      <div className="tab-content p-6 bg-gray-50 rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">
+          Find Your Dream Home
+        </h2>
+        <p className="tab-content-text text-gray-600 leading-relaxed">
+          <span className="font-semibold text-gray-800">
+            Discover the perfect property.
+          </span>
+          From
+          <span className="text-emerald-500 font-semibold"> short lets</span> to
+          <span className="text-emerald-500 font-semibold">
+            long-term rentals
+          </span>
+          and dream homes for sale, we offer a diverse range of housing options.
+          <span className="font-semibold text-gray-800">Immerse yourself</span>
+          in virtual tours, calculate expenses, and stay updated with the latest
+          listings.
         </p>
+
         <div>
           <div className="">
             {/* <Dropdown
@@ -74,32 +96,43 @@ export const RentalSection = () => {
           </div>
 
           <div className="content-item grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
-          <RentalCard
-              name={"Crust Cafe"}
-              address={"10, Admiralty Way, Lekki, Lagos"}
-              price={"1,500,000/year"}
-              image={"/crust.png"}
-              width={"43.3%"}
-              note={"prevue"}
+            <RentalCard
+              image="/crust.png"
+              name="Luxury 2-Bedroom Apartment"
+              address="Lekki Phase 1, Lagos"
+              price="20,000"
+              note="10 mins from the beach"
+              type="shortlet"
+              id="1"
+              rating={4.8}
+              amenities={["Wi-Fi", "Parking", "Pool", "Air Conditioning"]}
             />
+
             <RentalCard
-              address={"10, Admiralty Way, Lekki, Lagos"}
-              price={"1,500,000/year"}
-              image={"/hard-rock.png"}
-              width={"33%"}
-              note={"prevue"}
-              />
-           
+              image="/hard-rock.png"
+              name="Luxury 2-Bedroom Apartment"
+              address="Lekki Phase 1, Lagos"
+              price="20,000"
+              note="10 mins from the beach"
+              type="shortlet"
+              id="1"
+              rating={4.8}
+              amenities={["Wi-Fi", "Parking", "Pool", "Air Conditioning"]}
+            />
+
             <RentalCard
-              name={"Pause Cafe"}
-              address={"10, Admiralty Way, Lekki, Lagos"}
-              price={"1,500,000/year"}
-              image={"/pause.png"}
-              width={"43.3%"}
-              note={"prevue"}
+              image="/pause.png"
+              name="Luxury 2-Bedroom Apartment"
+              address="Lekki Phase 1, Lagos"
+              price="20,000"
+              note="10 mins from the beach"
+              type="shortlet"
+              id="1"
+              rating={4.8}
+              amenities={["Wi-Fi", "Parking", "Pool", "Air Conditioning"]}
             />
           </div>
-        </div>{" "}
+        </div>
       </div>
     </div>
   );
@@ -107,11 +140,18 @@ export const RentalSection = () => {
 export const RestaurantSection = () => {
   return (
     <div className="tab-content-container">
-      <div className="tab-content">
-        <p className="tab-content-text  ">
-        Discover the perfect property. From short lets to long-term rentals
-         and dream homes for sale, we offer a diverse range of housing options. 
-        Immerse yourself in virtual tours, calculate expenses, and stay updated with the latest listings.
+      <div className="tab-content p-6 bg-gray-50 rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">
+          Discover Exquisite Dining Experiences
+        </h2>
+        <p className="tab-content-text text-gray-600 leading-relaxed">
+          <span className="font-semibold text-gray-800">From cozy</span>{" "}
+          <span className="text-emerald-500 font-semibold">cafes</span> to
+          <span className="text-emerald-500 font-semibold"> fine dining</span>,
+          we showcase a curated selection of restaurants that satisfy every
+          palate.{" "}
+          <span className="font-semibold text-gray-800">Explore menus</span>,
+          browse reviews, and uncover hidden gems in your area.
         </p>
         <div>
           <div className="">
@@ -126,25 +166,35 @@ export const RestaurantSection = () => {
 
           <div className="content-item grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
             <RestaurantCard
-              name={"Hard Rock Cafe"}
-              address={"10 Admiralty Way, Lekki, Lagos"}
-              image={"/hard-rock.png"}
-              width={"43.3%"}
-              note={"prevue"}
+              image="/hard-rock.png"
+              name="Mama's Kitchen"
+              address="Lekki Phase 1, Lagos"
+              cuisine="Italian Cuisine"
+              priceRange="$$ - $$$"
+              type="restaurant"
+              id="2"
+              rating={4.6}
             />
             <RestaurantCard
-              name={"Crust Cafe"}
-              address={"10 Admiralty Way, Lekki, Lagos"}
-              image={"/crust.png"}
-              width={"43.3%"}
-              note={"prevue"}
+              image="/crust.png"
+              name="Mama's Kitchen"
+              address="Lekki Phase 1, Lagos"
+              cuisine="Italian Cuisine"
+              priceRange="$$ - $$$"
+              type="restaurant"
+              id="2"
+              rating={4.6}
             />
+
             <RestaurantCard
-              name={"Pause Cafe"}
-              address={"10 Admiralty Way, Lekki, Lagos"}
-              image={"/pause.png"}
-              width={"43.3%"}
-              note={"prevue"}
+              image="/pause.png"
+              name="Mama's Kitchen"
+              address="Lekki Phase 1, Lagos"
+              cuisine="Italian Cuisine"
+              priceRange="$$ - $$$"
+              type="restaurant"
+              id="2"
+              rating={4.6}
             />
           </div>
         </div>

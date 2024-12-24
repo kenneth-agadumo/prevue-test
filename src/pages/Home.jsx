@@ -1,131 +1,87 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState, useEffect } from 'react';
-import '../layout.css';
-import { FeaturedTabs } from '../components/FeaturedTabs';
-import { Dropdown } from '../components/Dropdown';
-import { EmbedScript } from '../components/VirtualTour';
-import Footer from '../components/Footer';
-import Carousel from '../components/Carousel';
-import {HeroSearch} from '../components/HeroSearch'
-
+import React, { useRef } from "react";
+import "../layout.css";
+import { FeaturedTabs } from "../components/FeaturedTabs";
+import { Dropdown } from "../components/Dropdown";
+import { EmbedScript } from "../components/VirtualTour";
+import Footer from "../components/Footer";
+import Carousel from "../components/Carousel";
+import { HeroSearch } from "../components/HeroSearch";
+import StepsSection from "../components/StepSection";
+import AboutUs from "../components/AboutUs";
 
 export const Home = () => {
-    const [loading, setLoading] = useState(true);
-
-    // useEffect(() => {
-    //     // Simulate loading data/components, you can replace this with actual loading logic
-    //     const loadComponents = async () => {
-    //         // Simulate a delay for loading components
-    //         await new Promise((resolve) => setTimeout(resolve, 3000));
-    //         setLoading(false);
-    //     };
-
-    //     loadComponents();
-    // }, []);
-    
-
-   
-
-    return (
-        <>
-            <div className="hero-section ">
+  return (
+    <>
+      {/* <div className="hero-section ">
                 <div className="hero-container">
                     <h1 className="hero-text opacity-0 animate-slideInLeft "> Discover, Preview, and Explore Locations of Your Choice</h1>
                     <HeroSearch/>
                 </div>
-                
-            </div>
+            </div> */}
+      <div className="relative flex items-center justify-center h-screen text-center text-white">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover -z-10"
+          poster="/hero-bg.png"
+        >
+          <source src="/herovideo.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
 
-            <div className="featured-section">
-            <div className="oval">
-            <img src="double-down-arrow.svg" alt="" style={{ width: '15px', margin: '20px 0' }} />
-            </div>
-                
-                
-                <FeaturedTabs />
-            </div>
-            <div className="about-oval"></div>
-            <div className="about-section-container">
-                <div className="about-section">
-                    <div className="about-left">
-                        
-                        <p>About Prevue</p>
-                        <h3>Headline with USP related to how your product or service works</h3>
-                        <button className="learn-more">Learn More</button>
-                    </div>
-                    <div className="about-right">
-                        <p>
-                            At Prevue, we are your gateway to unforgettable experiences. Our mission is to simplify your quest for the perfect property, dining experience, or outing.
-                            Our platform offers immersive virtual reality tours, allowing you to step inside properties or explore dining destinations before you arrive.
-                            We are committed to transparency in your planning, with cost estimates that cover every detail, from property costs to VAT and caution fees.
-                        </p>
-                        <button className="learn-more">Learn More</button>
-                    </div>
-                </div>
-                <img src="/about-image.png" alt="" />
-            </div>
+        <div className="absolute inset-0 bg-black bg-opacity-50 -z-10"></div>
 
-            <div className="steps-section-container">
-                <div className="steps-section sm:grid-col-1  justify-left">
-                    <div className="hidden lg:block md:hidden  pl-10">
-                        <img src="/steps-image.png" alt=""  />
+        <div className="px-4">
+          <h1 className="text-3xl md:text-5xl text-primary font-bold mb-4 animate-slideInLeft">
+            Discover Your Perfect Stay or Dine in Style
+          </h1>
+          <p className="text-lg md:text-xl mb-8 text-primary">
+            Luxury shortlets and fine dining experiences, curated just for you.
+          </p>
+          <div className="flex justify-center gap-4 mb-8">
+            <button className="px-6 py-3 bg-primary text-white font-medium rounded-lg hover:bg-opacity-90">
+              Explore Shortlets
+            </button>
+            <button className="px-6 py-3 bg-secondary text-white font-medium rounded-lg hover:bg-opacity-90">
+              Book a Table
+            </button>
+          </div>
 
-                    </div>
-                    <div className="steps-right ">
-                        <h3>
-                            How it works <br /> in 3 simple steps
-                        </h3>
-                        <div className="steps p-4 ">
-                            <div className="step-1 text-left ">
-                                <div>
-                                    <span className="step-number">01</span>
-                                </div>
-                                <div className='step-col'>    
-                                    <p className="step-header">Start by selecting a category</p>
-                                    <p className='step-text' >Whether is a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
-                                </div>
-                            </div>
+          <HeroSearch />
+        </div>
+      </div>
+      <div className="featured-section">
+        <div className="oval"></div>
 
-                            <div className="step-1 text-left ">
-                                <div>
-                                    <span className="step-number">02</span>
-                                </div>
-                                <div className='step-col'>    
-                                    <p className="step-header">Start by selecting a category</p>
-                                    <p className='step-text' >Whether is a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
-                                </div>
-                            </div>
+        <FeaturedTabs />
+      </div>
+      <div className="about-oval"></div>
+      <AboutUs />
+      <StepsSection />
 
-                            <div className="step-1 text-left ">
-                                <div>
-                                    <span className="step-number">03</span>
-                                </div>
-                                <div className='step-col'>    
-                                    <p className="step-header">Start by selecting a category</p>
-                                    <p className='step-text' >Whether is a charming property, a delightful dining spot, or an exciting adventure, our platform has you covered</p>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div className="bg-gray-50 py-16 px-6 lg:px-24 text-center">
+        <div className="max-w-5xl mx-auto">
+          <h4 className="text-sm font-bold text-primary uppercase tracking-wide">
+            Preview Locations
+          </h4>
+          <h3 className="mt-4 text-4xl font-bold text-gray-900 leading-tight">
+            Explore Your Favorite Spots in Virtual Reality
+          </h3>
+          <p className="mt-4 text-lg text-gray-700 leading-relaxed">
+            Immerse yourself in stunning 360° views of properties and
+            destinations. Experience it virtually before stepping in physically.
+          </p>
+        </div>
 
-            <div className="showcase-section">
-                <div className="flex flex-col lg:flex-row pl-8 pr-8 items-center ">
-                    <div className="headline-left ">
-                        <h4 className="pb-2">Preview Locations</h4>
-                        <h3 className=" text-balance">Step into Your Favorite Locations with our panoramic virtual tours</h3>
-                    </div>
-                    <div className="headline-right ">
-                        <p className="">
-                            Our 360° location previews take you on a mesmerizing journey to explore properties, restaurants, and activities like never before.
-                        </p>
-                    </div>
-                </div>
-                <Carousel/>
-            </div>
-            <Footer/>
-        </>
-    );
+        <div className="mt-12 relative w-full max-w-4xl mx-auto rounded-lg overflow-hidden shadow-lg">
+          <Carousel />
+        </div>
+      </div>
+
+      <Footer />
+    </>
+  );
 };
