@@ -14,45 +14,54 @@ export const Home = () => {
   return (
     <>
       {/* <div className="hero-section ">
-                <div className="hero-container">
-                    <h1 className="hero-text opacity-0 animate-slideInLeft "> Discover, Preview, and Explore Locations of Your Choice</h1>
-                    <HeroSearch/>
-                </div>
-            </div> */}
-      <div className="relative flex items-center justify-center h-screen text-center text-white">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover -z-10"
-          poster="/hero-bg.png"
-        >
-          <source src="/herovideo.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-
-        <div className="absolute inset-0 bg-black bg-opacity-50 -z-10"></div>
-
-        <div className="px-4">
-          <h1 className="text-3xl md:text-5xl text-primary font-bold mb-4 animate-slideInLeft">
-            Discover Your Perfect Stay or Dine in Style
+        <div className="hero-container">
+          <h1 className="hero-text opacity-0 animate-slideInLeft ">
+            {" "}
+            Discover, Preview, and Explore Locations of Your Choice
           </h1>
-          <p className="text-lg md:text-xl mb-8 text-primary">
-            Luxury shortlets and fine dining experiences, curated just for you.
-          </p>
-          <div className="flex justify-center gap-4 mb-8">
-            <button className="px-6 py-3 bg-primary text-white font-medium rounded-lg hover:bg-opacity-90">
-              Explore Shortlets
-            </button>
-            <button className="px-6 py-3 bg-secondary text-white font-medium rounded-lg hover:bg-opacity-90">
-              Book a Table
-            </button>
-          </div>
-
           <HeroSearch />
         </div>
+      </div> */}
+      <div className="hero-section">
+        <div className="hero-container ">
+          {/* <div className="relative flex items-center justify-center h-screen text-center text-white"> */}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover -z-10"
+            poster="/hero-bg.png"
+          >
+            <source src="/herovideo.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+
+          <div className="absolute inset-0 bg-black bg-opacity-50 -z-10"></div>
+
+          <div className="px-4">
+            <h1 className="text-3xl md:text-5xl text-primary font-bold mb-4 animate-slideInLeft">
+              Discover Your Perfect Stay or Dine in Style
+            </h1>
+            <p className="text-lg md:text-xl mb-8 text-primary">
+              Luxury shortlets and fine dining experiences, curated just for
+              you.
+            </p>
+            {/* <div className="flex justify-center gap-4 mb-8">
+              <button className="px-6 py-3 bg-primary text-white font-medium rounded-lg hover:bg-opacity-90">
+                Explore Shortlets
+              </button>
+              <button className="px-6 py-3 bg-secondary text-white font-medium rounded-lg hover:bg-opacity-90">
+                Book a Table
+              </button>
+            </div> */}
+
+            <HeroSearch />
+          </div>
+          {/* </div> */}
+        </div>
       </div>
+
       <div className="featured-section">
         <div className="oval"></div>
 

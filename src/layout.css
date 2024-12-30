@@ -15,7 +15,7 @@
   height: auto;
   padding: 10% 0 0 0;
   box-sizing: border-box;
-  background: url("/hero-bg.png");
+  /* background: url("/hero-bg.png"); */
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
