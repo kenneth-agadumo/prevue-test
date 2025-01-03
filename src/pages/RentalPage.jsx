@@ -4,7 +4,7 @@ import { useGlobalState } from "../Contexts/GlobalStateContext";
 import {ImageSlider} from '../components/ImageSlider'
 import {Map} from '../components/Map'
 import Lottie from "lottie-react" 
-import ReservationForm from "../components/RervationForm";
+import ReservationForm from "../components/ReservationForm";
 import { Dropdown } from "../components/Dropdown";
 import Heart from  '../heart.json'  
 import Footer from "../components/Footer";
@@ -13,13 +13,33 @@ import '../layout.css'
 import { h1 } from "framer-motion/client";
 import HeartButton from "../components/Like";
 import DateRangePicker from "../components/ReservationCalendar";
+import { FaTv, FaParking, FaSwimmingPool  } from 'react-icons/fa'; // Import some icons
+import { TbAirConditioning } from 'react-icons/tb';
+import { MdBalcony, MdOutlinePets } from 'react-icons/md';
+import { FaWifi, FaKitchenSet, FaDumbbell   } from 'react-icons/fa6'; // Import some icons
+import { BiCloset } from 'react-icons/bi';
+// import { LuWashingMachine } from 'react-icons/lu';
+import { RiTwitterXFill, RiTiktokFill, RiInstagramFill, RiFacebookFill } from "react-icons/ri";
 
 
 export const RentalPage = () => {
-    const { rentalId } = useParams();
-    const { rentalImagesMap } = useGlobalState();
-    const rentalData = rentalImagesMap[rentalId];
-    console.log(rentalData)
+    const { shortletId } = useParams();
+    const {  shortletImagesMap } = useGlobalState();
+    const rentalData = shortletImagesMap[shortletId];
+    
+    const amenitiesIconMap = {
+        'WiFi' : <FaWifi className="w-6 h-6" />,
+        'Air Conditioning' : <TbAirConditioning className="w-6 h-6" />,
+        'TV' : <FaTv className="w-6 h-6"/>,
+        'Kitchen' : <FaKitchenSet className="w-6 h-6"/>,
+        'Washing Machine' : <FaKitchenSet className="w-6 h-6"/>,
+        'Parking Space' : <FaParking className="w-6 h-6"  />,
+        'Swimming Pool' : <FaSwimmingPool className="w-6 h-6"/>,
+        'Gym' :  <FaDumbbell className="w-6 h-6 "/>,
+        'Balcony' : <MdBalcony className="w-6 h-6"/>,
+        'Wardrobe' : <BiCloset className="w-6 h-6"/>,
+        'Pet Friendly' : <MdOutlinePets className="w-6 h-6"/>,
+      };
   
     const [iconclicked, setIconClicked] = useState(false);
     
@@ -44,7 +64,7 @@ export const RentalPage = () => {
                 <div className="description-header ">
                     <div className='d-header'>
                         <div>    
-                            <h4 style={{marginBottom: "6px", fontSize: '22px'}}> {rentalData.name}</h4>
+                            <h4 style={{marginBottom: "6px", fontSize: '22px'}}> {rentalData.propertyName}</h4>
                             <p>{rentalData.address}</p>
                         </div>
                     
@@ -59,8 +79,22 @@ export const RentalPage = () => {
                 <div className="description-about">
                     <h4 style={{color:'var(--primary-color)', fontWeight:'300', marginBottom:'16px'}}>About Property</h4>
                     <p style={{wordSpacing:'3px'}}>
-                    {rentalData.rooms}
+                    {rentalData.about}
                     </p>
+                </div>
+
+                <div className="description-about box-border overflow-hidden">
+                    <h4 style={{ color: 'var(--primary-color)', fontWeight: '300', marginBottom: '16px' }}>
+                        Location Amenities
+                    </h4>
+                    <div className="flex gap-10 flex-wrap  justify-around  pl-3 pr-10 pt-4" style={{ wordSpacing: '3px' }}>
+                        {rentalData.amenities.map((amenity, index) => (
+                        <div className="flex flex-col basis-11" key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
+                            {amenitiesIconMap[amenity] || <span style={{ color: 'var(--secondary-color)' }}>❓</span>}
+                            <span className="text-sm text-center mt-3" >{amenity}</span>
+                        </div>
+                        ))}
+                    </div>
                 </div>
 
                 <div className="description-location">
@@ -73,12 +107,12 @@ export const RentalPage = () => {
                     <h4 style={{color: "#50504F;"}}>Contact Information</h4>
                     <div className="col1"> 
                         <p>Phone Number</p>
-                        <p>+234 81 2345 6789</p>
+                        <p>{rentalData.telephone}</p>
                     </div>
                     <div className="col1">
                         <p>Email</p>
-                        <a href="mailto:agadumok@gmail.com.com">
-                            <p>info@cactus.com</p>
+                        <a href={`mailto:'${rentalData.email}'`}>
+                            <p>{rentalData.email}</p>
                         </a>
                     </div>
                     <div className="col1">
@@ -87,22 +121,24 @@ export const RentalPage = () => {
                     </div>
                     <div className="col1">
                         <p>Socials</p>
-                        <span style={{width:'85px', height:'50px'}}>
+                        <span className='flex gap-1'  style={{width:'85px', height:'50px'}}>
 
                             <a href="">
-                                <img src="/twitter.svg" alt="" style={{marginRight: '8px'}} />
+                                <RiTwitterXFill className="text-black hover:text-primary" />
                             </a> 
 
                             <a href="">
-                                <img src="/tiktok.svg" alt="" style={{marginRight: '8px'}} />
+                                <RiTiktokFill className="text-black hover:text-primary" />
                             </a> 
                             
                             <a href="">
-                                <img src="/instagram.svg" alt="" style={{marginRight: '8px'}} /> 
+                               
+                                <RiInstagramFill className="text-black hover:text-primary" />
+                               
                             </a>
 
                             <a href="">
-                                <img src="/facebook.svg" alt="" />
+                                <RiFacebookFill className="text-black hover:text-primary" />
                             </a> 
                         </span>
                     </div>
@@ -111,14 +147,14 @@ export const RentalPage = () => {
                     <h4 className="text-primary text-lg font-normal">Cost Estimation</h4>
                     <div className="w-full flex justify-between">
                         <p className="text-grey">Cost/Night</p>
-                        <p className="text-grey">$1000000</p>
+                        <p className="text-grey">₦{Number(rentalData.costPerNight).toLocaleString()}</p>
                     </div>
                     <div className="w-full flex justify-between text-neutral-600">
                         <p className="text-grey">Caution Fee</p>
-                        <p className="text-grey">$10000</p>
+                        <p className="text-grey">₦{Number(rentalData.cautionFee).toLocaleString()}</p>
                     </div>
-                    <DateRangePicker />
-                    <ReservationForm />
+                    <DateRangePicker  costPerNight={rentalData.costPerNight} cautionFee={rentalData.cautionFee} />
+               
                 </div>
             </div>
         </div>

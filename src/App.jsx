@@ -99,7 +99,7 @@ const App = () => {
               element={<RestaurantPage />}
             />
             <Route
-              path="/rentals/:rentalId"
+              path="/rentals/:shortletId"
               element={<RentalPage />}
             />
           </Routes>

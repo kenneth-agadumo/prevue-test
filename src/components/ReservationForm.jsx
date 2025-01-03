@@ -7,7 +7,7 @@ import '../components.css'
 import { ReactComponent as Clock } from '../assets/clock.svg';
 import { ReactComponent as Calendar  } from '../assets/calendar.svg';
 import { heightPropDefs } from '@radix-ui/themes/props';
-import {Dropdown} from '../components/Dropdown'
+import {Dropdown} from './Dropdown'
 import Button from '../micro-components/Button';
 
 const ReservationForm = () => {
@@ -77,8 +77,6 @@ const ReservationForm = () => {
             customInput={<TimeCustomInput className="time-custom-input" />}
           />
         </div>
-
-
         </div>
 
         

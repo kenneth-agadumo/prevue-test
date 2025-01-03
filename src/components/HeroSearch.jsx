@@ -4,7 +4,7 @@ import { useGlobalState } from "../Contexts/GlobalStateContext";
 import { SearchResults } from "./SearchResults";
 
 export const HeroSearch = () => {
-    const { restaurantImagesMap, rentalImagesMap } = useGlobalState();
+    const { restaurantImagesMap, shortletImagesMap } = useGlobalState();
 
     const [category, setCategory] = useState("");
     const [subCategory, setSubCategory] = useState("");
@@ -19,11 +19,11 @@ export const HeroSearch = () => {
         images: restaurantData.images,
     }));
 
-    const rentalItems = Object.entries(rentalImagesMap).map(([rentalId, rentalData]) => ({
-        id: rentalId,
-        address: rentalData.address,
-        price: rentalData.price,
-        images: rentalData.images,
+    const shortletItems = Object.entries(shortletImagesMap).map(([shortletId, shortletData]) => ({
+        id: shortletId,
+        address: shortletData.address,
+        price: shortletData.price,
+        images: shortletData.images,
     }));
 
     const handleCategoryChange = (selectedCategory) => setCategory(selectedCategory);
@@ -36,7 +36,7 @@ export const HeroSearch = () => {
         if (category === "Restaurants") {
             results = restaurantItems.filter(item => location ? item.address.includes(location) : true);
         } else if (category === "Rentals") {
-            results = rentalItems.filter(item => location ? item.address.includes(location) : true);
+            results = shortletItems.filter(item => location ? item.address.includes(location) : true);
         }
 
         setSearchResults(results);
@@ -54,7 +54,7 @@ export const HeroSearch = () => {
                 <Dropdown 
                     itemNumber={2} 
                     placeholder={'Category'} 
-                    itemsArray={['Rentals', 'Restaurants']} 
+                    itemsArray={['Shortlets', 'Restaurants']} 
                     width={'200px'} 
                     border={'none'} 
                     isSearchable={false} 
@@ -80,7 +80,7 @@ export const HeroSearch = () => {
                     placeholder={'Location'} 
                     itemsArray={[
                         ...restaurantItems.map(res => res.address), 
-                        ...rentalItems.map(ren => ren.address)
+                        ...shortletItems.map(ren => ren.address)
                     ]}
                     width={'200px'} 
                     border={'none'} 

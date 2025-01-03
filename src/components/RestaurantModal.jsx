@@ -13,9 +13,15 @@ export const RestaurantModal = ({ isOpen, onClose }) => {
     address: '',
     contactNumber: '',
     email: '',
-    virtualTourLink: '',
-    instagramLink:'',
-    FacebookLink:'',
+    likes: 0, 
+    attributes: [],
+    virtualTourLink:'',
+    socialMedia: {
+      twitter: '',
+      tiktok: '',
+      instagram: '' ,
+      facebook: ''
+    }
   });
 
   const handleChange = (e) => {
@@ -105,7 +111,7 @@ export const RestaurantModal = ({ isOpen, onClose }) => {
                 <input
                   type="text"
                   className='text-sm'
-                  name="name"
+                  name="email"
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="example@email.com"
@@ -130,7 +136,7 @@ export const RestaurantModal = ({ isOpen, onClose }) => {
                   type="text"
                   className='text-sm'
                   name="name"
-                  value={formData.instagramLink}
+                  value={formData.socialMedia.instagram}
                   onChange={handleChange}
                   placeholder="instagram.com/"
                 />

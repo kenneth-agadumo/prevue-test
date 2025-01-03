@@ -2,7 +2,7 @@ import { useState } from "react";
 import Select from 'react-select';
 import '../components.css'; // Optional: If you have additional styles
 
-export const Dropdown = ({ onChange, itemNumber, itemsArray, width, height, border, borderRadius, color, backgroundColor, isSearchable, placeholder }) => {
+export const Dropdown = ({ onChange, itemNumber, itemsArray, width, maxWidth, height, border, borderTop,  borderRadius, color, backgroundColor, isSearchable, placeholder }) => {
   // Prepare options for react-select
   const options = itemsArray.slice(0, itemNumber).map(item => ({ value: item, label: item }));
 
@@ -24,15 +24,13 @@ export const Dropdown = ({ onChange, itemNumber, itemsArray, width, height, bord
       fontSize: '14px',
       minHeight: height || '38px',
       borderRadius: borderRadius,
-      border: border,
-      borderColor: state.isFocused ? 'blue' : 'grey',
+      border: border || 'none',
+
       boxShadow: 'none',
-      '&:hover': {
-        borderColor: 'blue',
-      },
+      
       padding: '4px',
       backgroundColor: backgroundColor,
-      maxWidth: 'fit-content',
+      maxWidth:  maxWidth || 'fit-content',
     }),
     placeholder: (provided) => ({
       ...provided,
@@ -79,7 +77,6 @@ export const Dropdown = ({ onChange, itemNumber, itemsArray, width, height, bord
       styles={customStyles}
       className="react-select-container"
       classNamePrefix="react-select"
-      isSearchable={isSearchable}
       placeholder={placeholder}
     />
   );

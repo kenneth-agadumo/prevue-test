@@ -8,7 +8,7 @@ import { storage } from "../firebaseConfig";
 import { Link } from "react-router-dom";
 
 export const Rentals = () => {
-    const { userData, rentals, rentalImagesMap} = useGlobalState();
+    const { userData, rentals, shortletImagesMap} = useGlobalState();
     
    
 
@@ -37,19 +37,19 @@ export const Rentals = () => {
 
 
                 <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-6 mx-auto" style={{width: '90%'}}  >
-                {Object.entries(rentalImagesMap).map(([rentalId, rentalData]) => (
+                {Object.entries(shortletImagesMap).map(([shortletId, shortletData]) => (
                     
                     <RentalCard
-                    key={rentalId}  
+                    key={shortletId}  
                     type="rentals"
-                    id={rentalId}
-                    address={rentalData.address}        
-                    price={rentalData.price}
-                    image={rentalData.images.length > 0 ? rentalData.images[0].url : 'default-image.png'}
+                    id={shortletId}
+                    address={shortletData.address}        
+                    price={shortletData.price}
+                    image={shortletData.images.length > 0 ? shortletData.images[0].url : 'default-image.png'}
                     width={'33%'}
                     onHeartClick={() => {
                         // Handle the heart click (e.g., add to favorites)
-                        console.log(`Rental ${rentalId} favorited!`);
+                        console.log(`Rental ${shortletId} favorited!`);
                       }}
                     />
                 

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { db, auth } from '../firebaseConfig';
+import { db, auth, storage } from '../firebaseConfig';
 import { addDoc, collection } from 'firebase/firestore';
+import { ref, uploadBytes } from 'firebase/storage';
 import { IoIosArrowDown } from "react-icons/io";
 import { IoClose } from 'react-icons/io5';
 import { FiUploadCloud } from 'react-icons/fi'; 
+import { ImageDrop } from './ImageDrop';
 
 const amenitiesList = [
   'WiFi',
@@ -14,16 +16,15 @@ const amenitiesList = [
   'Parking Space',
   'Swimming Pool',
   'Gym',
-  'Heating',
   'Balcony',
   'Wardrobe',
   'Pet Friendly',
-  'Hardwood Floor',
-  'Range Oven'
 ];
 
 export const ShortletModal = ({ isOpen, onClose }) => {
   const [step, setStep] = useState(1); // State to manage current step
+  const [images, setImages] = useState([]);
+
   const [formData, setFormData] = useState({
     userId: auth?.currentUser?.uid,
     propertyName: '',
@@ -35,6 +36,16 @@ export const ShortletModal = ({ isOpen, onClose }) => {
     rooms: 1,
     bathrooms: 1,
     parking: 1,
+    likes: 0, 
+    attributes: [],
+    virtualTourLink:'',
+    socialMedia: {
+      twitter: '',
+      tiktok: '',
+      instagram: '' ,
+      facebook: ''
+    }
+
   });
 
   // Handle form input changes
@@ -60,14 +71,36 @@ export const ShortletModal = ({ isOpen, onClose }) => {
     });
   };
 
+   // Handle removing a selected amenity
+   const handleImageChange = (e) => {
+    const files = e.target.files; // Access the FileList from the input
+    const fileArray = Array.from(files); // Convert FileList to an array for easier handling
+    setImages(fileArray); // Update the state with the file array
+    console.log('File Array:', fileArray); // Log the array before updating state
+  };
+   React.useEffect
+  
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await addDoc(collection(db, 'shortlets'), formData);
+      const docRef = await addDoc(collection(db, 'shortlets'), formData);
       console.log('Shortlet added successfully:', formData);
       onClose();
+      const shortletId = docRef.id
+
+      // Upload images
+      for (let i = 0; i < images.length; i++) {
+        const imageRef = ref(storage, `/shortlets/${shortletId}-${images[i].name}`);
+        console.log(images[i])
+        await uploadBytes(imageRef, images[i])
+          .then(() => console.log('success'))
+          .catch((error) => console.log(error));
+      }
+
+      console.log('Shortlet Added');
+
     } catch (error) {
       console.error('Error adding shortlet:', error);
     }
@@ -224,9 +257,10 @@ export const ShortletModal = ({ isOpen, onClose }) => {
         type="file"
         accept="image/*"
         multiple
-        onChange={(e) => handleImageUpload(e)}
+        onChange={(e) => handleImageChange(e)}
         className="hidden "
       />
+    
     </div>
     </div>
 
