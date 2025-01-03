@@ -224,7 +224,13 @@ nav button{
   height: 10%  ;
   padding: 0;
   box-sizing: border-box;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-10px); /* Lifts the card */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Darker shadow */
 }
 
 .card-image, .card-name, .card-address{

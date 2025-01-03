@@ -37,7 +37,7 @@ const AddPropertyButton = () => {
       {/* Add Button */}
       <button
         onClick={toggleModal}
-        className="flex items-center gap-2 px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-semibold text-sm rounded-md shadow-md"
+        className="flex items-center gap-2 px-4 py-2 bg-[#f2a20e] hover:bg-amber-400 text-white font-semibold text-sm rounded-md shadow-md"
       >
         <GoPlus />
         <span className="text-sm">Add</span>

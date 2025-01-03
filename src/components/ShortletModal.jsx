@@ -344,7 +344,7 @@ export const ShortletModal = ({ isOpen, onClose }) => {
                     <button
                       type="button"
                       onClick={() => setStep(step + 1)}
-                      className="px-12 py-1 bg-amber-500 text-white rounded-3xl hover:bg-amber-600"
+                      className="px-12 py-1 bg-[#f2a20e] text-white rounded-3xl hover:bg-amber-600"
                     >
                       Next
                     </button>
@@ -361,7 +361,7 @@ export const ShortletModal = ({ isOpen, onClose }) => {
                     </button>
                     <button
                       type="submit"
-                      className="px-12 py-1 bg-amber-500 text-white rounded-3xl hover:bg-amber-600"
+                      className="px-12 py-1 bg-[#f2a20e] text-white rounded-3xl hover:bg-amber-600"
                     >
                       Save
                     </button>
