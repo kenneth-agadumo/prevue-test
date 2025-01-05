@@ -177,7 +177,7 @@ export const RestaurantSection = ({restaurantImagesMap}) => {
             />
             
 
-            />
+        
           ))}
            
           </div>
