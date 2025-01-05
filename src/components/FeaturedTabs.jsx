@@ -119,7 +119,7 @@ export const RentalSection = ({shortletImagesMap}) => {
               address={shortletData.address}
               price={shortletData.price}
               note={shortletData.about}
-              type="shortlet"
+              type="rentals"
               id={shortletId}
               rating={4.8}
               amenities={shortletData.amenities}
@@ -171,7 +171,7 @@ export const RestaurantSection = ({restaurantImagesMap}) => {
               address={restaurantData.address}
               cuisine="Italian Cuisine"
               priceRange="$$ - $$$"
-              type="restaurant"
+              type="restaurants"
               id={restaurantId}
               rating={4.6}
             />
