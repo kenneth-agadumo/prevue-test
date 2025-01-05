@@ -114,15 +114,15 @@ export const RentalSection = ({shortletImagesMap}) => {
           )
           .map(([shortletId, shortletData]) => (
             <RentalCard
-              image="/crust.png"
-              name="Luxury 2-Bedroom Apartment"
-              address="Lekki Phase 1, Lagos"
-              price="20,000"
-              note="10 mins from the beach"
+              image={shortletData.images.length > 0 ? shortletData.images[0].url : 'default-image.png'}
+              name={shortletData.propertyName}
+              address={shortletData.address}
+              price={shortletData.price}
+              note={shortletData.about}
               type="shortlet"
-              id="1"
+              id={shortletId}
               rating={4.8}
-              amenities={["Wi-Fi", "Parking", "Pool", "Air Conditioning"]}
+              amenities={shortletData.amenities}
             />
           ))}
           </div>
