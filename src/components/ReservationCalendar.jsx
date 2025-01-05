@@ -15,8 +15,8 @@ const DateRangePicker = ({ costPerNight, cautionFee }) => { // Destructure costP
     if (startDate && endDate) {
       const millisecondsPerDay = 24 * 60 * 60 * 1000;
       const numberOfDays = Math.ceil((endDate - startDate) / millisecondsPerDay); // Difference in days
-      const totalCost = (numberOfDays * costPerNight ) 
-      return totalCost ;
+      let totalCost = ((numberOfDays * Number(costPerNight)) + Number(cautionFee) ) 
+      return totalCost.toLocaleString() ;
     }
     return 0;
   };
@@ -47,15 +47,15 @@ const DateRangePicker = ({ costPerNight, cautionFee }) => { // Destructure costP
           <p>CHECK-OUT</p> {endDate ? endDate.toDateString() : "--/--/--"}
         </div>
 
-        <div className="basis-full w-full h-full bg-white mb-6 border-t border-neutral-400">
-          <Dropdown
-            className='w-full border-red-500'
-            itemNumber={5}
-            itemsArray={['1', '2', '3', '4', '5+']}
-            backgroundColor={""}
-            maxWidth={'100%'}
-            placeholder={'Guests'}
-          />
+        <div className="basis-full w-full h-full box-border overflow-hidden  bg-white mb-6 border-t border-neutral-400">
+         <input type="number"
+          name="guests"
+          min="0"
+          max="5"
+          placeholder="Guests"
+          className="w-full h-14  flex justify-center align-center p-3"
+          style={{}}
+         />
         </div>
       </div>
 

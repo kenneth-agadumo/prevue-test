@@ -99,6 +99,7 @@ export const RentalCard = ({
             View Details
           </Link>
         </div>
+
       </div>
     </div>
   );

@@ -5,12 +5,23 @@ import { RentalCard, RestaurantCard } from "./Card";
 import Lottie from "lottie-react";
 import ComingSoon from "../coming-soon.json";
 
+import { useGlobalState } from "../Contexts/GlobalStateContext";
+
+
+
 export const FeaturedTabs = () => {
   const [selectedTab, setSelectedTab] = useState("restaurants");
+  const { restaurantImagesMap, shortletImagesMap } = useGlobalState();
 
   const handleTabChange = (newValue) => {
     setSelectedTab(newValue);
   };
+
+
+  
+
+  console.log(shortletImagesMap);
+
 
   return (
     <div className="featured-tabs bg-gradient-to-b from-gray-50 to-white py-12">
@@ -55,14 +66,14 @@ export const FeaturedTabs = () => {
         </div>
       </div>
 
-      {selectedTab === "rentals" && <RentalSection />}
-      {selectedTab === "restaurants" && <RestaurantSection />}
+      {selectedTab === "rentals" && <RentalSection shortletImagesMap={shortletImagesMap} />}
+      {selectedTab === "restaurants" && <RestaurantSection restaurantImagesMap={restaurantImagesMap} />}
       {selectedTab === "activities" && <ActivitiesSection />}
     </div>
   );
 };
 
-export const RentalSection = () => {
+export const RentalSection = ({shortletImagesMap}) => {
   return (
     <div className="tab-content-container">
       <div className="tab-content p-6 bg-gray-50 rounded-lg shadow-md">
@@ -96,6 +107,12 @@ export const RentalSection = () => {
           </div>
 
           <div className="content-item grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
+
+            {Object.entries(shortletImagesMap)
+          .filter(([shortletId, shortletData]) => 
+            shortletData.attributes && shortletData.attributes.includes("Featured")
+          )
+          .map(([shortletId, shortletData]) => (
             <RentalCard
               image="/crust.png"
               name="Luxury 2-Bedroom Apartment"
@@ -107,37 +124,14 @@ export const RentalSection = () => {
               rating={4.8}
               amenities={["Wi-Fi", "Parking", "Pool", "Air Conditioning"]}
             />
-
-            <RentalCard
-              image="/hard-rock.png"
-              name="Luxury 2-Bedroom Apartment"
-              address="Lekki Phase 1, Lagos"
-              price="20,000"
-              note="10 mins from the beach"
-              type="shortlet"
-              id="1"
-              rating={4.8}
-              amenities={["Wi-Fi", "Parking", "Pool", "Air Conditioning"]}
-            />
-
-            <RentalCard
-              image="/pause.png"
-              name="Luxury 2-Bedroom Apartment"
-              address="Lekki Phase 1, Lagos"
-              price="20,000"
-              note="10 mins from the beach"
-              type="shortlet"
-              id="1"
-              rating={4.8}
-              amenities={["Wi-Fi", "Parking", "Pool", "Air Conditioning"]}
-            />
+          ))}
           </div>
         </div>
       </div>
     </div>
   );
 };
-export const RestaurantSection = () => {
+export const RestaurantSection = ({restaurantImagesMap}) => {
   return (
     <div className="tab-content-container">
       <div className="tab-content p-6 bg-gray-50 rounded-lg shadow-md">
@@ -165,37 +159,27 @@ export const RestaurantSection = () => {
           </div>
 
           <div className="content-item grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
+          {Object.entries(restaurantImagesMap)
+          .filter(([restaurantId, restaurantData]) => 
+            restaurantData.attributes && restaurantData.attributes.includes("Featured")
+          )
+          .map(([restaurantId, restaurantData]) => (
             <RestaurantCard
-              image="/hard-rock.png"
-              name="Mama's Kitchen"
-              address="Lekki Phase 1, Lagos"
-              cuisine="Italian Cuisine"
-              priceRange="$$ - $$$"
-              type="restaurant"
-              id="2"
-              rating={4.6}
-            />
-            <RestaurantCard
-              image="/crust.png"
-              name="Mama's Kitchen"
-              address="Lekki Phase 1, Lagos"
-              cuisine="Italian Cuisine"
-              priceRange="$$ - $$$"
-              type="restaurant"
-              id="2"
-              rating={4.6}
-            />
 
-            <RestaurantCard
-              image="/pause.png"
-              name="Mama's Kitchen"
-              address="Lekki Phase 1, Lagos"
+              image={restaurantData.images.length > 0 ? restaurantData.images[0].url : 'default-image.png'}
+              name={restaurantData.name}
+              address={restaurantData.address}
               cuisine="Italian Cuisine"
               priceRange="$$ - $$$"
               type="restaurant"
-              id="2"
+              id={restaurantId}
               rating={4.6}
             />
+            
+
+            />
+          ))}
+           
           </div>
         </div>
       </div>
