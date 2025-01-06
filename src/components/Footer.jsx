@@ -1,4 +1,8 @@
-
+import { Link } from "react-router-dom";
+import { FaInstagram } from "react-icons/fa6";
+import { FaXTwitter } from "react-icons/fa6";
+import { FiLinkedin } from "react-icons/fi";
+import { FiFacebook } from "react-icons/fi";
 
 const Footer = () => {
     return(
@@ -15,16 +19,19 @@ const Footer = () => {
                     <div className="row1-right">
                         <ul>
                             <p>Quick Links</p>
-                            <li>Home</li>
-                            <li>Restaurants</li>
-                            <li>Properties</li>
-                            <li>Activities</li>
+                           <Link to="/"><a href=""> <li>Home</li></a></Link>
+                           <Link to="/restaurants"><a href=""><li>Restaurants</li></a></Link>
+                           <Link to="/rentals"><a href=""><li>Properties</li></a></Link>
+                           <Link to="/activities"><a href=""><li>Activities</li></a></Link>
+                            
+                            
                         </ul>
                         <ul>
                             <p>Socials</p>
-                            <li>X(Twitter)</li>
-                            <li>Instagram</li>
-                            <li>LinkedIn</li>
+                            <Link><li><FaXTwitter /></li></Link>
+                            <Link><li><FaInstagram /></li></Link>
+                            <Link><li><FiLinkedin /></li></Link>
+                            <Link><li><FiFacebook /></li></Link>
                         </ul>
                     </div>
                 </div>
