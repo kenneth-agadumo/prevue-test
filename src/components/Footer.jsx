@@ -3,6 +3,7 @@ import { FaInstagram } from "react-icons/fa6";
 import { FaXTwitter } from "react-icons/fa6";
 import { FiLinkedin } from "react-icons/fi";
 import { FiFacebook } from "react-icons/fi";
+import { PiTiktokLogo } from "react-icons/pi";
 
 const Footer = () => {
     return(
@@ -26,12 +27,15 @@ const Footer = () => {
                             
                             
                         </ul>
-                        <ul>
+                        <ul >
                             <p>Socials</p>
+                            <div className="flex flex-col gap-1">
                             <Link><li><FaXTwitter /></li></Link>
                             <Link><li><FaInstagram /></li></Link>
                             <Link><li><FiLinkedin /></li></Link>
                             <Link><li><FiFacebook /></li></Link>
+                            <Link><li><PiTiktokLogo /></li></Link>
+                            </div>
                         </ul>
                     </div>
                 </div>
