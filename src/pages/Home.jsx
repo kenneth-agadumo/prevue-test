@@ -2,8 +2,8 @@
 import React, { useRef } from "react";
 import "../layout.css";
 import { FeaturedTabs } from "../components/FeaturedTabs";
-import { Dropdown } from "../components/Dropdown";
-import { EmbedScript } from "../components/VirtualTour";
+// import { Dropdown } from "../components/Dropdown";
+// import { EmbedScript } from "../components/VirtualTour";
 import Footer from "../components/Footer";
 import Carousel from "../components/Carousel";
 import { HeroSearch } from "../components/HeroSearch";
@@ -13,18 +13,8 @@ import AboutUs from "../components/AboutUs";
 export const Home = () => {
   return (
     <>
-      {/* <div className="hero-section ">
-        <div className="hero-container">
-          <h1 className="hero-text opacity-0 animate-slideInLeft ">
-            {" "}
-            Discover, Preview, and Explore Locations of Your Choice
-          </h1>
-          <HeroSearch />
-        </div>
-      </div> */}
-      <div className="hero-section">
+      <div className="hero-section flex items-center justify-center h-screen relative">
         <div className="hero-container ">
-          {/* <div className="relative flex items-center justify-center h-screen text-center text-white"> */}
           <video
             autoPlay
             loop
@@ -43,22 +33,12 @@ export const Home = () => {
             <h1 className="text-3xl md:text-5xl text-primary font-bold mb-4 animate-slideInLeft">
               Discover Your Perfect Stay or Dine in Style
             </h1>
-            <p className="text-lg md:text-xl mb-8 text-primary">
+            <p className="text-lg md:text-xl text-center mb-8 text-primary">
               Luxury shortlets and fine dining experiences, curated just for
               you.
             </p>
-            {/* <div className="flex justify-center gap-4 mb-8">
-              <button className="px-6 py-3 bg-primary text-white font-medium rounded-lg hover:bg-opacity-90">
-                Explore Shortlets
-              </button>
-              <button className="px-6 py-3 bg-secondary text-white font-medium rounded-lg hover:bg-opacity-90">
-                Book a Table
-              </button>
-            </div> */}
-
             <HeroSearch />
           </div>
-          {/* </div> */}
         </div>
       </div>
 
