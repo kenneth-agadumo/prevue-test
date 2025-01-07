@@ -86,7 +86,7 @@ export const PropertiesContent = () => {
       <div>
         <h2 className="text-xl font-weight-700 mb-1">Properties</h2>
         <p className="text-gray-500 text-sm mb-2">
-          Showing data for the last<span className="text-orange-400 text-sm border-b-2 border-orange-400"> 30 days</span>
+          Showing data for the last<span className="text-[#f2a20e] text-sm border-b-2 border-[#f2a20e]"> 30 days</span>
         </p>
         <div className="flex flex-row-reverse mb-2"> <AddPropertyButton /></div>
         

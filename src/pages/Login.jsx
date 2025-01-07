@@ -72,7 +72,7 @@ const Login = () => {
   };
 
   return (
-    <div className="grid place-items-center bg-primary pt-[50px] pb-[150px]">
+    <div className="grid place-items-center pt-[50px] pb-[150px]">
       <motion.div
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
