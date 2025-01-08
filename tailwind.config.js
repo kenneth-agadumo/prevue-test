@@ -10,6 +10,7 @@ module.exports = {
           dark: "#009eeb",
         },
         primary: "#F2A20E",
+        primaryshade: '#FDF0D8',
         primarylight: "#FFF5EA",
         grey: "#666665",
         dashboard_grey: "#EFF0F3",
