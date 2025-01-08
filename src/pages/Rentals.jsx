@@ -1,6 +1,5 @@
-
 import { useState, useEffect } from "react";
-import { ref, listAll, getDownloadURL } from 'firebase/storage';
+import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { Dropdown } from "../components/Dropdown";
 import { RentalCard } from "../components/Card";
 import { useGlobalState } from "../Contexts/GlobalStateContext";
@@ -9,59 +8,78 @@ import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 
 export const Rentals = () => {
-    const { userData, rentals, shortletImagesMap} = useGlobalState();
-    
-   
+  const { userData, rentals, shortletImagesMap } = useGlobalState();
 
+  return (
+    <>
+      <div className="w-full bg-primary text-white py-16 mt-16">
+        <div className="flex flex-col items-center justify-center text-center px-6">
+          <h1 className="text-4xl font-semibold mb-6 leading-tight">
+            Find Your Perfect Property
+          </h1>
+          <p className="max-w-3xl text-lg text-gray-200 mb-6">
+            Whether you're looking for short-term rentals, dream homes for sale,
+            or vacation properties, we offer a variety of options to suit your
+            needs. Explore virtual tours, calculate your expenses, and stay
+            up-to-date with the latest listings.
+          </p>
+        </div>
+      </div>
 
-    return (
-        <>
-            <div className="rental-top-section px-[50px] ">
-                <h1 className="text-2xl mb-8 ">Shortlets</h1>
-                <p className="">
-                    Discover the perfect property. From short lets to long-term rentals and dream homes for sale, we offer a diverse range of housing options.
-                    Immerse yourself in virtual tours, calculate expenses, and stay updated with the latest listings.
-                </p>
-            </div>
-            <div className="rental-catalogue">
-                <div className="catalogue-top-row" >
-                    <Dropdown itemNumber={3} itemsArray={['Filters', 'Type 1', 'Type 2']} border='none' />
-                    <div className="rental-search-bar">
-                        <div className="flex items-center gap-[16px]">
-                            <img src="/search.svg" alt="" />
-                            <input type="text" placeholder="Search Property by name, type or location" />
-                        </div>
-                        <Dropdown itemNumber={3} itemsArray={['All Types', 'Recent', 'Popular']} border='none'  />
-                    </div>
-                    <Dropdown itemNumber={3} itemsArray={['Featured', 'Recent', 'Popular']} border='none'  />
-                </div>
+      <div className="rental-catalogue py-16">
+        <div className="catalogue-top-row px-6 flex flex-col md:flex-row justify-between mb-8">
+          <Dropdown
+            itemNumber={3}
+            itemsArray={["Filters", "Type 1", "Type 2"]}
+            border="none"
+          />
+          <div className="rental-search-bar flex items-center gap-[16px] mt-4 md:mt-0">
+            <img src="/search.svg" alt="search" />
+            <input
+              type="text"
+              placeholder="Search Property by name, type or location"
+              className="px-4 py-2 border rounded-lg w-full"
+            />
+          </div>
+          <Dropdown
+            itemNumber={3}
+            itemsArray={["All Types", "Recent", "Popular"]}
+            border="none"
+          />
+        </div>
 
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto px-6">
+          {Object.entries(shortletImagesMap).map(
+            ([shortletId, shortletData]) => (
+              <RentalCard
+                key={shortletId}
+                type="rentals"
+                id={shortletId}
+                address={shortletData.address}
+                price={shortletData.price}
+                image={
+                  shortletData.images.length > 0
+                    ? shortletData.images[0].url
+                    : "default-image.png"
+                }
+                width={"100%"}
+                onHeartClick={() => {
+                  // Handle the heart click (e.g., add to favorites)
+                  console.log(`Rental ${shortletId} favorited!`);
+                }}
+              />
+            )
+          )}
+        </div>
 
-                <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-6 mx-auto" style={{width: '90%'}}  >
-                {Object.entries(shortletImagesMap).map(([shortletId, shortletData]) => (
-                    
-                    <RentalCard
-                    key={shortletId}  
-                    type="rentals"
-                    id={shortletId}
-                    address={shortletData.address}        
-                    price={shortletData.price}
-                    image={shortletData.images.length > 0 ? shortletData.images[0].url : 'default-image.png'}
-                    width={'33%'}
-                    onHeartClick={() => {
-                        // Handle the heart click (e.g., add to favorites)
-                        console.log(`Rental ${shortletId} favorited!`);
-                      }}
-                    />
-                
-                ))}
+        <div className="load-more flex justify-center mt-8">
+          <button className="bg-blue-600 text-white py-2 px-6 rounded-lg">
+            Load More
+          </button>
+        </div>
+      </div>
 
-                </div>
-                <div className="load-more">
-                    {/* <button>Load More</button> */}
-                </div>
-            </div>
-           <Footer/>
-        </>
-    );
+      <Footer />
+    </>
+  );
 };
