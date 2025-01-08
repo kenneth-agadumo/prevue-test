@@ -17,31 +17,48 @@ export const FeaturedTabs = () => {
     setSelectedTab(newValue);
   };
 
+
   
 
   console.log(shortletImagesMap);
 
+
   return (
-    <div className="featured-tabs">
-      <h3 className="featured-header">Browse Featured Properties</h3>
-      <div className="tab-row">
+    <div className="featured-tabs bg-gradient-to-b from-gray-50 to-white py-12">
+      <h3 className="text-4xl font-bold text-center text-gray-800 mb-4">
+        Browse Featured Properties
+      </h3>
+      <p className="text-center text-gray-600 mb-8 leading-relaxed">
+        Discover the perfect property. From short lets to long-term rentals and
+        dream homes for sale, we offer a diverse range of housing options.
+      </p>
+
+      <div className="flex justify-center space-x-4 mb-6">
         <div
-          className={`tab-item  ${selectedTab === "rentals" ? "active" : ""}`}
+          className={`cursor-pointer px-4 py-2 border-b-2 ${
+            selectedTab === "rentals"
+              ? "border-green-500 text-green-500 font-semibold"
+              : "border-transparent text-primary hover:text-primary hover:border-primary"
+          }`}
           onClick={() => handleTabChange("rentals")}
         >
           Shortlets
         </div>
         <div
-          className={`tab-item  ${
-            selectedTab === "restaurants" ? "active" : ""
+          className={`cursor-pointer px-4 py-2 border-b-2 ${
+            selectedTab === "restaurants"
+              ? "border-green-500 text-green-500 font-semibold"
+              : "border-transparent text-primary hover:text-primary hover:border-primary"
           }`}
           onClick={() => handleTabChange("restaurants")}
         >
           Restaurants
         </div>
         <div
-          className={`tab-item  ${
-            selectedTab === "activities" ? "active" : ""
+          className={`cursor-pointer px-4 py-2 border-b-2 ${
+            selectedTab === "activities"
+              ? "border-green-500 text-green-500 font-semibold"
+              : "border-transparent text-primary hover:text-primary hover:border-primary"
           }`}
           onClick={() => handleTabChange("activities")}
         >
@@ -59,14 +76,25 @@ export const FeaturedTabs = () => {
 export const RentalSection = ({shortletImagesMap}) => {
   return (
     <div className="tab-content-container">
-      <div className="tab-content">
-        <p className="tab-content-text  ">
-        Discover the perfect property. From short lets to long-term 
-        rentals and dream homes for sale, 
-        we offer a diverse range of housing options. 
-        Immerse yourself in virtual tours, calculate expenses, 
-        and stay updated with the latest listings.
+      <div className="tab-content p-6 bg-gray-50 rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">
+          Find Your Dream Home
+        </h2>
+        <p className="tab-content-text text-gray-600 leading-relaxed">
+          <span className="font-semibold text-gray-800">
+            Discover the perfect property.
+          </span>
+          From
+          <span className="text-emerald-500 font-semibold"> short lets</span> to
+          <span className="text-emerald-500 font-semibold">
+            long-term rentals
+          </span>
+          and dream homes for sale, we offer a diverse range of housing options.
+          <span className="font-semibold text-gray-800">Immerse yourself</span>
+          in virtual tours, calculate expenses, and stay updated with the latest
+          listings.
         </p>
+
         <div>
           <div className="">
             {/* <Dropdown
@@ -79,26 +107,26 @@ export const RentalSection = ({shortletImagesMap}) => {
           </div>
 
           <div className="content-item grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
-          {Object.entries(shortletImagesMap)
+
+            {Object.entries(shortletImagesMap)
           .filter(([shortletId, shortletData]) => 
             shortletData.attributes && shortletData.attributes.includes("Featured")
           )
           .map(([shortletId, shortletData]) => (
             <RentalCard
-              key={shortletId}
-              type="rentals"
-              id={shortletId}
-              name={shortletData.name}
+              image={shortletData.images.length > 0 ? shortletData.images[0].url : 'default-image.png'}
+              name={shortletData.propertyName}
               address={shortletData.address}
               price={shortletData.price}
-              image={shortletData.images.length > 0 ? shortletData.images[0].url : 'default-image.png'}
-              width={"43.3%"}
-              note={"prevue"}
+              note={shortletData.about}
+              type="rentals"
+              id={shortletId}
+              rating={4.8}
+              amenities={shortletData.amenities}
             />
           ))}
-        
           </div>
-        </div>{" "}
+        </div>
       </div>
     </div>
   );
@@ -106,11 +134,18 @@ export const RentalSection = ({shortletImagesMap}) => {
 export const RestaurantSection = ({restaurantImagesMap}) => {
   return (
     <div className="tab-content-container">
-      <div className="tab-content">
-        <p className="tab-content-text  ">
-        Discover the perfect property. From short lets to long-term rentals
-         and dream homes for sale, we offer a diverse range of housing options. 
-        Immerse yourself in virtual tours, calculate expenses, and stay updated with the latest listings.
+      <div className="tab-content p-6 bg-gray-50 rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">
+          Discover Exquisite Dining Experiences
+        </h2>
+        <p className="tab-content-text text-gray-600 leading-relaxed">
+          <span className="font-semibold text-gray-800">From cozy</span>{" "}
+          <span className="text-emerald-500 font-semibold">cafes</span> to
+          <span className="text-emerald-500 font-semibold"> fine dining</span>,
+          we showcase a curated selection of restaurants that satisfy every
+          palate.{" "}
+          <span className="font-semibold text-gray-800">Explore menus</span>,
+          browse reviews, and uncover hidden gems in your area.
         </p>
         <div>
           <div className="">
@@ -130,15 +165,19 @@ export const RestaurantSection = ({restaurantImagesMap}) => {
           )
           .map(([restaurantId, restaurantData]) => (
             <RestaurantCard
-              key={restaurantId}
-              type="restaurants"
-              id={restaurantId}
+
+              image={restaurantData.images.length > 0 ? restaurantData.images[0].url : 'default-image.png'}
               name={restaurantData.name}
               address={restaurantData.address}
-              image={restaurantData.images.length > 0 ? restaurantData.images[0].url : 'default-image.png'}
-              width={"43.3%"}
-              note={"prevue"}
+              cuisine="Italian Cuisine"
+              priceRange="$$ - $$$"
+              type="restaurants"
+              id={restaurantId}
+              rating={4.6}
             />
+            
+
+        
           ))}
            
           </div>

@@ -15,7 +15,7 @@
   height: auto;
   padding: 10% 0 0 0;
   box-sizing: border-box;
-  background: url("/hero-bg.png");
+  /* background: url("/hero-bg.png"); */
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -24,7 +24,7 @@
   justify-content: space-between;
   align-items: center;
 
-  margin-bottom: px;
+  /* margin-bottom: px; */
 }
 
 .hero-container {
@@ -110,7 +110,6 @@
 }
 
 .oval {
-
   background: #fff;
   width: 107%;
   height: 13vh;
@@ -119,7 +118,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
- 
 }
 .featured-header {
   font-size: 24px;
@@ -274,7 +272,6 @@
 
 .steps-section-container {
   /* background: #2200; */
-
 }
 
 .steps-section {
@@ -334,7 +331,7 @@
   align-items: center;
   box-sizing: border-box;
   padding: 20px 0;
-  margin:  0 0 40px;
+  margin: 0 0 40px;
 }
 .headline-left {
   box-sizing: border-box;
@@ -445,7 +442,7 @@
   height: 158px;
 }
 
-.newsletter{
+.newsletter {
   display: flex;
 }
 
@@ -643,7 +640,6 @@
   gap: 18px;
 }
 
-
 .col1 {
   width: 100%;
   display: flex;
@@ -666,9 +662,7 @@
   box-sizing: border-box;
 }
 
-
 /* END OF RESTAURANT */
-
 
 p {
   font-size: 14px;
@@ -791,9 +785,8 @@ button {
   }
 
   .hero-section {
-    padding: 130px 0 6rem ;
+    padding: 130px 0 6rem;
     min-height: 100%;
-    
   }
 
   .hero-container {
@@ -810,12 +803,11 @@ button {
     background: none;
     flex-direction: column;
     align-items: center;
-    gap:1.5rem;
+    gap: 1.5rem;
   }
   .oval {
     width: 116%;
     margin-top: -40px;
-
   }
 
   .dropdowns {
@@ -847,14 +839,13 @@ button {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    
   }
-  .about-section-container{
+  .about-section-container {
     height: 100vh;
   }
 
-  .about-section-container img{
-    translate: 0 270px ;
+  .about-section-container img {
+    translate: 0 270px;
   }
 
   .rental-search-bar {
@@ -924,11 +915,10 @@ button {
     gap: 0;
   }
 
-  .steps-right{
+  .steps-right {
     width: 100%;
     display: flex;
     flex-direction: column;
-
   }
 
   .steps-right h3 {
@@ -936,22 +926,19 @@ button {
     /* margin-bottom: 64px; */
   }
   .step-1 {
-   
     margin-top: 20px;
     text-align: center;
     width: 100%;
     display: flex;
     flex-direction: column;
   }
-  .step-text{
+  .step-text {
     width: 100%;
   }
 
   .step-header {
-    
-  
   }
-  .step-col{
+  .step-col {
     width: 100%;
     text-align: center;
   }
@@ -968,7 +955,6 @@ button {
     align-items: center;
     text-align: center;
   }
- 
 
   .headline-left {
     display: flex;

@@ -224,7 +224,13 @@ nav button{
   height: 10%  ;
   padding: 0;
   box-sizing: border-box;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-10px); /* Lifts the card */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Darker shadow */
 }
 
 .card-image, .card-name, .card-address{
@@ -312,7 +318,6 @@ p, input, label{
   /* Modal content */
   .modal-content {
     width: 50%;
-    min-height: 80vh;
     background-color: #fff;
     padding: 12px 12px;
     border-radius: 8px;
@@ -322,7 +327,7 @@ p, input, label{
 
 }
   .modal-content input{
-    width: 70%;
+    width: 100%;
     border: 1px solid #D0D5DD;
     padding: 18px 12px;
     border-radius: 5px;
