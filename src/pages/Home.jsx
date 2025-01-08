@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "../layout.css";
 import { FeaturedTabs } from "../components/FeaturedTabs";
 // import { Dropdown } from "../components/Dropdown";
@@ -9,12 +9,28 @@ import Carousel from "../components/Carousel";
 import { HeroSearch } from "../components/HeroSearch";
 import StepsSection from "../components/StepSection";
 import AboutUs from "../components/AboutUs";
+import NewsLetterModal  from "../components/NewsLetterModal";
+
 
 export const Home = () => {
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    // Show the modal when the page loads
+    setModalVisible(true);
+  }, []);
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
+  };
+
   return (
     <>
-      <div className="hero-section ">
-        <div className="hero-container ">
+      <NewsLetterModal isVisible={isModalVisible} onClose={handleCloseModal} />
+
+      <div className="hero-section flex items-center justify-center h-screen relative">
+        <div className="hero-container">
+
           <video
             autoPlay
             loop
@@ -34,8 +50,7 @@ export const Home = () => {
               Discover Your Perfect Stay or Dine in Style
             </h1>
             <p className="text-lg md:text-xl text-center mb-8 text-primary">
-              Luxury shortlets and fine dining experiences, curated just for
-              you.
+              Luxury shortlets and fine dining experiences, curated just for you.
             </p>
             <HeroSearch />
           </div>
@@ -58,8 +73,7 @@ export const Home = () => {
             Explore Your Favorite Spots in Virtual Reality
           </h3>
           <p className="mt-4 text-lg text-gray-700 leading-relaxed">
-            Immerse yourself in stunning 360° views of properties and
-            destinations. Experience it virtually before stepping in physically.
+            Immerse yourself in stunning 360° views of properties and destinations. Experience it virtually before stepping in physically.
           </p>
         </div>
 
