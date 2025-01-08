@@ -21,7 +21,8 @@ import Lottie from "lottie-react";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import "react-datepicker/dist/react-datepicker.css";
-import './components.css'
+import "./components.css";
+import ScrollToTop from "./components/ScrollToTop";
 
 const imageSources = ["/hero-bg.png", "/prevue.svg", "/prevue.png"];
 
@@ -29,7 +30,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    document.title = "Prevue - Virtual Tours & Bookings"
+    document.title = "Prevue - Virtual Tours & Bookings";
     const preloadImages = async () => {
       const cacheImages = (srcArray) => {
         return Promise.all(
@@ -80,6 +81,7 @@ const App = () => {
   return (
     <div className="root " id="root">
       <Router>
+        <ScrollToTop />
         <div>
           <Navbar />
           <Routes>
@@ -98,10 +100,7 @@ const App = () => {
               path="/restaurants/:restaurantId"
               element={<RestaurantPage />}
             />
-            <Route
-              path="/rentals/:shortletId"
-              element={<RentalPage />}
-            />
+            <Route path="/rentals/:shortletId" element={<RentalPage />} />
           </Routes>
         </div>
       </Router>

@@ -30,6 +30,7 @@ export const Home = () => {
 
       <div className="hero-section flex items-center justify-center h-screen relative">
         <div className="hero-container">
+
           <video
             autoPlay
             loop
@@ -55,7 +56,6 @@ export const Home = () => {
           </div>
         </div>
       </div>
-
       <div className="featured-section">
         <div className="oval"></div>
 
@@ -64,7 +64,6 @@ export const Home = () => {
       <div className="about-oval"></div>
       <AboutUs />
       <StepsSection />
-
       <div className="bg-gray-50 py-16 px-6 lg:px-24 text-center">
         <div className="max-w-5xl mx-auto">
           <h4 className="text-sm font-bold text-primary uppercase tracking-wide">
@@ -82,7 +81,6 @@ export const Home = () => {
           <Carousel />
         </div>
       </div>
-
       <Footer />
     </>
   );
