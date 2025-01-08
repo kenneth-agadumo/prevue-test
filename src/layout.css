@@ -522,6 +522,7 @@
   margin-top: 150px;
   text-align: center;
   display: flex;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
   margin-bottom: 50px;
@@ -531,6 +532,7 @@
 }
 .rental-top-section p {
   max-width: 95vw;
+  margin: 0 auto;
 }
 .rental-catalogue {
   padding: 20px 0;
