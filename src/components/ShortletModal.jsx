@@ -7,6 +7,11 @@ import { IoClose } from 'react-icons/io5';
 import { FiUploadCloud } from 'react-icons/fi'; 
 import { ImageDrop } from './ImageDrop';
 
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+
+ 
+
 const amenitiesList = [
   'WiFi',
   'Air Conditioning',
@@ -24,6 +29,7 @@ const amenitiesList = [
 export const ShortletModal = ({ isOpen, onClose }) => {
   const [step, setStep] = useState(1); // State to manage current step
   const [images, setImages] = useState([]);
+  const [phone, setPhone] = useState('')
 
   const [formData, setFormData] = useState({
     userId: auth?.currentUser?.uid,
@@ -336,14 +342,13 @@ export const ShortletModal = ({ isOpen, onClose }) => {
                   {/* Telephone */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700">Telephone</label>
-                    <input
-                      type="tel"
-                      name="telephone"
-                      value={formData.telephone}
-                      onChange={handleChange}
-                      placeholder=""
-                      className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm p-3"
-                    />
+                   
+                    <PhoneInput
+                    country={"ng"}
+                    value={phone}
+                    onChange={(value) => setPhone(value)}
+                    inputStyle={{ width: "100%" }}
+                  />
                   </div>
 
                   {/* Email */}

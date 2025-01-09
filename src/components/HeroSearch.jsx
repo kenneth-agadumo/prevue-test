@@ -208,10 +208,10 @@ export const HeroSearch = () => {
   return (
     <div className="hero-search-bar ">
       <div className="hero-dropdown-1">
-        <label htmlFor="">Category</label>
+        <label htmlFor="">Property Type</label>
         <Dropdown
           itemNumber={2}
-          placeholder={"Category"}
+          placeholder={"Property Type"}
           itemsArray={["Shortlets", "Restaurants"]}
           width={"200px"}
           border={"none"}
@@ -220,10 +220,10 @@ export const HeroSearch = () => {
         />
       </div>
       <div className="hero-dropdown-2">
-        <label htmlFor="">Sub-category</label>
+        <label htmlFor="">Category</label>
         <Dropdown
           itemNumber={3}
-          placeholder={"Sub-Category"}
+          placeholder={"Category"}
           itemsArray={["All", "Popular", "Recent"]}
           width={"200px"}
           border={"none"}
