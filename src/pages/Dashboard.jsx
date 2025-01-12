@@ -85,7 +85,7 @@ export const Dashboard = () => {
       {/* Dashboard Header */}
          <header className=" col-span-12 flex justify-between items-center py-7 pl-5 pr-9 h-2 ">
           <div>
-            <Link to=""><img src="/prevue-orange.svg" alt="" /></Link>
+            <Link to="/"><img src="/prevue-orange.svg" alt="" /></Link>
           </div>
           
           <div className="account-column">
@@ -134,19 +134,20 @@ export const Dashboard = () => {
                   <span className= {`hidden sm:block text-gray-600 font-medium  ${selectedTab === 'account' && 'text-primary'}`}>Overview</span>
                 </div>
                 <div
-                  className={`px-4 py-3 flex gap-2  rounded  hover:bg-primarylight ${selectedTab === 'reservations' && 'bg-primarylight'}`}
-                  onClick={() => handleTabChange('reservations')}
-                >
-                  <Reservation color = {selectedTab === 'reservations' ? '#E99D43' : '#3A3A39'} />
-                  <span className= {`hidden sm:block text-gray-600 font-medium  ${selectedTab === 'reservations' && 'text-primary'}`}>Reservations</span>
-                </div>
-                <div
                   className={`px-4 py-3 flex gap-2  rounded  hover:bg-primarylight ${selectedTab === 'properties' && 'bg-primarylight'}`}
                   onClick={() => handleTabChange('properties')}
                 >
                   <Properties color = {selectedTab === 'properties' ? '#E99D43' : '#3A3A39'}/>
                   <span className= {`hidden sm:block text-gray-600 font-medium  ${selectedTab === 'properties' && 'text-primary'}`}>Properties</span>
                 </div>
+                <div
+                  className={`px-4 py-3 flex gap-2  rounded  hover:bg-primarylight ${selectedTab === 'reservations' && 'bg-primarylight'}`}
+                  onClick={() => handleTabChange('reservations')}
+                >
+                  <Reservation color = {selectedTab === 'reservations' ? '#E99D43' : '#3A3A39'} />
+                  <span className= {`hidden sm:block text-gray-600 font-medium  ${selectedTab === 'reservations' && 'text-primary'}`}>Reservations</span>
+                </div>
+                
               </div>
 
               {/* Bottom Section */}
@@ -173,7 +174,7 @@ export const Dashboard = () => {
           </div>
 
           {/* Main Content Section */}
-          <div className="overflow-auto  h-full bg-white basis-3/4">
+          <div className="overflow-auto p-6 h-full bg-white basis-3/4">
           <h1></h1>
 
             {/* Render content based on selected tab */}
@@ -193,14 +194,14 @@ export const Dashboard = () => {
 function AccountContent({ userData }) {
   return (
     <div className="account-tab">
-      <div className="title pl-7 pt-2">
+      <div className="title ">
         <h2>Welcome back, {userData?.fullName}</h2>
         <p className="text-gray-500 text-sm mb-3">
          Showing data for the last<span className="text-[#f2a20e] text-sm border-b-2 border-[#f2a20e]"> 30 days</span>
        </p>
       </div>
       {/* Statistics */}
-      <div className="data-row pl-8 pr-8  ">
+      <div className="data-row    ">
         {/* Reservation Data */}
         <Card title="Total Reservations" value="12" change="40%" />
         {/* Restaurant Data */}

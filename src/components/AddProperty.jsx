@@ -40,7 +40,7 @@ const AddPropertyButton = () => {
         className="flex items-center gap-2 px-4 py-2 bg-[#f2a20e] hover:bg-amber-400 text-white font-semibold text-sm rounded-md shadow-md"
       >
         <GoPlus />
-        <span className="text-sm">Add</span>
+        <span className="text-sm text-white">Add Property</span>
       </button>
 
       {/* Main Modal */}
