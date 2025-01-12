@@ -3,6 +3,10 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
 import DashboardSearch from "./DashboardSearch";
 import DashboardFilter from "./DashboardFilter";
+import { MdDelete } from "react-icons/md";
+
+
+
 
 export const TourCapture = () => {
   const [tours, setTours] = useState([]);
@@ -50,7 +54,7 @@ export const TourCapture = () => {
   if (!tours.length) return <div>No tours available.</div>;
 
   return (
-    <div className="p-8">
+    <div className="py-8">
       <div className="overflow-x-auto bg-white border rounded-xl">
         <div>
           <h2 className="text-lg font-weight-700 mb-1 px-3 pt-3">Tour capture requests</h2>
@@ -61,31 +65,34 @@ export const TourCapture = () => {
           <DashboardFilter />
         </div>
         <table className="min-w-full bg-white border shadow-md rounded-md table-auto">
-          <thead className="bg-gray-100 border">
+          <thead className="bg-gray-50 border">
             <tr>
-              <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Property Name</th>
-              <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Property Type</th>
-              <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Phone Number</th>
-              <th className="py-3 px-4 hidden sm:table-cell text-left text-gray-500 font-medium text-xs">Date of Request</th>
-              <th className="py-3 px-4 hidden lg:table-cell text-left text-gray-500 font-medium text-xs">Preferred Tour Date</th>
-              <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs"></th>
+              <th className="p-6 text-left text-gray-500 font-medium text-sm">Property Name</th>
+              <th className="p-6 text-left text-gray-500 font-medium text-sm">Property Type</th>
+              <th className="p-6 text-left text-gray-500 font-medium text-sm">Phone Number</th>
+              <th className="p-6 hidden sm:table-cell text-left text-gray-500 font-medium text-sm">Date of Request</th>
+              <th className="p-6 hidden lg:table-cell text-left text-gray-500 font-medium text-sm">Preferred Tour Date</th>
+              <th className="p-6 text-left text-gray-500 font-medium text-xs"></th>
             </tr>
           </thead>
           <tbody>
             {currentTours.map((tour) => (
-              <tr key={tour.id} className="hover:bg-gray-50">
-                <td className="py-3 px-4 border-b border-gray-200 text-xs">{tour.name}</td>
-                <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs">{tour.type}</td>
-                <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs">{tour.phone}</td>
-                <td className="py-3 px-4 hidden sm:table-cell border-b border-gray-200 text-gray-500 text-xs">{tour.requestDate}</td>
-                <td className="py-3 px-4 hidden lg:table-cell border-b border-gray-200 text-gray-500 text-xs">{tour.tourDate}</td>
-                <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs">
-                  <HiOutlineDotsVertical />
+              <tr key={tour.id} className="hover:bg-primarylight cursor-pointer">
+                <td className="p-7 border-b border-gray-200 text-xs">{tour.name}</td>
+                <td className="p-6 border-b border-gray-200 text-gray-500 text-xs">{tour.type}</td>
+                <td className="p-6 border-b border-gray-200 text-gray-500 text-xs">{tour.phone}</td>
+                <td className="p-6 hidden sm:table-cell border-b border-gray-200 text-gray-500 text-xs">{tour.requestDate}</td>
+                <td className="p-6 hidden lg:table-cell border-b border-gray-200 text-gray-500 text-xs">{tour.tourDate}</td>
+                <td className="p-6 border-b border-gray-200 text-gray-500 text-xs">
+                <MdDelete
+                      // onClick={() => handleDelete(property)}
+                      className="text-gray-700 size-4 hover:text-red-500"
+                />
                 </td>
               </tr>
             ))}
             <tr>
-              <td colSpan="6" className="py-2 px-4 border-t border-gray-200">
+              <td colSpan="6" className="p-5 border-t border-gray-200">
                 <div className="flex items-center justify-between">
                   <button
                     onClick={handlePreviousPage}
