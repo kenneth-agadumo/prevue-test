@@ -49,12 +49,7 @@ const NewsLetterModal = ({ isVisible, onClose }) => {
         </p>
         <input type="text" className='h-10 w-full bg-amber-50 p-2 mb-6 rounded-md' name="email" placeholder="Yourown@gmail.com" id="" onChange={(e) => handleChange(e)}  />
         <br />
-        <PhoneInput
-        country={"us"}
-        value={phone}
-        onChange={(value) => setPhone(value)}
-        inputStyle={{ width: "100%" }}
-      />
+     
         <button
             onClick={collectMail}
             className="bg-primary w-full text-white mx-auto mb-2 px-4 py-2 rounded-lg hover:bg-opacity-90 transition "
@@ -62,7 +57,7 @@ const NewsLetterModal = ({ isVisible, onClose }) => {
             Subscribe
         </button>
         <button
-            className=" w-full text-primary mx-auto px-4 py-2 rounded-lg hover:bg-primarylight transition "
+            className=" w-full text-primary mx-auto px-4 py-2 rounded-lg hover:bg-primaryshade transition "
             onClick={onClose}
         >
             No, Thanks
