@@ -57,7 +57,7 @@ const NewsLetterModal = ({ isVisible, onClose }) => {
             Subscribe
         </button>
         <button
-            className=" w-full text-primary mx-auto px-4 py-2 rounded-lg hover:bg-primarylight transition "
+            className=" w-full text-primary mx-auto px-4 py-2 rounded-lg hover:bg-primaryshade transition "
             onClick={onClose}
         >
             No, Thanks
