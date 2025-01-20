@@ -28,7 +28,7 @@ export const Home = () => {
     <>
       <NewsLetterModal isVisible={isModalVisible} onClose={handleCloseModal} />
 
-      <div className="hero-section flex items-center justify-center h-screen relative">
+      <div className="flex  justify-center h-screen relative">
         <div className="hero-container">
 
           <video
@@ -45,7 +45,7 @@ export const Home = () => {
 
           <div className="absolute inset-0 bg-black bg-opacity-50 -z-10"></div>
 
-          <div className="px-4">
+          <div className="px-4 flex flex-col gap-6 mt-40">
             <h1 className="text-3xl md:text-5xl text-primary font-bold mb-4 animate-slideInLeft">
               Discover Your Perfect Stay or Dine in Style
             </h1>
