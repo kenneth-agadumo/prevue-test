@@ -47,7 +47,11 @@ console.log(isActive)
     }
 
     return (
-        <nav ref={navRef}  style={{left: isActive ? '0' : '5%'}} >
+        <nav
+            ref={navRef}
+            style={{left: isActive ? '0' : '5%'}} 
+            className="z-50"
+            >
             <Link to='/'>
                 <img src={location.pathname === '/' &&  {isActive} ? '/prevue.png' : '/prevue.svg'} className="logo" alt="" />
             </Link>

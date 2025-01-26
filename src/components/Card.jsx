@@ -184,7 +184,7 @@ export const RestaurantCard = ({
           <img
             src={image}
             alt={name}
-            className="w-full h-full object-cover transition-all duration-300 hover:brightness-90"
+            className="w-full h-full object-cover transition-all duration-300 hover:brightness-90 group-hover:scale-110"
           />
         </div>
       </Link>
