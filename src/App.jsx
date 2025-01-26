@@ -23,6 +23,7 @@ import Login from "./pages/Login";
 import "react-datepicker/dist/react-datepicker.css";
 import "./components.css";
 import ScrollToTop from "./components/ScrollToTop";
+import SearchResultsPage from "./pages/SearchResultsPage";
 
 const imageSources = ["/hero-bg.png", "/prevue.svg", "/prevue.png"];
 
@@ -86,6 +87,7 @@ const App = () => {
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/search-results" element={<SearchResultsPage />} />
             <Route path="/rentals" element={<Rentals />} />
             <Route path="/restaurants" element={<Restaurants />} />
             <Route path="/activities" element={<Activities />} />
@@ -96,6 +98,7 @@ const App = () => {
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/reset-successful" element={<PasswordReset />} />
             <Route path="/verify-email" element={<EmailVerification />} />
+
             <Route
               path="/restaurants/:restaurantId"
               element={<RestaurantPage />}

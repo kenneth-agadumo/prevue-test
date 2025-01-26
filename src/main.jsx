@@ -9,9 +9,7 @@ import { GlobalStateProvider } from './Contexts/GlobalStateContext.jsx'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <GlobalStateProvider>
-   
         <App/>
-    
     </GlobalStateProvider>
 
   </React.StrictMode>,
