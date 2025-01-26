@@ -3,59 +3,96 @@ import DashboardFilter from "./DashboardFilter";
 import DashboardSearch from "./DashboardSearch";
 import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
 import DropdownFilter from "./DropdownFilter";
-import { HiOutlineDotsVertical } from "react-icons/hi";
 import RestaurantModal from "./RestaurantModal";
 import AddPropertyButton from "./AddProperty";
+import { auth, db, storage } from "../firebaseConfig";
+import { useGlobalState } from "../Contexts/GlobalStateContext";
+import { doc, deleteDoc } from "firebase/firestore";
+import { ref, deleteObject } from "firebase/storage";
+import { MdDelete } from "react-icons/md";
 
 
 export const PropertiesContent = () => {
-  const [properties, setProperties] = useState([]); // Original data
-  const [filteredProperties, setFilteredProperties] = useState([]); // Filtered data
-  const [loading, setLoading] = useState(true);
+  const { shortletImagesMap, restaurantImagesMap, setLoading } = useGlobalState();
+  const [properties, setProperties] = useState([]); // Combined restaurant and shortlet properties
+  const [filteredProperties, setFilteredProperties] = useState([]); // Filtered properties for display
+  const [loading, setComponentLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const propertiesPerPage = 7;
 
-  const mockProperties = [
-    { id: "1", name: "Ocean View Villa", type: "Shortlets", dateAdded: "2024-01-15", reservations: 12 },
-    { id: "2", name: "Mountain Cabin", type: "Restaurants", dateAdded: "2024-02-01", reservations: 8 },
-    { id: "3", name: "Downtown Apartment", type: "Shortlets", dateAdded: "2024-03-05", reservations: 15 },
-    { id: "4", name: "Luxury Penthouse", type: "Restaurants", dateAdded: "2024-04-12", reservations: 5 },
-    { id: "5", name: "Ocean View Villa", type: "Shortlets", dateAdded: "2024-01-15", reservations: 12 },
-    { id: "6", name: "Mountain Cabin", type: "Restaurants", dateAdded: "2024-02-01", reservations: 8 },
-    { id: "7", name: "Downtown Apartment", type: "Shortlets", dateAdded: "2024-03-05", reservations: 15 },
-    { id: "8", name: "Luxury Penthouse", type: "Restaurants", dateAdded: "2024-04-12", reservations: 5 },
-    { id: "9", name: "Ocean View Villa", type: "Shortlets", dateAdded: "2024-01-15", reservations: 12 },
-    { id: "10", name: "Mountain Cabin", type: "Restaurants", dateAdded: "2024-02-01", reservations: 8 },
-    { id: "11", name: "Downtown Apartment", type: "Shortlets", dateAdded: "2024-03-05", reservations: 15 },
-    { id: "12", name: "Luxury Penthouse", type: "Restaurants", dateAdded: "2024-04-12", reservations: 5 },
-    { id: "13", name: "Ocean View Villa", type: "Shortlets", dateAdded: "2024-01-15", reservations: 12 },
-    { id: "14", name: "Mountain Cabin", type: "Restaurants", dateAdded: "2024-02-01", reservations: 8 },
-    { id: "15", name: "Downtown Apartment", type: "Shortlets", dateAdded: "2024-03-05", reservations: 15 },
-    { id: "16", name: "Luxury Penthouse", type: "Restaurants", dateAdded: "2024-04-12", reservations: 5 },
-    
-    // More mock data here...
-  ];
-
   useEffect(() => {
     const fetchProperties = () => {
-      setLoading(true);
-      setTimeout(() => {
-        setProperties(mockProperties);
-        setFilteredProperties(mockProperties); // Set initial data
-        setLoading(false);
-      }, 1000);
+      const currentUser = auth.currentUser?.uid;
+
+      if (currentUser) {
+        // Combine restaurants and shortlets
+        const combinedProperties = [
+          ...Object.entries(restaurantImagesMap).map(([id, data]) => ({
+            id,
+            ...data,
+            type: "Restaurant",
+          })),
+          ...Object.entries(shortletImagesMap).map(([id, data]) => ({
+            id,
+            ...data,
+            type: "Shortlet",
+          })),
+        ];
+
+        // Filter properties for the logged-in user
+        const userProperties = combinedProperties.filter(
+          (property) => property.userId === currentUser
+        );
+
+        setProperties(userProperties);
+        setFilteredProperties(userProperties); // Set initial filtered data
+      }
+      setComponentLoading(false);
     };
 
     fetchProperties();
-  }, []);
+  }, [restaurantImagesMap, shortletImagesMap]);
 
   const totalPages = Math.ceil(filteredProperties.length / propertiesPerPage);
   const startIndex = (currentPage - 1) * propertiesPerPage;
-  const currentProperties = filteredProperties.slice(startIndex, startIndex + propertiesPerPage);
+  const currentProperties = filteredProperties.slice(
+    startIndex,
+    startIndex + propertiesPerPage
+  );
 
   const handlePageChange = (page) => setCurrentPage(page);
   const handleNextPage = () => currentPage < totalPages && setCurrentPage(currentPage + 1);
   const handlePreviousPage = () => currentPage > 1 && setCurrentPage(currentPage - 1);
+
+  const handleDelete = async (property) => {
+   
+      setLoading(true);
+      try {
+        // Delete property document
+        await deleteDoc(doc(auth.currentUser ? db : null, property.type.toLowerCase(), property.id));
+
+        // Delete associated images
+        const imageRefs = property.images.map((image) =>
+          ref(storage, `${property.type.toLowerCase()}s/${property.id}-${image.name}`)
+        );
+
+        for (const imageRef of imageRefs) {
+          await deleteObject(imageRef);
+        }
+
+        // Remove property from the local state
+        const updatedProperties = properties.filter((p) => p.id !== property.id);
+        setProperties(updatedProperties);
+        setFilteredProperties(updatedProperties);
+        alert(`${property.name} has been successfully deleted.`);
+      } catch (error) {
+        console.error("Error deleting property:", error);
+        alert("An error occurred while deleting the property.");
+      } finally {
+        setLoading(false);
+      }
+    
+  };
 
   const handleSearch = (query) => {
     const lowercasedQuery = query.toLowerCase();
@@ -79,19 +116,20 @@ export const PropertiesContent = () => {
   };
 
   if (loading) return <div>Loading properties...</div>;
-  if (!properties.length) return <div>No properties found.</div>;
 
   return (
-    <div className="p-8 overflow-hidden">
+    <div className="overflow-hidden">
       <div>
         <h2 className="text-xl font-weight-700 mb-1">Properties</h2>
         <p className="text-gray-500 text-sm mb-2">
-          Showing data for the last<span className="text-[#f2a20e] text-sm border-b-2 border-[#f2a20e]"> 30 days</span>
+          Showing data for the last
+          <span className="text-[#f2a20e] text-sm border-b-2 border-[#f2a20e]"> 30 days</span>
         </p>
-        <div className="flex flex-row-reverse mb-2"> <AddPropertyButton /></div>
-        
+        <div className="flex flex-row-reverse mb-2">
+          <AddPropertyButton />
+        </div>
       </div>
-      
+
       <div className="overflow-x-auto bg-white border rounded-xl">
         <div className="flex items-center justify-between pt-2 px-3">
           <div>
@@ -100,80 +138,76 @@ export const PropertiesContent = () => {
           <div className="flex gap-2">
             <DropdownFilter filterHandler={handleFilter} />
             <DashboardFilter />
-            
           </div>
         </div>
-
-        <table className="min-w-full bg-white border shadow-md rounded-md table-auto">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Property Name</th>
-              <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Property Type</th>
-              <th className="py-3 px-4 hidden sm:table-cell text-left text-gray-500 font-medium text-xs">Date Added</th>
-              <th className="py-3 px-4 hidden lg:table-cell text-left text-gray-500 font-medium text-xs">No. of Reservations</th>
-              <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentProperties.map((property) => (
-              <tr key={property.id} className="hover:bg-gray-50">
-                <td className="py-3 px-4 border-b border-gray-200 text-xs">{property.name}</td>
-                <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs">{property.type}</td>
-                <td className="py-3 px-4 hidden sm:table-cell border-b border-gray-200 text-gray-500 text-xs">{property.dateAdded}</td>
-                <td className="py-3 px-4 hidden lg:table-cell border-b border-gray-200 text-gray-500 text-xs">{property.reservations}</td>
-                <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs">
-                  <HiOutlineDotsVertical />
+        {!currentProperties.length ? (
+          <div className="p-11 w-full flex justify-center">
+            <p className="text-sm">You haven't added any properties yet</p>
+          </div>
+        ) : (
+          <table className="min-w-full bg-white border shadow-md rounded-md table-auto">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="p-6 text-left text-gray-500 font-medium text-sm">Property Name</th>
+                <th className="p-6 px-4 text-left text-gray-500 font-medium text-sm">Property Type</th>
+                <th className="p-6 px-4 hidden sm:table-cell text-left text-gray-500 font-medium text-sm">Date Added</th>
+                <th className="p-6 px-4 hidden lg:table-cell text-left text-gray-500 font-medium text-sm">No. of Reservations</th>
+                <th className="p-6 px-4 text-left text-gray-500 font-medium text-sm"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentProperties.map((property) => (
+                <tr key={property.id} className="hover:bg-primarylight cursor-pointer">
+                  <td className="p-6 border-b border-gray-200 text-sm">{property.name || property.propertyName}</td>
+                  <td className="p-6 border-b border-gray-200 text-gray-500 text-sm">{property.type}</td>
+                  <td className="p-6 hidden sm:table-cell border-b border-gray-200 text-gray-500 text-sm">
+                    {property.dateAdded}
+                  </td>
+                  <td className="p-6 hidden lg:table-cell border-b border-gray-200 text-gray-500 text-sm">
+                    {property.reservations}
+                  </td>
+                  <td className="p-6 border-b border-gray-200 text-gray-500 text-sm">
+                    <MdDelete
+                      onClick={() => handleDelete(property)}
+                      className="text-gray-700 size-4 hover:text-red-500"
+                    />
+                    
+                  </td>
+                </tr>
+              ))}
+              {/* Pagination Row */}
+              <tr>
+                <td colSpan="5" className="p-6 border-t border-gray-200">
+                  <div className="flex items-center justify-between">
+                    <button
+                      onClick={handlePreviousPage}
+                      disabled={currentPage === 1}
+                      className={`flex items-center space-x-1 px-4 py-2 text-xs border border-gray-300 rounded-full ${
+                        currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
+                    >
+                      <GrLinkPrevious />
+                      <span>Previous</span>
+                    </button>
+                    <span>
+                      Page {currentPage} of {totalPages}
+                    </span>
+                    <button
+                      onClick={handleNextPage}
+                      disabled={currentPage === totalPages}
+                      className={`flex items-center space-x-1 px-4 py-2 text-xs border border-gray-300 rounded-full ${
+                        currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
+                    >
+                      <span>Next</span>
+                      <GrLinkNext />
+                    </button>
+                  </div>
                 </td>
               </tr>
-            ))}
-            {/* Pagination Row */}
-            <tr>
-              <td colSpan="4" className="py-1 px-4 border-t border-gray-200">
-                {/* Pagination Controls */}
-                <div className="flex items-center justify-between">
-                  {/* Previous Button */}
-                  <button
-                    onClick={handlePreviousPage}
-                    disabled={currentPage === 1}
-                    className={`flex items-center space-x-1 px-4 py-2 text-xs border border-gray-300 rounded-full ${
-                      currentPage === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-100"
-                    }`}
-                  >
-                    <GrLinkPrevious className="text-gray-500 text-lg text-xs" />
-                    <span className="text-gray-500 text-xs">Previous</span>
-                  </button>
-                  {/* Pagination */}
-                  <div className="flex space-x-2">
-                    {Array.from({ length: totalPages }, (_, index) => (
-                      <button
-                        key={index + 1}
-                        onClick={() => handlePageChange(index + 1)}
-                        className={`px-3 py-1 text-xs border rounded-full ${
-                          currentPage === index + 1 ? "bg-green-100 text-green-600" : "hover:bg-gray-100"
-                        }`}
-                      >
-                        {index + 1}
-                      </button>
-                    ))}
-                  </div>
-                  {/* Next Button */}
-                  <button
-                    onClick={handleNextPage}
-                    disabled={currentPage === totalPages}
-                    className={`flex items-center space-x-1 px-4 py-2 text-xs border border-gray-300 rounded-full ${
-                      currentPage === totalPages ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-100"
-                    }`}
-                  >
-                    <span className="text-gray-500 text-xs">Next</span>
-                    <GrLinkNext className="text-gray-500 text-lg text-xs" />
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );

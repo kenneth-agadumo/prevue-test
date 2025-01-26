@@ -66,6 +66,15 @@ export const Navbar = () => {
           alt=""
         />
       </Link>
+    return (
+        <nav
+            ref={navRef}
+            style={{left: isActive ? '0' : '5%'}} 
+            className="z-50"
+            >
+            <Link to='/'>
+                <img src={location.pathname === '/' &&  {isActive} ? '/prevue.png' : '/prevue.svg'} className="logo" alt="" />
+            </Link>
 
       <div className="hamburger-menu" onClick={() => setIsActive(true)}>
         <Ham color={location.pathname === "/" ? "white" : "black"} />
@@ -131,4 +140,29 @@ export const Navbar = () => {
       </div>
     </nav>
   );
-};
+
+            <div className="hamburger-menu"  onClick={() => setIsActive(true)}>
+                <Ham  color={location.pathname === '/' ? 'white' : 'black'}  />
+            </div>
+                
+            
+            <div className={`nav-menu ${isActive ? 'active' : ''}`} >
+                <div className="responsive-nav-x">
+                    <img src="/prevue.svg" alt="" className="logo-black" />
+                    <img src="/X.svg" alt="" className="X" onClick={() => setIsActive(false)} />
+                </div> 
+                <ul  style={{color: location.pathname === '/' &&  {isActive} ? 'white' : 'black', fontWeight:'500'}} >
+                    <li style={{color: location.pathname == '/' && 'var(--primary-color)'}}><Link to="/">Home</Link></li>
+                    <li style={{color: location.pathname == '/rentals' && 'var(--primary-color)'}}><Link to="/rentals">Shortlets</Link></li>
+                    <li style={{color: location.pathname == '/restaurants' && 'var(--pri mary-color)'}}><Link to="/restaurants">Restaurants</Link></li>
+                    <li style={{color: location.pathname == '/activities' && 'var(--primary-color)'}}><Link to="/activities">Activities</Link></li>
+                </ul>
+                <Link to='/login'> <button style={{fontWeight:'500', background: 'var(--primary-color)'}}>Sign In</button> </Link>
+
+            </div>    
+            
+                    
+        </nav>
+    );
+} 
+

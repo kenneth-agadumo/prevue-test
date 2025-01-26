@@ -1,7 +1,3 @@
-// import { useState } from "react";
-// import { Dropdown } from "./Dropdown";
-// import { useGlobalState } from "../Contexts/GlobalStateContext";
-// import { SearchResults } from "./SearchResults";
 
 // export const HeroSearch = () => {
 //   const { restaurantImagesMap, shortletImagesMap } = useGlobalState();
@@ -195,7 +191,7 @@ export const HeroSearch = () => {
         <label>Category</label>
         <Dropdown
           itemNumber={2}
-          placeholder={"Category"}
+          placeholder={"Property Type"}
           itemsArray={["Shortlets", "Restaurants"]}
           width={"200px"}
           border={"none"}
@@ -207,7 +203,7 @@ export const HeroSearch = () => {
         <label>Sub-category</label>
         <Dropdown
           itemNumber={3}
-          placeholder={"Sub-Category"}
+          placeholder={"Category"}
           itemsArray={["All", "Popular", "Recent"]}
           width={"200px"}
           border={"none"}
@@ -231,7 +227,7 @@ export const HeroSearch = () => {
         />
       </div>
       <button
-        className="hero-search-button justify-center grid items-center hover:bg-stone-900"
+        className="hero-search-button justify-center grid bg-black items-center hover:bg-stone-900"
         onClick={handleSearch}
       >
         <img src="search-white.svg" alt="Search" />

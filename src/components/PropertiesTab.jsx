@@ -4,6 +4,7 @@ import DashboardFilter from "./DashboardFilter";
 import DashboardSearch from "./DashboardSearch";
 import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
 import DropdownFilter from "./DropdownFilter";
+import { MdDelete } from "react-icons/md";
 
 export const PropertiesTab = () => {
   const [pendingProperties, setPendingProperties] = useState([]);
@@ -143,7 +144,7 @@ export const PropertiesTab = () => {
   if (loading) return <div>Loading reservations...</div>;
 
   const renderTable = (title, properties, currentPage, totalPages, pageSetter) => (
-    <div className="mt-2">
+    <div className="mt-3">
       <h3 className="text-lg font-weight-700 mb-2">{title}</h3>
       <div className="overflow-x-auto bg-white border rounded-xl">
         <div className="flex items-center justify-between pt-2 px-3">
@@ -154,34 +155,37 @@ export const PropertiesTab = () => {
           <table className="min-w-full bg-white border shadow-md rounded-md table-auto">
             <thead className="bg-gray-100">
               <tr>
-                <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Property Name</th>
-                <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Customer Name</th>
-                <th className="py-3 px-4 text-left text-gray-500 font-medium text-xs">Property Type</th>
-                <th className="py-3 px-4 hidden sm:table-cell text-left text-gray-500 font-medium text-xs">Date Added</th>
-                <th className="py-3 px-4 hidden lg:table-cell text-left text-gray-500 font-medium text-xs">Reservation Period</th>
-                <th className="py-3 px-4"></th>
+                <th className="p-6 text-left text-gray-500 font-medium text-sm">Property Name</th>
+                <th className="p-6 text-left text-gray-500 font-medium text-sm">Customer Name</th>
+                <th className="p-6 text-left text-gray-500 font-medium text-sm">Property Type</th>
+                <th className="p-6 hidden sm:table-cell text-left text-gray-500 font-medium text-sm">Date Added</th>
+                <th className="p-6 hidden lg:table-cell text-left text-gray-500 font-medium text-sm">Reservation Period</th>
+                <th className="p-6"></th>
               </tr>
             </thead>
             <tbody>
               {properties.map((property) => (
                 <tr
                   key={property.id}
-                  className="hover:bg-gray-50 cursor-pointer"
+                  className="hover:bg-primarylight cursor-pointer"
                   onClick={() => handleRowClick(property)}
                 >
-                  <td className="py-3 px-4 border-b border-gray-200 text-xs">{property.name}</td>
-                  <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs">{property.customerName}</td>
-                  <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs">{property.type}</td>
-                  <td className="py-3 px-4 hidden sm:table-cell border-b border-gray-200 text-gray-500 text-xs">{property.dateAdded}</td>
-                  <td className="py-3 px-4 hidden lg:table-cell border-b border-gray-200 text-gray-500 text-xs">{property.reservationPeriod}</td>
-                  <td className="py-3 px-4 border-b border-gray-200 text-gray-500 text-xs">
-                    <HiOutlineDotsVertical />
+                  <td className="p-6 border-b border-gray-200 text-sm">{property.name}</td>
+                  <td className="p-6 border-b border-gray-200 text-gray-500 text-sm">{property.customerName}</td>
+                  <td className="p-6 border-b border-gray-200 text-gray-500 text-sm">{property.type}</td>
+                  <td className="p-6 hidden sm:table-cell border-b border-gray-200 text-gray-500 text-sm">{property.dateAdded}</td>
+                  <td className="p-6 hidden lg:table-cell border-b border-gray-200 text-gray-500 text-sm">{property.reservationPeriod}</td>
+                  <td className="p-6 border-b border-gray-200 text-gray-500 text-sm">
+                  <MdDelete
+                      // onClick={() => handleDelete(property)}
+                      className="text-gray-700 size-4 hover:text-red-500"
+                  />
                   </td>
                 </tr>
               ))}
               {/* Pagination Row */}
               <tr>
-                <td colSpan="6" className="py-3 px-4">
+                <td colSpan="6" className="p-6">
                   <div className="flex items-center justify-between">
                     <button
                       onClick={() => handlePreviousPage(currentPage, pageSetter)}
@@ -221,7 +225,7 @@ export const PropertiesTab = () => {
   );
 
   return (
-    <div className="p-8 flex gap-4">
+    <div className=" flex gap-4">
       <div className="flex-1">
         <h2 className="text-xl font-weight-700">Reservations</h2>
         {renderTable("Pending", currentPending, pendingPage, pendingTotalPages, setPendingPage)}

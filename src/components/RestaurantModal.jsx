@@ -5,8 +5,14 @@ import { addDoc, collection } from 'firebase/firestore';
 import { ImageDrop } from './ImageDrop';
 import { ref, uploadBytes } from 'firebase/storage';
 
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+  
+
 export const RestaurantModal = ({ isOpen, onClose }) => {
   const [images, setImages] = useState();
+  const [phone, setPhone] = useState('')
+   
   const [formData, setFormData] = useState({
     userId: auth?.currentUser?.uid,
     name: '',
@@ -96,13 +102,12 @@ export const RestaurantModal = ({ isOpen, onClose }) => {
 
               <div className="row2">
                 <label className='text-sm' htmlFor="contactNumber">Telephone</label>
-                <input
-                  type="text"
-                  className='text-sm'
-                  name="contactNumber"
-                  value={formData.contactNumber}
-                  onChange={handleChange}
-                  placeholder="+234..."
+                
+                <PhoneInput
+                country={"ng"}
+                value={phone}
+                onChange={(value) => setPhone(value)}
+                inputStyle={{ width: "100%" }}
                 />
               </div>
 

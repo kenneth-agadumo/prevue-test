@@ -131,9 +131,7 @@ export const GlobalStateProvider = ({ children }) => {
 
   return (
     <GlobalStateContext.Provider value={{
-      restaurants, setRestaurants,
-      shortlets, setShortlets,
-      userData, setUserData,
+    
       loading, setLoading,
       restaurantImagesMap,
       shortletImagesMap,
