@@ -220,7 +220,7 @@ function Card({ title, value, change }) {
     <div className="card">
       <div className="row1">
         <h4>{title}</h4>
-        <img src="/Dropdown.svg" alt="" />
+       
       </div>
       <div className="row-2">
         <p className="big-number">{value}</p>
