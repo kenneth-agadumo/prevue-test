@@ -1,15 +1,15 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { collection, getDocs, onSnapshot, doc, getDoc } from 'firebase/firestore';
+import { collection, getDocs, onSnapshot, doc, getDoc, query, where, } from 'firebase/firestore';
 import { ref, getDownloadURL, listAll } from 'firebase/storage';
 import { auth, db, storage } from "../firebaseConfig";
+
 
 // Create a context
 const GlobalStateContext = createContext();
 
 // Create a provider component
 export const GlobalStateProvider = ({ children }) => {
-  const [restaurants, setRestaurants] = useState([]);
-  const [shortlets, setShortlets] = useState([]);
+  
   const [userData, setUserData] = useState();
   const [loading, setLoading] = useState(false);
   const [userImageUrl, setUserImageUrl] = useState();
@@ -18,7 +18,35 @@ export const GlobalStateProvider = ({ children }) => {
   const [shortletImagesMap, setShortletImagesMap] = useState({});
 
   const restaurantRef = collection(db, 'restaurants');
-  const shortletRef = collection(db, 'shortlets'); // Assuming you have a shortlets collection
+  const shortletRef = collection(db, 'shortlets'); 
+  const userRef = collection(db, 'users'); 
+ 
+  
+
+  const fetchFilteredData = async (type, field, condition, value) => {
+    
+
+    const collectionRef = "";
+    const filteredQuery = query(collectionRef, where("attributes", "array-contains", "Featured"));
+    const querySnapshot = await getDocs(filteredQuery);
+  
+    const dataMap = {};
+    querySnapshot.forEach((doc) => {
+      dataMap[doc.id] = doc.data();
+    });
+  
+    return dataMap;
+  };
+
+
+
+
+
+
+
+
+
+
 
   useEffect(() => {
     const fetchUserImage = async () => {

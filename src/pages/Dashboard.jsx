@@ -53,6 +53,7 @@ export const Dashboard = () => {
   useEffect(() => {
     const getActiveUser = async () => {
       const unsubscribe = onAuthStateChanged(auth, async (user) => {
+        console.log(user.phoneNumber)
         if (!user) {
           // User is not signed in, redirect to login
           navigate('/login');
