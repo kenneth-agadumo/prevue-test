@@ -10,7 +10,7 @@ import '../dashboard.css'
 import {  ref, uploadBytes, getDownloadURL, deleteObject} from 'firebase/storage'
 import { set } from "firebase/database";
 
-export const SettingsTab  = (props) => {
+export const SettingsTab  = ({userData, documentID}) => {
 
   const [selectedTab, handleTabChange] = useState('my-profile')
  
@@ -47,16 +47,16 @@ export const SettingsTab  = (props) => {
 
 
 export const MyProfile = (props) => {
-  const [firstName, setFirstName] = useState(props.userData?.fullName?.split(' ')[0])
-  const [lastName, setLastName] = useState(props.userData?.fullName?.split(' ')[1])
-  const [email, setEmail] = useState(props.userData?.email)
-  const [phoneNumber, setPhoneNumber] = useState(props.userData?.phoneNumber)
+  const [firstName, setFirstName] = useState(userData?.fullName?.split(' ')[0])
+  const [lastName, setLastName] = useState(userData?.fullName?.split(' ')[1])
+  const [email, setEmail] = useState(userData?.email)
+  const [phoneNumber, setPhoneNumber] = useState(userData?.phone)
   const [emailChanged, setEmailChanged] = useState(false)
   const [images, setImages] = useState([])
 
 
   console.log(
-    ` ${images} ${firstName}`
+    userData
   )
 
   const [imageUrl, setImageUrl] = useState();
