@@ -13,45 +13,53 @@ import { MdDelete } from "react-icons/md";
 
 
 export const PropertiesContent = () => {
-  const { shortletImagesMap, restaurantImagesMap, setLoading } = useGlobalState();
+  const { fetchFilteredData, shortletImagesMap, restaurantImagesMap, setLoading } = useGlobalState();
+
+  const [userProperties, setUserProperties] = useState([]); // Combined restaurant and shortlet properties
   const [properties, setProperties] = useState([]); // Combined restaurant and shortlet properties
   const [filteredProperties, setFilteredProperties] = useState([]); // Filtered properties for display
-  const [loading, setComponentLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const propertiesPerPage = 7;
 
   useEffect(() => {
-    const fetchProperties = () => {
-      const currentUser = auth.currentUser?.uid;
-
-      if (currentUser) {
+    const currentUser = auth.currentUser?.uid;
+    if (!currentUser) return;
+  
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const userRestaurants = await fetchFilteredData("restaurants", "userId", "==", currentUser);
+        const userShortlets = await fetchFilteredData("shortlets", "userId", "==", currentUser);
+  
         // Combine restaurants and shortlets
         const combinedProperties = [
-          ...Object.entries(restaurantImagesMap).map(([id, data]) => ({
+          ...Object.entries(userRestaurants).map(([id, data]) => ({
             id,
             ...data,
             type: "Restaurant",
           })),
-          ...Object.entries(shortletImagesMap).map(([id, data]) => ({
+          ...Object.entries(userShortlets).map(([id, data]) => ({
             id,
             ...data,
             type: "Shortlet",
           })),
         ];
-
-        // Filter properties for the logged-in user
-        const userProperties = combinedProperties.filter(
-          (property) => property.userId === currentUser
-        );
-
-        setProperties(userProperties);
-        setFilteredProperties(userProperties); // Set initial filtered data
+  
+        setUserProperties(combinedProperties);
+        setProperties(combinedProperties); // Ensure properties are also updated
+        setFilteredProperties(combinedProperties); // Update filtered properties initially
+  
+      } catch (error) {
+        console.error("Error fetching filtered data:", error);
+      } finally {
+        setIsLoading(false);
       }
-      setComponentLoading(false);
     };
-
-    fetchProperties();
-  }, [restaurantImagesMap, shortletImagesMap]);
+  
+    fetchData();
+  }, [auth.currentUser]); // Depend only on the authenticated user
+  
 
   const totalPages = Math.ceil(filteredProperties.length / propertiesPerPage);
   const startIndex = (currentPage - 1) * propertiesPerPage;
@@ -66,7 +74,7 @@ export const PropertiesContent = () => {
 
   const handleDelete = async (property) => {
    
-      setLoading(true);
+      setIsLoading(true);
       try {
         // Delete property document
         await deleteDoc(doc(auth.currentUser ? db : null, property.type.toLowerCase(), property.id));
@@ -89,7 +97,7 @@ export const PropertiesContent = () => {
         console.error("Error deleting property:", error);
         alert("An error occurred while deleting the property.");
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     
   };
@@ -115,7 +123,7 @@ export const PropertiesContent = () => {
     }
   };
 
-  if (loading) return <div>Loading properties...</div>;
+  if (isLoading) return <div>Loading properties...</div>;
 
   return (
     <div className="overflow-hidden">

@@ -7,6 +7,8 @@ import { IoClose } from 'react-icons/io5';
 import { FiUploadCloud } from 'react-icons/fi'; 
 import { ImageDrop } from './ImageDrop';
 
+
+
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
@@ -50,7 +52,8 @@ export const ShortletModal = ({ isOpen, onClose }) => {
       tiktok: '',
       instagram: '' ,
       facebook: ''
-    }
+    },
+    imageNames: [],
 
   });
 
@@ -83,14 +86,19 @@ export const ShortletModal = ({ isOpen, onClose }) => {
     const fileArray = Array.from(files); // Convert FileList to an array for easier handling
     setImages(fileArray); // Update the state with the file array
     console.log('File Array:', fileArray); // Log the array before updating state
+    console.log('Image Arrat:', images); // Log the array before updating state
   };
-   React.useEffect
+   
+  // for (let image in images){
+  //     image
+  // }
   
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      console.log(formData.imageNames)
       const docRef = await addDoc(collection(db, 'shortlets'), formData);
       console.log('Shortlet added successfully:', formData);
       onClose();
@@ -393,10 +401,10 @@ export const ShortletModal = ({ isOpen, onClose }) => {
                   <>
                     <button
                       type="button"
-                      onClick={onClose}
+                      onClick={() => setStep(1)}
                       className="px-12 py-1 bg-gray-100 border text-gray-700 rounded-3xl hover:bg-gray-200"
                     >
-                      Cancel
+                      Back
                     </button>
                     <button
                       type="submit"
