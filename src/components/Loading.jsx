@@ -1,5 +1,6 @@
 import React from 'react';
 import Lottie from "lottie-react" 
+import LoadingHouse from "../house-loading.json";
 import Loader from '../loading.json'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
@@ -10,7 +11,7 @@ const Loading = ({ isLoading }) => {
 
   return (
     <div style={loadingContainerStyle}>
-      <Lottie style={{width:'45px'}} animationData={Loader}    />
+      <Lottie style={{width:'350px'}} animationData={LoadingHouse}    />
 
     </div>
   );

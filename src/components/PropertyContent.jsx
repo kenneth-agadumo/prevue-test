@@ -10,6 +10,8 @@ import { useGlobalState } from "../Contexts/GlobalStateContext";
 import { doc, deleteDoc } from "firebase/firestore";
 import { ref, deleteObject } from "firebase/storage";
 import { MdDelete } from "react-icons/md";
+import LoadingHouse from './Loading';
+
 
 
 export const PropertiesContent = () => {
@@ -21,17 +23,31 @@ export const PropertiesContent = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const propertiesPerPage = 7;
+  const currentUser = auth.currentUser?.uid;
 
-  useEffect(() => {
-    const currentUser = auth.currentUser?.uid;
+
+   useEffect(() => {
+    // If there's no authenticated user, do nothing.
     if (!currentUser) return;
-  
+
+    // Try to get data from local storage
+    const storedData = localStorage.getItem('userProperties');
+    if (storedData) {
+      const parsedData = JSON.parse(storedData);
+      setUserProperties(parsedData);
+      setProperties(parsedData);
+      setFilteredProperties(parsedData);
+      setIsLoading(false)
+      return; // Data is already loaded; exit the effect.
+    }
+
     const fetchData = async () => {
       setIsLoading(true);
       try {
+        // Fetch data from your sources
         const userRestaurants = await fetchFilteredData("restaurants", "userId", "==", currentUser);
         const userShortlets = await fetchFilteredData("shortlets", "userId", "==", currentUser);
-  
+
         // Combine restaurants and shortlets
         const combinedProperties = [
           ...Object.entries(userRestaurants).map(([id, data]) => ({
@@ -45,20 +61,21 @@ export const PropertiesContent = () => {
             type: "Shortlet",
           })),
         ];
-  
+
+        // Store the data in both state and local storage
         setUserProperties(combinedProperties);
-        setProperties(combinedProperties); // Ensure properties are also updated
-        setFilteredProperties(combinedProperties); // Update filtered properties initially
-  
+        setProperties(combinedProperties);
+        setFilteredProperties(combinedProperties);
+        localStorage.setItem('userProperties', JSON.stringify(combinedProperties));
       } catch (error) {
         console.error("Error fetching filtered data:", error);
       } finally {
         setIsLoading(false);
       }
     };
-  
+
     fetchData();
-  }, [auth.currentUser]); // Depend only on the authenticated user
+  }, [currentUser]); 
   
 
   const totalPages = Math.ceil(filteredProperties.length / propertiesPerPage);
@@ -123,7 +140,7 @@ export const PropertiesContent = () => {
     }
   };
 
-  if (isLoading) return <div>Loading properties...</div>;
+  // if (isLoading) return <div>Loading properties...</div>;
 
   return (
     <div className="overflow-hidden">
@@ -148,11 +165,11 @@ export const PropertiesContent = () => {
             <DashboardFilter />
           </div>
         </div>
-        {!currentProperties.length ? (
-          <div className="p-11 w-full flex justify-center">
-            <p className="text-sm">You haven't added any properties yet</p>
+        { isLoading  ? 
+          <div className="w-full flex justify-center items-center">
+            <LoadingHouse/>
           </div>
-        ) : (
+        : (
           <table className="min-w-full bg-white border shadow-md rounded-md table-auto">
             <thead className="bg-gray-100">
               <tr>
@@ -164,25 +181,34 @@ export const PropertiesContent = () => {
               </tr>
             </thead>
             <tbody>
-              {currentProperties.map((property) => (
-                <tr key={property.id} className="hover:bg-primarylight cursor-pointer">
-                  <td className="p-6 border-b border-gray-200 text-sm">{property.name || property.propertyName}</td>
-                  <td className="p-6 border-b border-gray-200 text-gray-500 text-sm">{property.type}</td>
-                  <td className="p-6 hidden sm:table-cell border-b border-gray-200 text-gray-500 text-sm">
-                    {property.dateAdded}
-                  </td>
-                  <td className="p-6 hidden lg:table-cell border-b border-gray-200 text-gray-500 text-sm">
-                    {property.reservations}
-                  </td>
-                  <td className="p-6 border-b border-gray-200 text-gray-500 text-sm">
-                    <MdDelete
-                      onClick={() => handleDelete(property)}
-                      className="text-gray-700 size-4 hover:text-red-500"
-                    />
-                    
-                  </td>
-                </tr>
-              ))}
+              { !currentProperties.length ?
+                (
+                  <div className="p-11 w-full flex justify-center">
+                    <p className="text-sm">You haven't added any properties yet</p>
+                  </div>
+                )
+              :
+                currentProperties.map((property) => (
+                  <tr key={property.id} className="hover:bg-primarylight cursor-pointer">
+                    <td className="p-6 border-b border-gray-200 text-sm">{property.name || property.propertyName}</td>
+                    <td className="p-6 border-b border-gray-200 text-gray-500 text-sm">{property.type}</td>
+                    <td className="p-6 hidden sm:table-cell border-b border-gray-200 text-gray-500 text-sm">
+                      {property.dateAdded}
+                    </td>
+                    <td className="p-6 hidden lg:table-cell border-b border-gray-200 text-gray-500 text-sm">
+                      {property.reservations}
+                    </td>
+                    <td className="p-6 border-b border-gray-200 text-gray-500 text-sm">
+                      <MdDelete
+                        onClick={() => handleDelete(property)}
+                        className="text-gray-700 size-4 hover:text-red-500"
+                      />
+                      
+                    </td>
+                  </tr>
+                ))
+              }
+              
               {/* Pagination Row */}
               <tr>
                 <td colSpan="5" className="p-6 border-t border-gray-200">
