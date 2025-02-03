@@ -6,7 +6,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { IoClose } from 'react-icons/io5';
 import { FiUploadCloud } from 'react-icons/fi'; 
 import { ImageDrop } from './ImageDrop';
-import Loading from './Loading';
+import {ButtonLoading} from './Loading';
 
 import imageCompression from 'browser-image-compression';
 

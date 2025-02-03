@@ -15,8 +15,8 @@ import imageCompression from 'browser-image-compression';
 export const RestaurantModal = ({ isOpen, onClose }) => {
   const [images, setImages] = useState([]);
   const [phone, setPhone] = useState('')
-   
-  const [formData, setFormData] = useState({
+
+  const initialValue = {
     userId: auth?.currentUser?.uid,
     name: '',
     address: '',
@@ -31,8 +31,18 @@ export const RestaurantModal = ({ isOpen, onClose }) => {
       instagram: '' ,
       facebook: ''
     }
-  });
+  }
+   
+  const [formData, setFormData] = useState( initialValue);
   console.log(auth.currentUser.uid)
+
+
+   // Handle form input changes
+   const handleClose = () => {
+    onClose()
+    setImages([])
+    setFormData(initialValue);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -242,7 +252,8 @@ export const RestaurantModal = ({ isOpen, onClose }) => {
               </div>
 
               <div className="button-row mx-auto">
-                <button type="button" onClick={onClose}
+                <button type="button" 
+                onClick={handleClose}
                  className="px-12 py-1 bg-gray-100 border text-gray-700 rounded-3xl hover:bg-gray-200"
                 >
                   Cancel

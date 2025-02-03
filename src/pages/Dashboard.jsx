@@ -53,7 +53,7 @@ export const Dashboard = () => {
   useEffect(() => {
     const getActiveUser = async () => {
       const unsubscribe = onAuthStateChanged(auth, async (user) => {
-        console.log(user.phoneNumber)
+        console.log(user)
         if (!user) {
           // User is not signed in, redirect to login
           navigate('/login');
@@ -65,6 +65,7 @@ export const Dashboard = () => {
           try {
             const querySnapshot = await getDocs(q);
             querySnapshot.forEach((doc) => {
+               console.log(doc.data())
               const documentId = doc.id;
               setDocumentID(documentId); // Store document ID
               setUserData(doc.data());  // Update user data in global state
