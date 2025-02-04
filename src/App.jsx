@@ -1,7 +1,4 @@
-import React, { useEffect, useState, createContext } from "react";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "./firebaseConfig";
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Dashboard } from "./pages/Dashboard";
 import ForgotPassword from "./pages/ForgotPassword";

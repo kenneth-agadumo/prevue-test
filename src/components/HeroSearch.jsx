@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Dropdown } from "./Dropdown";
 import { useGlobalState } from "../Contexts/GlobalStateContext";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 
 export const HeroSearch = () => {
   const { restaurantImagesMap, shortletImagesMap } = useGlobalState();

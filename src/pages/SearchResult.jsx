@@ -3,7 +3,6 @@ import { SearchResults } from "../components/SearchResults";
 
 const SearchResultsPage = () => {
   const router = useLocation();
-  console.log("router", router);
 
   return (
     <div className="p-10">
