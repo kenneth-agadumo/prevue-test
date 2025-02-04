@@ -11,27 +11,31 @@ export const EmailVerification = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [email, setEmail] = useState("");
 
+  // Email verification check: redirect to dashboard when verified.
   useEffect(() => {
-    // Check if the user is authenticated
     const user = auth.currentUser;
     if (!user) {
-      // Redirect to login if no user is found
+      // Redirect to login if no user is found.
       navigate("/login");
       return;
     }
-    
-    setEmail(user.email); // Set email from the authenticated user
 
-    // Check email verification status periodically
-    const interval = setInterval(async () => {
+    setEmail(user.email); // Set email from the authenticated user.
+
+    const verificationInterval = setInterval(async () => {
       await user.reload();
       if (user.emailVerified) {
-        clearInterval(interval);
+        clearInterval(verificationInterval);
         navigate("/dashboard");
       }
-    }, 1000); // Check every second
+    }, 1000); // Check every second.
 
-    // Set up the timer for enabling the resend button
+    // Cleanup interval on component unmount.
+    return () => clearInterval(verificationInterval);
+  }, [navigate]);
+
+  // Timer logic for enabling the resend button.
+  useEffect(() => {
     if (timer > 0) {
       const timerInterval = setInterval(() => {
         setTimer((prev) => prev - 1);
@@ -40,12 +44,7 @@ export const EmailVerification = () => {
     } else {
       setIsButtonDisabled(false);
     }
-
-    // Clear intervals on component unmount
-    return () => {
-      clearInterval(interval);
-    };
-  }, [timer, navigate]);
+  }, [timer]);
 
   const handleResendVerification = async () => {
     try {
@@ -58,7 +57,7 @@ export const EmailVerification = () => {
   };
 
   return (
-    <div className="grid place-items-center bg-primary pt-[50px] pb-[150px]">
+    <div className="grid place-items-center pt-[50px] pb-[150px]">
       <motion.div
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -69,15 +68,21 @@ export const EmailVerification = () => {
         }}
       >
         <div className="text-center mb-6">
-          <img style={{ width: "50px", margin: "0 auto" }} src="/message.png" alt="Email Icon" />
+          <img
+            style={{ width: "50px", margin: "0 auto" }}
+            src="/message.png"
+            alt="Email Icon"
+          />
           <h2 className="text-2xl font-bold mb-2">Check your email</h2>
           <p className="text-sm text-gray-600 mb-2">
             We sent you a verification link to
           </p>
-          {email ? ( // Conditional rendering for email
+          {email ? (
             <p className="text-lg font-semibold">{email}</p>
           ) : (
-            <p className="text-lg font-semibold text-red-500">No email found.</p>
+            <p className="text-lg font-semibold text-red-500">
+              No email found.
+            </p>
           )}
           <p className="text-sm text-gray-600 mt-4">
             If you didn't receive an email,{" "}
@@ -104,7 +109,10 @@ export const EmailVerification = () => {
           </button>
         </div>
         <div className="text-center mt-4">
-          <Link to="/login" className="text-[#f2a20e] hover:text-[#f2a20f] font-semibold">
+          <Link
+            to="/login"
+            className="text-[#f2a20e] hover:text-[#f2a20f] font-semibold"
+          >
             Back to Login
           </Link>
         </div>

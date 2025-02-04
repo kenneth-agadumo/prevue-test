@@ -196,14 +196,14 @@ nav ul{
 }
 
 
-nav button{
+/* nav button{
   
   padding: 0.7rem 1.5rem;
   background: var(--primary-color);
   color: white;
   border: none;
   border-radius: 20px;
-}
+} */
 /* END OF NAVBAR COMPONENT */
 
 

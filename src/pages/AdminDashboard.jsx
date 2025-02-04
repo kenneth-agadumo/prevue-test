@@ -12,12 +12,16 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useGlobalState } from '../Contexts/GlobalStateContext.jsx';
 import { PropertiesTab } from '../components/PropertiesTab.jsx';
 import { SettingsTab } from '../components/SettingsTab.jsx';
+import { Overview, Properties, Reservation, Settings } from '../components/DashboardIcons.jsx';
+import { PropertiesContent } from '../components/PropertyContent.jsx';
+import { TourCapture } from '../components/TourCapture.jsx';
+
 
 // Styles
 // import '../dashboard.css';
 
 // Main Dashboard Component
-export const Dashboard = () => {
+export const AdminDashboard = () => {
   // Destructure state and setters from global context
   const { userData, setUserData, loading, setLoading, userImageUrl } = useGlobalState();
 
@@ -49,6 +53,7 @@ export const Dashboard = () => {
   useEffect(() => {
     const getActiveUser = async () => {
       const unsubscribe = onAuthStateChanged(auth, async (user) => {
+        console.log(user)
         if (!user) {
           // User is not signed in, redirect to login
           navigate('/login');
@@ -60,6 +65,7 @@ export const Dashboard = () => {
           try {
             const querySnapshot = await getDocs(q);
             querySnapshot.forEach((doc) => {
+               console.log(doc.data())
               const documentId = doc.id;
               setDocumentID(documentId); // Store document ID
               setUserData(doc.data());  // Update user data in global state
@@ -77,65 +83,13 @@ export const Dashboard = () => {
   }, [navigate, setUserData, setLoading]);
 
   return (
-    <div className="dashboard">
-      {/* Sidebar Navigation */}
-      <div className="dashboard-nav-section">
-        <div className="dashboard-navbar">
-          {/* Navigation Items */}
-          <div className="nav-items">
-            <div
-              className={`dashboard-navbar-item ${selectedTab === 'account' ? 'active' : ''}`}
-              onClick={() => handleTabChange('account')}
-            >
-              <img src="/dashboard.svg" alt="" className="prof-img" />
-              <span className="nav-item-text">Dashboard</span>
-            </div>
-            <div
-              className={`dashboard-navbar-item ${selectedTab === 'reservations' ? 'active' : ''}`}
-              onClick={() => handleTabChange('reservations')}
-            >
-              <img src="/stack.svg" alt="" className="res-img" />
-              <span className="nav-item-text">Reservations</span>
-            </div>
-            <div
-              className={`dashboard-navbar-item ${selectedTab === 'properties' ? 'active' : ''}`}
-              onClick={() => handleTabChange('properties')}
-            >
-              <img src="/prop.svg" alt="" className="res-img" />
-              <span className="nav-item-text">Properties</span>
-            </div>
+    <div className=" bg-dashboard_grey flex flex-col" style={{height:'100vh'}}>
+      {/* Dashboard Header */}
+         <header className=" col-span-12 flex justify-between items-center py-7 pl-5 pr-9 h-2 ">
+          <div>
+            <Link to="/"><img src="/prevue-orange.svg" alt="" /></Link>
           </div>
-
-          {/* Bottom Section */}
-          <div className="dashboard-nav-bottom">
-            {/* Settings */}
-            <div
-              className={`dashboard-navbar-item ${selectedTab === 'settings' ? 'active' : ''}`}
-              onClick={() => handleTabChange('settings')}
-            >
-              <img src="/gears.svg" alt="" className="prof-img" /> Settings
-            </div>
-            <div className="bb"></div>
-            {/* Logout */}
-            <div className="logout" onClick={handleLogout}>
-              <div style={{ width: '80%', boxSizing: 'border-box' }}>
-                <small style={{ display: 'block', fontWeight: '600', cursor: 'pointer' }}>Logout</small>
-                <small style={{ minWidth: 'fit-content' }}>{userData?.email}</small>
-              </div>
-              <img src="/logout.svg" alt="" style={{ cursor: 'pointer' }} />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Content Section */}
-      <div className="dashboard-body-section">
-        {/* Top Bar */}
-        <div className="top-row" style={{ display: selectedTab === 'settings' && 'none' }}>
-          <div className="search-bar-column">
-            <img className="search-icon" src="/search.svg" alt="" />
-            <input className="search-input" type="text" placeholder="Search" />
-          </div>
+          
           <div className="account-column">
             <div className="notification">
               <img src="/bell.svg" alt="" style={{ width: '17px' }} />
@@ -166,14 +120,74 @@ export const Dashboard = () => {
               </div>
             </div>
           </div>
-        </div>
+        </header>
 
-        {/* Render content based on selected tab */}
-        {selectedTab === 'account' && <AccountContent userData={userData} />}
-        {selectedTab === 'reservations' && <PropertyContent />}
-        {selectedTab === 'properties' && <PropertiesTab userData={userData} />}
-        {selectedTab === 'settings' && <SettingsTab userData={userData} documentID={documentID} />}
+      <div className='flex flex-row overflow-auto gap-2 h-full'>
+           {/* Sidebar Navigation */}
+          <div className="bg-white basis-1/4 h-full p-3">
+            <div className=" bg-white h-full flex flex-col justify-between py-4">
+              {/* Navigation Items */}
+              <div className=" flex flex-col gap-1">
+                <div
+                  className={`px-4 py-3 flex gap-2 cursor-pointer  rounded  hover:bg-primarylight ${selectedTab === 'account' && 'bg-primarylight'}`}
+                  onClick={() => handleTabChange('account')}
+                >
+                  <Overview color = {selectedTab === 'account' ? '#E99D43' : '#3A3A39'}/>
+                  <span className= {`hidden sm:block text-gray-600 font-medium  ${selectedTab === 'account' && 'text-primary'}`}>Overview</span>
+                </div>
+                <div
+                  className={`px-4 py-3 flex gap-2 cursor-pointer rounded  hover:bg-primarylight ${selectedTab === 'properties' && 'bg-primarylight'}`}
+                  onClick={() => handleTabChange('properties')}
+                >
+                  <Properties color = {selectedTab === 'properties' ? '#E99D43' : '#3A3A39'}/>
+                  <span className= {`hidden sm:block text-gray-600 font-medium  ${selectedTab === 'properties' && 'text-primary'}`}>Properties</span>
+                </div>
+                <div
+                  className={`px-4 py-3 flex gap-2 cursor-pointer rounded  hover:bg-primarylight ${selectedTab === 'reservations' && 'bg-primarylight'}`}
+                  onClick={() => handleTabChange('reservations')}
+                >
+                  <Reservation color = {selectedTab === 'reservations' ? '#E99D43' : '#3A3A39'} />
+                  <span className= {`hidden sm:block text-gray-600 font-medium  ${selectedTab === 'reservations' && 'text-primary'}`}>Reservations</span>
+                </div>
+                
+              </div>
+
+              {/* Bottom Section */}
+              <div className="dashboard-nav-bottom">
+                {/* Settings */}
+                <div
+                  className={`px-4 py-3 flex gap-2 cursor-pointer rounded  hover:bg-primarylight ${selectedTab === 'settings' && 'bg-primarylight'}`}
+                  onClick={() => handleTabChange('settings')}
+                >
+                 <Settings color = {selectedTab === 'settings' ? '#E99D43' : '#3A3A39'} /> 
+                  <span className= {`hidden sm:block text-gray-600 font-medium  ${selectedTab === 'settings' && 'text-primary'}`}> Settings</span>
+                </div>
+                <div className="bb w-full"></div>
+                {/* Logout */}
+                <div className="px-4 py-5 flex cursor-pointer rounded hover:bg-primarylight" onClick={handleLogout}>
+                  <div style={{ width: '80%', boxSizing: 'border-box' }}>
+                    <p className='hidden sm:block text-sm' style={{ display: 'block', fontWeight: '600', cursor: 'pointer' }}>Logout</p>
+                    <p className='hidden sm:block text-sm' style={{ minWidth: 'fit-content' }}>{userData?.email}</p>
+                  </div>
+                  <img src="/logout.svg" alt="" style={{ cursor: 'pointer' }} />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Main Content Section */}
+          <div className="overflow-auto p-6 h-full bg-white basis-3/4">
+          <h1></h1>
+
+            {/* Render content based on selected tab */}
+            {selectedTab === 'account' && <AccountContent userData={userData} />}
+            {selectedTab === 'properties' && <PropertyContent />}
+            {selectedTab === 'reservations' && <PropertiesTab userData={userData} />}
+            {selectedTab === 'settings' && <SettingsTab userData={userData} documentID={documentID} />}
+          </div>
+              
       </div>
+     
     </div>
   );
 };
@@ -182,12 +196,14 @@ export const Dashboard = () => {
 function AccountContent({ userData }) {
   return (
     <div className="account-tab">
-      <div className="title">
+      <div className="title ">
         <h2>Welcome back, {userData?.fullName}</h2>
-        <p>Track, manage, and forecast your customer and orders data</p>
+        <p className="text-gray-500 text-sm mb-3">
+         Showing data for the last<span className="text-[#f2a20e] text-sm border-b-2 border-[#f2a20e]"> 30 days</span>
+       </p>
       </div>
       {/* Statistics */}
-      <div className="data-row">
+      <div className="data-row    ">
         {/* Reservation Data */}
         <Card title="Total Reservations" value="12" change="40%" />
         {/* Restaurant Data */}
@@ -195,6 +211,7 @@ function AccountContent({ userData }) {
         {/* Entry Data */}
         <Card title="Total Entries" value="20" change="20%" />
       </div>
+      <TourCapture/>
     </div>
   );
 }
@@ -205,7 +222,7 @@ function Card({ title, value, change }) {
     <div className="card">
       <div className="row1">
         <h4>{title}</h4>
-        <img src="/Dropdown.svg" alt="" />
+       
       </div>
       <div className="row-2">
         <p className="big-number">{value}</p>
@@ -224,7 +241,7 @@ function Card({ title, value, change }) {
 
 // Placeholder for Property Content
 function PropertyContent() {
-  return <div>View Reservations</div>;
+  return <div><PropertiesContent/></div>;
 }
 
-export default Dashboard;
+export default AdminDashboard;

@@ -13,6 +13,7 @@ export const GlobalStateProvider = ({ children }) => {
   const [restaurantId, setRestaurantId] = useState();
   const [restaurantImagesMap, setRestaurantImagesMap] = useState({});
   const [shortletImagesMap, setShortletImagesMap] = useState({});
+  const [currentUserRole, setCurrentUserRole] = useState('')
 
   const restaurantRef = collection(db, 'restaurants');
   const shortletRef = collection(db, 'shortlets');
@@ -185,6 +186,8 @@ export const GlobalStateProvider = ({ children }) => {
       restaurantImagesMap,
       shortletImagesMap,
       userImageUrl,
+      currentUserRole,
+      setCurrentUserRole,
       fetchFilteredData,
     }}>
       {children}
