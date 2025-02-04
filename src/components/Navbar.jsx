@@ -39,8 +39,6 @@ export const Navbar = () => {
         }
     }, [location.pathname]); // Runs whenever the location changes
 
-console.log(isActive)
-
     // If the current path is not in visiblePaths, return null to hide Navbar
     if (!isVisible) {
         return null;

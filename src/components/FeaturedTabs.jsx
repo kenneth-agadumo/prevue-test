@@ -18,11 +18,6 @@ export const FeaturedTabs = () => {
   };
 
 
-  
-
-  console.log(shortletImagesMap);
-
-
   return (
     <div className="featured-tabs bg-gradient-to-b from-gray-50 to-white py-12">
       <h3 className="text-4xl font-bold text-center text-gray-800 mb-4">

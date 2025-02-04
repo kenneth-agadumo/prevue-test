@@ -23,6 +23,7 @@ import Login from "./pages/Login";
 import "react-datepicker/dist/react-datepicker.css";
 import "./components.css";
 import ScrollToTop from "./components/ScrollToTop";
+import SearchResultsPage from "./pages/SearchResult";
 
 const imageSources = ["/hero-bg.png", "/prevue.svg", "/prevue.png"];
 
@@ -96,6 +97,7 @@ const App = () => {
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/reset-successful" element={<PasswordReset />} />
             <Route path="/verify-email" element={<EmailVerification />} />
+            <Route path="/features/" element={<SearchResultsPage />} />
             <Route
               path="/restaurants/:restaurantId"
               element={<RestaurantPage />}
