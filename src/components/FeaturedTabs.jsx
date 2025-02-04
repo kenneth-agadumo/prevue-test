@@ -24,43 +24,9 @@ export const FeaturedTabs = () => {
 
   const handleTabChange = (newValue) => {
     setSelectedTab(newValue);
-    console.log(newValue)
   };
 
 
-  const restaurantRef = collection(db, 'restaurants');
-  const shortletRef = collection(db, 'shortlets'); 
-  const userRef = collection(db, 'users'); 
- 
-  
-
- 
-
-
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const data = await fetchFilteredData(selectedTab, "attributes", "array-contains", "Featured" );
-        setFilteredData((prevState) => ({
-          ...prevState,
-          [selectedTab]: data,
-        }));
-        console.log(data)
-      } catch (error) {
-        console.error("Error fetching filtered data:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [selectedTab]);
-
-
-  // console.log(filteredData.restaurants)
-  // console.log(filteredData.shortlets)
   return (
     <div className="featured-tabs bg-gradient-to-b from-gray-50 to-white py-12">
       <h3 className="text-4xl font-bold text-center text-gray-800 mb-4">

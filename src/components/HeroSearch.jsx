@@ -1,18 +1,16 @@
-
-
 import { useState } from "react";
 import { Dropdown } from "./Dropdown";
 import { useGlobalState } from "../Contexts/GlobalStateContext";
-import { SearchResults } from "./SearchResults";
+import { useNavigate } from "react-router-dom";
 
 export const HeroSearch = () => {
   const { restaurantImagesMap, shortletImagesMap } = useGlobalState();
+  const navigate = useNavigate();
 
   const [category, setCategory] = useState("");
   const [subCategory, setSubCategory] = useState("");
   const [location, setLocation] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
 
   const restaurantItems = Object.entries(restaurantImagesMap).map(
     ([restaurantId, restaurantData]) => ({
@@ -53,11 +51,13 @@ export const HeroSearch = () => {
     }
 
     setSearchResults(results);
-    setIsModalOpen(true); // Open the modal when search is triggered
-  };
 
-  const closeModal = () => {
-    setIsModalOpen(false); // Close the modal
+    navigate("/features", {
+      state: {
+        category,
+        searchResults: results,
+      },
+    });
   };
 
   return (
@@ -106,44 +106,6 @@ export const HeroSearch = () => {
       >
         <img src="search-white.svg" alt="Search" />
       </button>
-
-      {/* Search Results as a Modal */}
-      {isModalOpen && (
-        <>
-          <div className="modal-content">
-            <button className="modal-close" onClick={closeModal}>
-              X
-            </button>
-            <SearchResults results={searchResults} category={category} />
-          </div>
-
-          <style jsx>{`
-            .modal-content {
-              background-color: white;
-              border-radius: 0;
-              position: fixed;
-              margin: 0;
-              padding: 40px;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 100%;
-              display: flex;
-              z-index: 1000; /* Ensure it is above other elements */
-            }
-
-            .modal-close {
-              position: absolute;
-              top: 40px;
-              right: 40px;
-              background: transparent;
-              border: none;
-              font-size: 20px;
-              cursor: pointer;
-            }
-          `}</style>
-        </>
-      )}
     </div>
   );
 };
