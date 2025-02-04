@@ -3,6 +3,7 @@ import '../components.css'
 import { useState, useEffect, useRef     } from "react";
 // import { Logo as MySvgIcon } from 'prevue.svg';
 import { Ham } from "../micro-components/Ham";
+import LoginButton from "./RoleBasedLoginButton";
 
 export const Navbar = () => {
     const location = useLocation();
@@ -39,7 +40,7 @@ export const Navbar = () => {
         }
     }, [location.pathname]); // Runs whenever the location changes
 
-console.log(isActive)
+
 
     // If the current path is not in visiblePaths, return null to hide Navbar
     if (!isVisible) {
@@ -69,11 +70,10 @@ console.log(isActive)
                 <ul  style={{color: location.pathname === '/' &&  {isActive} ? 'white' : 'black', fontWeight:'500'}} >
                     <li style={{color: location.pathname == '/' && 'var(--primary-color)'}}><Link to="/">Home</Link></li>
                     <li style={{color: location.pathname == '/rentals' && 'var(--primary-color)'}}><Link to="/rentals">Shortlets</Link></li>
-                    <li style={{color: location.pathname == '/restaurants' && 'var(--pri mary-color)'}}><Link to="/restaurants">Restaurants</Link></li>
+                    <li style={{color: location.pathname == '/restaurants' && 'var(--primary-color)'}}><Link to="/restaurants">Restaurants</Link></li>
                     <li style={{color: location.pathname == '/activities' && 'var(--primary-color)'}}><Link to="/activities">Activities</Link></li>
                 </ul>
-                <Link to='/login'> <button style={{fontWeight:'500', background: 'var(--primary-color)'}}>Sign In</button> </Link>
-
+                <LoginButton />
             </div>    
             
                     

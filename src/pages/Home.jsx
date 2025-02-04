@@ -4,6 +4,8 @@ import "../layout.css";
 import { FeaturedTabs } from "../components/FeaturedTabs";
 // import { Dropdown } from "../components/Dropdown";
 // import { EmbedScript } from "../components/VirtualTour";
+import {  GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "firebase/auth";
+import { auth, googleProvider } from "../firebaseConfig";
 import Footer from "../components/Footer";
 import Carousel from "../components/Carousel";
 import { HeroSearch } from "../components/HeroSearch";
@@ -15,9 +17,26 @@ import NewsLetterModal  from "../components/NewsLetterModal";
 export const Home = () => {
   const [isModalVisible, setModalVisible] = useState(false);
 
+
   useEffect(() => {
     // Show the modal when the page loads
     setModalVisible(true);
+
+    // const handleGoogleSignIn = async () => {
+    //   try {
+    //     const result = await signInWithPopup(auth, googleProvider);
+    //     console.log("User Signed In:", result.user);
+    //   } catch (error) {
+    //     console.error("Error signing in:", error);
+    //   }
+    // };
+
+    // // Check if user is already signed in
+    // onAuthStateChanged(auth, (user) => {
+    //   if (!user) {
+    //     handleGoogleSignIn(); // Trigger popup if user isn't signed in
+    //   }
+    // });
   }, []);
 
   const handleCloseModal = () => {

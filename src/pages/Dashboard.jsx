@@ -53,7 +53,7 @@ export const Dashboard = () => {
   useEffect(() => {
     const getActiveUser = async () => {
       const unsubscribe = onAuthStateChanged(auth, async (user) => {
-        console.log(user.phoneNumber)
+        console.log(user)
         if (!user) {
           // User is not signed in, redirect to login
           navigate('/login');
@@ -65,6 +65,7 @@ export const Dashboard = () => {
           try {
             const querySnapshot = await getDocs(q);
             querySnapshot.forEach((doc) => {
+               console.log(doc.data())
               const documentId = doc.id;
               setDocumentID(documentId); // Store document ID
               setUserData(doc.data());  // Update user data in global state
@@ -128,21 +129,21 @@ export const Dashboard = () => {
               {/* Navigation Items */}
               <div className=" flex flex-col gap-1">
                 <div
-                  className={`px-4 py-3 flex gap-2  rounded  hover:bg-primarylight ${selectedTab === 'account' && 'bg-primarylight'}`}
+                  className={`px-4 py-3 flex gap-2 cursor-pointer  rounded  hover:bg-primarylight ${selectedTab === 'account' && 'bg-primarylight'}`}
                   onClick={() => handleTabChange('account')}
                 >
                   <Overview color = {selectedTab === 'account' ? '#E99D43' : '#3A3A39'}/>
                   <span className= {`hidden sm:block text-gray-600 font-medium  ${selectedTab === 'account' && 'text-primary'}`}>Overview</span>
                 </div>
                 <div
-                  className={`px-4 py-3 flex gap-2  rounded  hover:bg-primarylight ${selectedTab === 'properties' && 'bg-primarylight'}`}
+                  className={`px-4 py-3 flex gap-2 cursor-pointer rounded  hover:bg-primarylight ${selectedTab === 'properties' && 'bg-primarylight'}`}
                   onClick={() => handleTabChange('properties')}
                 >
                   <Properties color = {selectedTab === 'properties' ? '#E99D43' : '#3A3A39'}/>
                   <span className= {`hidden sm:block text-gray-600 font-medium  ${selectedTab === 'properties' && 'text-primary'}`}>Properties</span>
                 </div>
                 <div
-                  className={`px-4 py-3 flex gap-2  rounded  hover:bg-primarylight ${selectedTab === 'reservations' && 'bg-primarylight'}`}
+                  className={`px-4 py-3 flex gap-2 cursor-pointer rounded  hover:bg-primarylight ${selectedTab === 'reservations' && 'bg-primarylight'}`}
                   onClick={() => handleTabChange('reservations')}
                 >
                   <Reservation color = {selectedTab === 'reservations' ? '#E99D43' : '#3A3A39'} />
@@ -155,7 +156,7 @@ export const Dashboard = () => {
               <div className="dashboard-nav-bottom">
                 {/* Settings */}
                 <div
-                  className={`px-4 py-3 flex gap-2  rounded  hover:bg-primarylight ${selectedTab === 'settings' && 'bg-primarylight'}`}
+                  className={`px-4 py-3 flex gap-2 cursor-pointer rounded  hover:bg-primarylight ${selectedTab === 'settings' && 'bg-primarylight'}`}
                   onClick={() => handleTabChange('settings')}
                 >
                  <Settings color = {selectedTab === 'settings' ? '#E99D43' : '#3A3A39'} /> 
@@ -163,7 +164,7 @@ export const Dashboard = () => {
                 </div>
                 <div className="bb w-full"></div>
                 {/* Logout */}
-                <div className="px-4 py-5 flex rounded hover:bg-primarylight" onClick={handleLogout}>
+                <div className="px-4 py-5 flex cursor-pointer rounded hover:bg-primarylight" onClick={handleLogout}>
                   <div style={{ width: '80%', boxSizing: 'border-box' }}>
                     <p className='hidden sm:block text-sm' style={{ display: 'block', fontWeight: '600', cursor: 'pointer' }}>Logout</p>
                     <p className='hidden sm:block text-sm' style={{ minWidth: 'fit-content' }}>{userData?.email}</p>
