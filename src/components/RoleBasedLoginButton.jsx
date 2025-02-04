@@ -287,7 +287,7 @@ const LoginButton = () => {
                 <div className="flex flex-col gap-3 items-center">
                   <button 
                   className="w-full px-4 py-2 bg-primary text-white rounded-2xl" 
-                  onClick={`${isSignup ? () => onSubmit(isSignup) : onSubmit}`}
+                  
                   >
                     {isSignup ? "Sign Up" : "Sign In"}
                   </button>
