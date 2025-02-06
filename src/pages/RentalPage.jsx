@@ -55,13 +55,13 @@ export const RentalPage = () => {
     return <div>Rental not found</div>;
   }
 
-  //const imageUrls = rentalData?.images?.map((image) => image.url);
+  const imageUrls = rentalData?.images?.map((image) => image.url);
 
   return (
     <div>
       <div className="slider pt-6">
-      {/*<ImageSlider images={imageUrls} tourLink={rentalData.virtualTourLink} />*/}
-      <iframe 
+      <ImageSlider images={imageUrls} tourLink={rentalData.virtualTourLink} />
+     {/*} <iframe 
         src={rentalData.virtualTourLink} 
         style={{ width: '90%', 
           height: '523px',
@@ -75,7 +75,7 @@ export const RentalPage = () => {
         frameBorder="0"
         allowFullScreen
         title="Virtual Tour"
-      />
+      />*/}
       </div>
       <div className="description">
         <div className="description-left">
