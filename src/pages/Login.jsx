@@ -12,13 +12,15 @@ import {
   browserSessionPersistence,
   GoogleAuthProvider,
 } from "firebase/auth";
-import { auth } from "../firebaseConfig.jsx";
+import { auth, googleProvider } from "../firebaseConfig.jsx";
 import Btn from "../components/AuthComponents/Btn.jsx";
 import Google from "../components/AuthComponents/Google.jsx";
+import { useGlobalState } from "../Contexts/GlobalStateContext.jsx";
 
 const Login = () => {
   const [error, setError] = useState(null);
   const [rememberMe, setRememberMe] = useState(false);
+  const {currentUserRole, setCurrentUserRole} = useGlobalState()
   const navigate = useNavigate();
 
   const initialValues = {
@@ -39,7 +41,7 @@ const Login = () => {
 
       // Sign in with email and password
       await signInWithEmailAndPassword(auth, email, password);
-
+      setCurrentUserRole('manager')
       // Redirect to Dashboard after successful login
       navigate("/dashboard");
     } catch (error) {
@@ -49,7 +51,7 @@ const Login = () => {
   };
 
   const handleSignInWithGoogle = async () => {
-    const provider = new GoogleAuthProvider();
+    
 
     try {
       // Set persistence based on the "Remember me" checkbox
@@ -59,10 +61,11 @@ const Login = () => {
       await setPersistence(auth, persistence);
 
       // Sign in with Google
-      const result = await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
       console.log("User signed in with Google:", user);
 
+      setCurrentUserRole('manager')
       // Redirect to Dashboard after successful sign-in
       navigate("/dashboard");
     } catch (error) {

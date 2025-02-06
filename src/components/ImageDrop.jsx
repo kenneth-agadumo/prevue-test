@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import Loading from './Loading';  // Import the Loading component
+import LoadingHouse from './Loading';  // Import the Loading component
 import { FiUploadCloud } from 'react-icons/fi';
 
 export const ImageDrop = ({ imageNumber, width, height, onImagesChange }) => {
@@ -76,12 +76,17 @@ export const ImageDrop = ({ imageNumber, width, height, onImagesChange }) => {
       <div style={previewStyle}>
         {images.map((file, index) => (
           <div key={index} style={imageContainerStyle}>
-            <button onClick={() => removeImage(index)} style={removeButtonStyle}>X</button>
+            <button  
+            onClick={(event) => {
+              event.stopPropagation();
+              removeImage(index);
+            }}
+            style={removeButtonStyle}>X</button>
             <img src={file.preview} alt={`preview ${index}`} style={imageStyle} />
           </div>
         ))}
       </div>
-      {isLoading  && <Loading isLoading={isLoading} uploadProgress={uploadProgress} />}
+      {isLoading  && <LoadingHouse isLoading={isLoading} uploadProgress={uploadProgress} />}
     </div>
   );
 };

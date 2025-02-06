@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { collection, getDocs, onSnapshot, doc, getDoc } from 'firebase/firestore';
+import { collection, getDocs, onSnapshot, doc, getDoc, query, where } from 'firebase/firestore';
 import { ref, getDownloadURL, listAll } from 'firebase/storage';
 import { auth, db, storage } from "../firebaseConfig";
 
@@ -8,23 +8,76 @@ const GlobalStateContext = createContext();
 
 // Create a provider component
 export const GlobalStateProvider = ({ children }) => {
-  const [restaurants, setRestaurants] = useState([]);
-  const [shortlets, setShortlets] = useState([]);
   const [userData, setUserData] = useState();
-  const [loading, setLoading] = useState(false);
   const [userImageUrl, setUserImageUrl] = useState();
   const [restaurantId, setRestaurantId] = useState();
   const [restaurantImagesMap, setRestaurantImagesMap] = useState({});
   const [shortletImagesMap, setShortletImagesMap] = useState({});
+  const [currentUserRole, setCurrentUserRole] = useState('')
 
   const restaurantRef = collection(db, 'restaurants');
-  const shortletRef = collection(db, 'shortlets'); // Assuming you have a shortlets collection
+  const shortletRef = collection(db, 'shortlets');
+  const userRef = collection(db, 'users');
+
+  // // Function to generate a 5-digit alphanumeric code
+  // const generateAlphaNumericCode = (length = 5) => {
+  //   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  //   let result = '';
+  //   for (let i = 0; i < length; i++) {
+  //     const randomIndex = Math.floor(Math.random() * characters.length);
+  //     result += characters[randomIndex];
+  //   }
+  //   return result;
+  // };
+
+  // // Function to generate a custom ID based on name and userId
+  // const generateCustomId = (name, userId) => {
+  //   const formattedName = name.trim().toLowerCase().replace(/\s+/g, '-'); // Format propertyName
+  //   const uniqueCode = generateAlphaNumericCode(); // Generate the 5-digit alphanumeric code
+  //   return `${formattedName}-${uniqueCode}-${userId}`; // Combine propertyName, unique code, and userId
+  // };
+
+
+
+
+
+  
+
+  const fetchFilteredData = async (type, dataField, condition, value) => {
+
+    let collectionRef ;
+
+    
+    switch (type) { 
+      case 'restaurants': 
+        collectionRef = restaurantRef
+        break; 
+      case 'shortlets': 
+        collectionRef = restaurantRef
+        break; 
+      default: 
+        collectionRef = userRef
+    }
+    
+    // const filteredQuery = query(collectionRef, where("attributes", "array-contains", "Featured"));
+    const filteredQuery = query(collectionRef, where(dataField, condition, value));
+    const querySnapshot = await getDocs(filteredQuery);
+  
+    const dataMap = {};
+    querySnapshot.forEach((doc) => {
+      dataMap[doc.id] = doc.data();
+    });
+  
+    return dataMap;
+  };
+
+
 
   useEffect(() => {
     const fetchUserImage = async () => {
       if (auth.currentUser) {
         const imageRef = ref(storage, `/userImages/${auth.currentUser.uid}/image-1`);
-        
+
         try {
           const url = await getDownloadURL(imageRef);
           setUserImageUrl(url);
@@ -37,7 +90,7 @@ export const GlobalStateProvider = ({ children }) => {
         }
       }
     };
-  
+
     fetchUserImage();
   }, [auth.currentUser]);
 
@@ -65,7 +118,7 @@ export const GlobalStateProvider = ({ children }) => {
 
           if (restaurantDoc.exists()) {
             const restaurantData = restaurantDoc.data();
-            
+
             // Initialize the array if it doesn't exist
             if (!restaurantImagesMap[restaurantId]) {
               restaurantImagesMap[restaurantId] = {
@@ -102,7 +155,7 @@ export const GlobalStateProvider = ({ children }) => {
 
           if (shortletDoc.exists()) {
             const shortletData = shortletDoc.data();
-            
+
             // Initialize the array if it doesn't exist
             if (!shortletImagesMap[shortletId]) {
               shortletImagesMap[shortletId] = {
@@ -120,7 +173,6 @@ export const GlobalStateProvider = ({ children }) => {
         }
 
         setShortletImagesMap(shortletImagesMap);
-        
       } catch (error) {
         console.error('Error fetching images:', error);
       }
@@ -131,11 +183,12 @@ export const GlobalStateProvider = ({ children }) => {
 
   return (
     <GlobalStateContext.Provider value={{
-    
-      loading, setLoading,
       restaurantImagesMap,
       shortletImagesMap,
-      userImageUrl
+      userImageUrl,
+      currentUserRole,
+      setCurrentUserRole,
+      fetchFilteredData,
     }}>
       {children}
     </GlobalStateContext.Provider>
