@@ -5,8 +5,8 @@ import HeartButton from "./Like";
 import { Link } from "react-router-dom";
 
 export const RentalCard = ({
-  //image,
-  virtualTour,
+  image,
+  //virtualTour,
   name,
   address,
   price,
@@ -30,17 +30,17 @@ export const RentalCard = ({
       {/* Image Section */}
       <Link to={`/${type}/${id}`}>
         <div className="w-full h-64 relative overflow-hidden group">
-          {/*<img
+          *<img
             src={image}
             alt={name}
             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-          />*/}
-          <iframe
+          />*
+          {/*<iframe
             src={virtualTour}
             title="Virtual Tour"
             className="w-full h-full border-none"
             allowFullScreen
-          ></iframe>
+          ></iframe>*/}
           <div className="absolute inset-0 bg-black bg-opacity-25 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
       </Link>

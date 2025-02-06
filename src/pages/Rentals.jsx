@@ -52,17 +52,17 @@ export const Rentals = () => {
           {Object.entries(shortletImagesMap).map(
             ([shortletId, shortletData]) => (
               <RentalCard
-               virtualTour="https://kuula.co/share/h5Hpv?logo=1&info=1&fs=1&vr=0&sd=1&thumbs=1"
+               //virtualTour="https://kuula.co/share/h5Hpv?logo=1&info=1&fs=1&vr=0&sd=1&thumbs=1"
                 key={shortletId}
                 type="rentals"
                 id={shortletId}
                 address={shortletData.address}
                 price={shortletData.price}
-               /* image={
+                image={
                   shortletData.images.length > 0
                     ? shortletData.images[0].url
                     : "default-image.png"
-                }*/
+                }
                 width={"100%"}
                 onHeartClick={() => {
                   // Handle the heart click (e.g., add to favorites)
