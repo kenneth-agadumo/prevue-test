@@ -143,7 +143,7 @@ const SignUp = () => {
         });
       }
       setCurrentUserRole('manager')
-      console.log(user.emailVerified)
+      
       if(!user.emailVerified){
         navigate("/verify-email")
       }
@@ -154,6 +154,7 @@ const SignUp = () => {
       setError(error.message);
       console.error("Google sign-in error:", error);
     }
+    console.log(currenUserRole)
   };
 
   return (
