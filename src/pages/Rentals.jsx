@@ -1,14 +1,23 @@
-import { useState, useEffect } from "react";
-import { ref, listAll, getDownloadURL } from "firebase/storage";
+import { useState } from "react";
 import { Dropdown } from "../components/Dropdown";
 import { RentalCard } from "../components/Card";
 import { useGlobalState } from "../Contexts/GlobalStateContext";
-import { storage } from "../firebaseConfig";
-import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
+import RentalsCarousel from "../components/RentalsCarousel";
 
 export const Rentals = () => {
-  const { userData, rentals, shortletImagesMap } = useGlobalState();
+  const { shortletImagesMap } = useGlobalState();
+  const [viewType, setViewType] = useState("card");
+
+  const rentalsData = Object.entries(shortletImagesMap).map(
+    ([shortletId, shortletData]) => ({
+      shortletId,
+      address: shortletData.address,
+      price: shortletData.price,
+      virtualTour:
+        "https://kuula.co/share/h5Hpv?logo=1&info=1&fs=1&vr=0&sd=1&thumbs=1",
+    })
+  );
 
   return (
     <>
@@ -46,38 +55,51 @@ export const Rentals = () => {
             itemsArray={["All Types", "Recent", "Popular"]}
             border="none"
           />
+          <button
+            onClick={() => setViewType(viewType === "grid" ? "cards" : "grid")}
+            className="bg-gray-800 text-white px-4 py-2 rounded-lg ml-4"
+          >
+            {viewType === "grid" ? "Grid View" : " Card View"}
+          </button>
         </div>
 
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto px-6">
-          {Object.entries(shortletImagesMap).map(
-            ([shortletId, shortletData]) => (
-              <RentalCard
-               virtualTour="https://kuula.co/share/h5Hpv?logo=1&info=1&fs=1&vr=0&sd=1&thumbs=1"
-                key={shortletId}
-                type="rentals"
-                id={shortletId}
-                address={shortletData.address}
-                price={shortletData.price}
-               /* image={
+        {viewType === "grid" ? (
+          <RentalsCarousel rentals={rentalsData} />
+        ) : (
+          <>
+            <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto px-6">
+              {Object.entries(shortletImagesMap).map(
+                ([shortletId, shortletData]) => (
+                  <RentalCard
+                    virtualTour="https://kuula.co/share/h5Hpv?logo=1&info=1&fs=1&vr=0&sd=1&thumbs=1"
+                    key={shortletId}
+                    type="rentals"
+                    id={shortletId}
+                    address={shortletData.address}
+                    price={shortletData.price}
+                    /* image={
                   shortletData.images.length > 0
                     ? shortletData.images[0].url
                     : "default-image.png"
                 }*/
-                width={"100%"}
-                onHeartClick={() => {
-                  // Handle the heart click (e.g., add to favorites)
-                  console.log(`Rental ${shortletId} favorited!`);
-                }}
-              />
-            )
-          )}
-        </div>
-
-        <div className="load-more flex justify-center mt-8">
-          <button className="bg-blue-600 text-white py-2 px-6 rounded-lg">
-            Load More
-          </button>
-        </div>
+                    width={"100%"}
+                    onHeartClick={() => {
+                      //  Handle the heart click (e.g., add to favorites)
+                      console.log(`Rental ${shortletId} favorited!`);
+                    }}
+                  />
+                )
+              )}
+            </div>
+            <div>
+              <div className="load-more flex justify-center mt-8">
+                <button className="bg-blue-600 text-white py-2 px-6 rounded-lg">
+                  Load More
+                </button>
+              </div>
+            </div>
+          </>
+        )}
       </div>
 
       <Footer />
