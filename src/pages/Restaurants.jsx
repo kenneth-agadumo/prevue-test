@@ -1,23 +1,25 @@
-import React from "react";
+import { useState } from "react";
 import { Dropdown } from "../components/Dropdown";
 import { RestaurantCard } from "../components/Card";
 import { useGlobalState } from "../Contexts/GlobalStateContext";
-import { useNavigate, Link } from "react-router-dom";
 import Footer from "../components/Footer";
+import RestaurantsCarousel from "../components/RestaurantsCarousel";
 
 export const Restaurants = () => {
   const { restaurantImagesMap } = useGlobalState();
-  const navigate = useNavigate();
+  const [viewType, setViewType] = useState("card");
+
+  const resturantsData = Object.entries(restaurantImagesMap).map(
+    ([shortletId, shortletData]) => ({
+      shortletId,
+      address: shortletData.address,
+      name: shortletData.name,
+      virtualTour: shortletData.images[0].url,
+    })
+  );
 
   return (
     <div>
-      {/* <div className="rental-top-section ">
-        <h1>Restaurants</h1>
-        <p >
-          Discover the perfect property. From short lets to long-term rentals and dream homes for sale, we offer a diverse range of housing options.
-          Immerse yourself in virtual tours, calculate expenses, and stay updated with the latest listings.
-        </p>
-      </div> */}
       <div className="w-full bg-primary text-white py-16 mt-16">
         <div className="flex flex-col items-center justify-center text-center px-6">
           <h1 className="text-4xl font-semibold mb-6 leading-tight">
@@ -57,33 +59,48 @@ export const Restaurants = () => {
             itemsArray={["Featured", "Recent", "Popular"]}
             border="none"
           />
+          <button
+            onClick={() => setViewType(viewType === "grid" ? "cards" : "grid")}
+            className="bg-gray-800 text-white px-4 py-2 rounded-lg ml-4"
+          >
+            {viewType === "grid" ? "Grid View" : " Card View"}
+          </button>
         </div>
 
-        <div
-          className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 py-6 mx-auto"
-          style={{ width: "90%" }}
-        >
-          {Object.entries(restaurantImagesMap).map(
-            ([restaurantId, restaurantData]) => (
-              // eslint-disable-next-line react/jsx-key
-              <RestaurantCard
-                type="restaurants"
-                id={restaurantId}
-                name={restaurantData.name}
-                address={restaurantData.address}
-                image={
-                  restaurantData.images.length > 0
-                    ? restaurantData.images[0].url
-                    : "/default-image.png"
-                }
-              />
-            )
-          )}
-        </div>
-
-        <div className="load-more justify-center grid">
-          <button>Load More</button>
-        </div>
+        {viewType === "grid" ? (
+          <RestaurantsCarousel restaurants={resturantsData} />
+        ) : (
+          <>
+            <div
+              className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 py-6 mx-auto"
+              style={{ width: "90%" }}
+            >
+              {Object.entries(restaurantImagesMap).map(
+                ([restaurantId, restaurantData]) => (
+                  // eslint-disable-next-line react/jsx-key
+                  <RestaurantCard
+                    type="restaurants"
+                    id={restaurantId}
+                    name={restaurantData.name}
+                    address={restaurantData.address}
+                    image={
+                      restaurantData.images.length > 0
+                        ? restaurantData.images[0].url
+                        : "/default-image.png"
+                    }
+                  />
+                )
+              )}
+            </div>
+            <div>
+              <div className="load-more flex justify-center mt-8">
+                <button className="bg-blue-600 text-white py-2 px-6 rounded-lg">
+                  Load More
+                </button>
+              </div>
+            </div>
+          </>
+        )}
       </div>
       <Footer />
     </div>
