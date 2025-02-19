@@ -71,7 +71,7 @@ export const Rentals = () => {
               {Object.entries(shortletImagesMap).map(
                 ([shortletId, shortletData]) => (
                   <RentalCard
-                    virtualTour="https://kuula.co/share/h5Hpv?logo=1&info=1&fs=1&vr=0&sd=1&thumbs=1"
+                    virtualTour={shortletData.virtualTourLink}
                     key={shortletId}
                     type="rentals"
                     id={shortletId}
