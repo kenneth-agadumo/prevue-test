@@ -281,13 +281,7 @@ export const ActivitiesSection = () => {
           ornare, eros nterdum nulla, ut commodo diam libero vitae erat.
         </p> 
         <div className="content-row">
-          {/* <Dropdown
-            itemNumber={3}
-            placeholder={"All Types"}
-            itemsArray={["Type 1", "Type 2"]}
-            border={"none"}
-            isSearchable={false}
-          /> */}
+        
           <div className="content-item">
             <Lottie style={{ width: "250px" }} animationData={ComingSoon} />
           </div>
