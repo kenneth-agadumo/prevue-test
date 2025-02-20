@@ -1,12 +1,23 @@
 import { useState } from "react";
 
-const RentalsCarousel = ({ rentals }) => {
+const RentalsCarousel = ({ shortlets, rentals }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const slides = rentals.map((rental) => ({
-    src: rental.virtualTour,
-  }));
+  // rentals.map((rental) => ({
+  //   src: rental.virtualTour,
+  // }));
 
+  const slides = shortlets
+  ? 
+   Object.entries(shortlets).map(([shortletId, shortletData]) => (
+    {
+      id: shortletId,
+      src: shortletData?.virtualTourLink
+    }
+  ))
+  : {};
+
+  console.log(slides)
   const prevSlide = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? slides.length - 1 : prevIndex - 1

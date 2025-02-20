@@ -64,7 +64,7 @@ export const Rentals = () => {
         </div>
 
         {viewType === "grid" ? (
-          <RentalsCarousel rentals={rentalsData} />
+          <RentalsCarousel rentals={rentalsData} shortlets={shortletImagesMap} />
         ) : (
           <>
             <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto px-6">
