@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 export const RentalCard = ({
   image,
-  //virtualTour,
+  virtualTour,
   name,
   address,
   price,
