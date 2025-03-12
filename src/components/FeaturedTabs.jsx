@@ -24,9 +24,43 @@ export const FeaturedTabs = () => {
 
   const handleTabChange = (newValue) => {
     setSelectedTab(newValue);
+    console.log(newValue)
   };
 
 
+  const restaurantRef = collection(db, 'restaurants');
+  const shortletRef = collection(db, 'shortlets'); 
+  const userRef = collection(db, 'users'); 
+ 
+  
+
+ 
+
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const data = await fetchFilteredData(selectedTab, "attributes", "array-contains", "Featured" );
+        setFilteredData((prevState) => ({
+          ...prevState,
+          [selectedTab]: data,
+        }));
+        console.log(data)
+      } catch (error) {
+        console.error("Error fetching filtered data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [selectedTab]);
+
+
+  // console.log(filteredData.restaurants)
+  // console.log(filteredData.shortlets)
   return (
     <div className="featured-tabs bg-gradient-to-b from-gray-50 to-white py-12">
       <h3 className="text-4xl font-bold text-center text-gray-800 mb-4">
@@ -244,16 +278,10 @@ export const ActivitiesSection = () => {
         <p className="tab-content-text  ">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
           varius enim in eros elementum tristique. Duis cursus, mi quis viverra
-          ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.
-        </p>
+          ornare, eros nterdum nulla, ut commodo diam libero vitae erat.
+        </p> 
         <div className="content-row">
-          {/* <Dropdown
-            itemNumber={3}
-            placeholder={"All Types"}
-            itemsArray={["Type 1", "Type 2"]}
-            border={"none"}
-            isSearchable={false}
-          /> */}
+        
           <div className="content-item">
             <Lottie style={{ width: "250px" }} animationData={ComingSoon} />
           </div>
@@ -262,3 +290,4 @@ export const ActivitiesSection = () => {
     </div>
   );
 };
+
