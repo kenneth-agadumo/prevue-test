@@ -72,9 +72,9 @@ export const ImageSlider = ({ images, tourLink }) => {
 
   return (
     <div style={sliderStyle}>
-     {/* <button onClick={prevImage} style={{ ...buttonStyle, left: '10px' }}>
+      <button onClick={prevImage} style={{ ...buttonStyle, left: '10px' }}>
         <img src="left-arrow.svg" alt="previous" style={{ width: '7px' }} />
-      </button>*/}
+      </button>
 
       {/* Conditionally render iframe or image */}
       {showIframe ? (
@@ -93,13 +93,13 @@ export const ImageSlider = ({ images, tourLink }) => {
         />
       )}
 
-      {/*<button onClick={nextImage} style={{ ...buttonStyle, right: '10px' }}>
+      <button onClick={nextImage} style={{ ...buttonStyle, right: '10px' }}>
         <img src="right-arrow.svg" alt="next" style={{ width: '7px' }} />
-      </button>*/}
+      </button>
      {/* Button positioned at the bottom-center to toggle iframe */}
-      {/*<button onClick={toggleIframe} style={bottomButtonStyle}>
+      <button onClick={toggleIframe} style={bottomButtonStyle}>
         {showIframe ? 'Close Tour' : 'Take Tour'}
-      </button>*/}
+      </button>
     </div>
   );
 };
