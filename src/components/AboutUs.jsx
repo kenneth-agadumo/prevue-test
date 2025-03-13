@@ -29,13 +29,13 @@ export default function AboutUs() {
 
       {/* Content */}
       <motion.div
-        className="relative z-10 w-full max-w-5xl h-auto grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-6 md:gap-10 items-center p-6 sm:p-8 md:p-10 lg:p-12 bg-white/80 backdrop-blur-md rounded-lg shadow-xl"
+        className="relative z-10 w-full max-w-5xl h-auto grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-6 md:gap-10 items-center p-6 sm:p-8 md:p-10 lg:p-12 bg-white/80 backdrop-blur-md rounded-lg shadow-xl"
         variants={floatVariants}
         animate="animate"
       >
         {/* Text Section */}
         <div className="text-section min-h-[250px] p-5 space-y-6 text-center md:text-left">
-          <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-gray-800 tracking-wide">
+          <h2 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-800 tracking-wide">
             About Prevue
           </h2>
           <p className="text-sm sm:text-base md:text-lg text-gray-700 leading-relaxed">
@@ -52,8 +52,8 @@ export default function AboutUs() {
           </button>
         </div>
 
-        {/* Image Section */}
-        <div className="image-section flex justify-center items-center">
+        {/* Image Section - Hidden on Tablets */}
+        <div className="image-section hidden lg:flex justify-center items-center">
           <img
             src="/about-image.png"
             alt="About Prevue"
@@ -64,5 +64,3 @@ export default function AboutUs() {
     </div>
   );
 }
-
-// animate = "animate";
