@@ -29,7 +29,7 @@
     "react-phone-input-2": "^2.15.1",
     "react-router-dom": "^6.23.0",
     "react-select": "^5.8.0",
-    "yup": "^1.4.0"
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@svgr/rollup": "^8.1.0",
