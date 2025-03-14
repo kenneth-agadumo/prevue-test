@@ -18,26 +18,15 @@ export const Home = () => {
 
 
   useEffect(() => {
-    // Show the modal when the page loads
-    setModalVisible(true);
+    const hasSeenModal = localStorage.getItem("hasSeenNewsletterModal");
 
-    // const handleGoogleSignIn = async () => {
-    //   try {
-    //     const result = await signInWithPopup(auth, googleProvider);
-    //     console.log("User Signed In:", result.user);
-    //   } catch (error) {
-    //     console.error("Error signing in:", error);
-    //   }
-    // };
-
-    // // Check if user is already signed in
-    // onAuthStateChanged(auth, (user) => {
-    //   if (!user) {
-    //     handleGoogleSignIn(); // Trigger popup if user isn't signed in
-    //   }
-    // });
+    if (!hasSeenModal) {
+      setModalVisible(true);
+      localStorage.setItem("hasSeenNewsletterModal", "true");
+    }
   }, []);
 
+ 
   const handleCloseModal = () => {
     setModalVisible(false);
   };
