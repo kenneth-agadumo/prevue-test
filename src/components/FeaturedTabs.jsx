@@ -39,28 +39,29 @@ export const FeaturedTabs = () => {
 
 
   useEffect(() => {
+    if (!selectedTab) return;  // Avoid fetching with an empty state
+  
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const data = await fetchFilteredData(selectedTab, "attributes", "array-contains", "Featured" );
+        const data = await fetchFilteredData(selectedTab, "attributes", "array-contains", "Featured");
         setFilteredData((prevState) => ({
           ...prevState,
           [selectedTab]: data,
         }));
-        console.log(data)
       } catch (error) {
         console.error("Error fetching filtered data:", error);
       } finally {
         setIsLoading(false);
       }
     };
-
+  
     fetchData();
-  }, [selectedTab]);
+  }, [selectedTab]);  
+  
 
 
-  // console.log(filteredData.restaurants)
-  // console.log(filteredData.shortlets)
+ 
   return (
     <div className="featured-tabs bg-gradient-to-b from-gray-50 to-white py-12">
       <h3 className="text-4xl font-bold text-center text-gray-800 mb-4">
@@ -122,37 +123,40 @@ export const FeaturedTabs = () => {
 
 
 export const RentalSection = ({ data, isLoading }) => {
+
   return (
     <div className="tab-content-container">
       <div className="tab-content p-6 bg-gray-50 rounded-lg shadow-md box-border">
         <h2 className="text-2xl font-bold text-gray-800 mb-4">
           Find Your Dream Home
         </h2>
-  
-        {isLoading ? (
-          <div className="flex justify-start items-start gap-0 p-0 m-0">
-            <CardLoading />
-            <CardLoading />
-            <CardLoading />
-          </div>
-        ) : (
           <div className="content-item grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
-            {Object.entries(data).map(([id, rentalData]) => (
+          {isLoading ? 
+          <>
+            <CardLoading />
+            <CardLoading />
+            <CardLoading />
+          </>
+           : (
+            Object.entries(data).map(([id, shortletData]) => (
               <RentalCard
                 key={id}
-                image={rentalData.images?.[0]?.url || "default-image.png"}
-                name={rentalData.propertyName}
-                address={rentalData.address}
-                price={rentalData.price}
-                note={rentalData.about}
+                image={shortletData.images?.[0]?.url || "default-image.png"}
+                name={shortletData.propertyName}
+                address={shortletData.address}
+                virtualTour={shortletData.virtualTourLink}
+                price={shortletData.price}
+                note={shortletData.about}
                 type="rentals"
                 id={id}
                 rating={4.8}
-                amenities={rentalData.amenities}
+                amenities={shortletData.amenities}
               />
-            ))}
+            ))
+
+          )}
           </div>
-        )}
+        
       </div>
     </div>
   );
@@ -160,6 +164,8 @@ export const RentalSection = ({ data, isLoading }) => {
 
 
 export const RestaurantSection = ({ data, isLoading }) => {
+
+
   return (
     <div className="tab-content-container">
       <div className="tab-content p-6 bg-gray-50 rounded-lg shadow-md">
@@ -181,6 +187,7 @@ export const RestaurantSection = ({ data, isLoading }) => {
               image={restaurantData.images?.[0]?.url || "default-image.png"}
               name={restaurantData.name}
               address={restaurantData.address}
+              virtualTour = {restaurantData.virtualTourLink}
               cuisine="Italian Cuisine"
               priceRange="$$ - $$$"
               type="restaurants"
@@ -196,81 +203,6 @@ export const RestaurantSection = ({ data, isLoading }) => {
   );
 };
 
-
-
-// export const RentalSection = ({shortletImagesMap}) => {
-//   return (
-//     <div className="tab-content-container">
-//       <div className="tab-content p-6 bg-gray-50 rounded-lg shadow-md">
-//         <h2 className="text-2xl font-bold text-gray-800 mb-4">
-//           Find Your Dream Home
-//         </h2>
-//         <p className="tab-content-text text-gray-600 leading-relaxed">
-//           <span className="font-semibold text-gray-800">
-//             Discover the perfect property.
-//           </span>
-//           From
-//           <span className="text-emerald-500 font-semibold"> short lets</span> to
-//           <span className="text-emerald-500 font-semibold">
-//             long-term rentals
-//           </span>
-//           and dream homes for sale, we offer a diverse range of housing options.
-//           <span className="font-semibold text-gray-800">Immerse yourself</span>
-//           in virtual tours, calculate expenses, and stay updated with the latest
-//           listings.
-//         </p>
-
-//         <div>
-//           <div className="">
-//             {/* <Dropdown
-//               itemNumber={3}
-//               placeholder={"All Types"}
-//               itemsArray={["Type 1", "Type 2"]}
-//               border={"none"}
-//               isSearchable={false}
-//             /> */}
-//           </div>
-
-        
-         
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-// export const RestaurantSection = ({restaurantImagesMap}) => {
-//   return (
-//     <div className="tab-content-container">
-//       <div className="tab-content p-6 bg-gray-50 rounded-lg shadow-md">
-//         <h2 className="text-2xl font-bold text-gray-800 mb-4">
-//           Discover Exquisite Dining Experiences
-//         </h2>
-//         <p className="tab-content-text text-gray-600 leading-relaxed">
-//           <span className="font-semibold text-gray-800">From cozy</span>{" "}
-//           <span className="text-emerald-500 font-semibold">cafes</span> to
-//           <span className="text-emerald-500 font-semibold"> fine dining</span>,
-//           we showcase a curated selection of restaurants that satisfy every
-//           palate.{" "}
-//           <span className="font-semibold text-gray-800">Explore menus</span>,
-//           browse reviews, and uncover hidden gems in your area.
-//         </p>
-//         <div>
-//           <div className="">
-//             {/* <Dropdown
-//               itemNumber={3}
-//               placeholder={"All Types"}
-//               itemsArray={["Type 1", "Type 2"]}
-//               border={"none"}
-//               isSearchable={false}
-//             /> */}
-//           </div>
-
-         
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
 export const ActivitiesSection = () => {
   return (
     <div className="tab-content-container">

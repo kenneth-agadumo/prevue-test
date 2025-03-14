@@ -53,7 +53,7 @@ export const GlobalStateProvider = ({ children }) => {
         collectionRef = restaurantRef
         break; 
       case 'shortlets': 
-        collectionRef = restaurantRef
+        collectionRef = shortletRef
         break; 
       default: 
         collectionRef = userRef

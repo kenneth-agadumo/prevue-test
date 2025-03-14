@@ -178,6 +178,7 @@ export const RestaurantCard = ({
   image,
   name,
   address,
+  virtualTour,
   cuisine,
   rating = 4.5,
   priceRange = "$$ - $$$",
@@ -189,11 +190,17 @@ export const RestaurantCard = ({
       {/* Image Section */}
       <Link to={`/${type}/${id}`}>
         <div className="w-full h-64 overflow-hidden">
-          <img
+          {/* <img
             src={image}
             alt={name}
             className="w-full h-full object-cover transition-all duration-300 hover:brightness-90 group-hover:scale-110"
-          />
+          /> */}
+          <iframe
+            src={virtualTour}
+            title="Virtual Tour"
+            className="w-full h-full border-none"
+            allowFullScreen
+          ></iframe>
         </div>
       </Link>
 
