@@ -72,6 +72,7 @@ export const Rentals = () => {
                 ([shortletId, shortletData]) => (
                   <RentalCard
                     virtualTour={shortletData.virtualTourLink}
+                    name={shortletData.propertyName}
                     key={shortletId}
                     type="rentals"
                     id={shortletId}
