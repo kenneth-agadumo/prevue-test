@@ -36,7 +36,7 @@ export const SettingsTab  = ({userData, documentID}) => {
         <hr style={{background: '#eaecf0', height:'1px', border:'none' , transform:'translateY(-6px)'}} />
       </div>                                         
             
-      {selectedTab === 'my-profile' && <MyProfile userData={props.userData} documentID={props.documentID}/> }
+      {selectedTab === 'my-profile' && <MyProfile userData={userData} documentID={documentID}/> }
       {selectedTab === 'password' &&  <Password/> }                                         
     </>
 
@@ -46,7 +46,7 @@ export const SettingsTab  = ({userData, documentID}) => {
 }
 
 
-export const MyProfile = (props) => {
+export const MyProfile = ({userData, documentID}) => {
   const [firstName, setFirstName] = useState(userData?.fullName?.split(' ')[0])
   const [lastName, setLastName] = useState(userData?.fullName?.split(' ')[1])
   const [email, setEmail] = useState(userData?.email)
@@ -100,7 +100,7 @@ export const MyProfile = (props) => {
 
  
   const updateInfo = async () => {
-    const docRef = doc(db, 'users', props.documentID)
+    const docRef = doc(db, 'users', documentID)
     const user = auth.currentUser
 
    
@@ -221,7 +221,7 @@ export const MyProfile = (props) => {
  
 }
 
-export const Password = (props) => {
+export const Password = ({}) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
