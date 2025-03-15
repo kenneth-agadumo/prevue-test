@@ -8,12 +8,16 @@ const GlobalStateContext = createContext();
 
 // Create a provider component
 export const GlobalStateProvider = ({ children }) => {
-  const [userData, setUserData] = useState();
   const [userImageUrl, setUserImageUrl] = useState();
   const [restaurantId, setRestaurantId] = useState();
   const [restaurantImagesMap, setRestaurantImagesMap] = useState({});
   const [shortletImagesMap, setShortletImagesMap] = useState({});
   const [currentUserRole, setCurrentUserRole] = useState('')
+  const [rememberMe, setRememberMe] = useState(false);
+
+  const storedUser = localStorage.getItem('userData');
+  const [userData, setUserData] = useState(storedUser ? JSON.parse(storedUser) : null);
+
 
   const restaurantRef = collection(db, 'restaurants');
   const shortletRef = collection(db, 'shortlets');
@@ -38,7 +42,16 @@ export const GlobalStateProvider = ({ children }) => {
   // };
 
 
-
+  useEffect(() => {
+    const handleStorageChange = (event) => {
+      if (event.key === 'userData') {
+        setUserData(event.newValue ? JSON.parse(event.newValue) : null);
+      }
+    };
+  
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, [])
 
 
   
@@ -187,6 +200,10 @@ export const GlobalStateProvider = ({ children }) => {
       shortletImagesMap,
       userImageUrl,
       currentUserRole,
+      userData,
+      rememberMe, 
+      setRememberMe,
+      setUserData,
       setCurrentUserRole,
       fetchFilteredData,
     }}>

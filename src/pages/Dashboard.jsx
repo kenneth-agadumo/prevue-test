@@ -23,7 +23,8 @@ import { TourCapture } from '../components/TourCapture.jsx';
 // Main Dashboard Component
 export const Dashboard = () => {
   // Destructure state and setters from global context
-  const { userData, setUserData, loading, setLoading, userImageUrl } = useGlobalState();
+  const { userData, setUserData, loading, setLoading, userImageUrl, rememberMe } = useGlobalState();
+  console.log(userData)
 
   // State variables
   const [documentID, setDocumentID] = useState('');
@@ -40,48 +41,74 @@ export const Dashboard = () => {
 
   // Logout handler
   const handleLogout = async () => {
-    await signOut(auth);
-    navigate('/login'); // Redirect to Login after logout
-  };
+  await signOut(auth);
+  console.log("Checking currentUser after signout:", auth.currentUser);
+  setUserData(null);
+  navigate('/login');
+};
 
   // Handle tab change
   const handleTabChange = (newValue) => {
     setSelectedTab(newValue);
   };
 
+  // Function to start inactivity timer
+const startInactivityTimer = () => {
+  let timeout;
+
+  const resetTimer = () => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      signOut(auth).then(() => {
+        console.log("User signed out due to inactivity");
+        navigate("/login"); // Redirect to login page after sign-out
+      });
+    }, 20 * 60 * 1000); // 20 minutes
+  };
+
+  // Reset timer on user activity
+  window.addEventListener("mousemove", resetTimer);
+  window.addEventListener("keydown", resetTimer);
+
+  // Start initial timer
+  resetTimer();
+};
+
   // Fetch active user data on component mount
   useEffect(() => {
-    const getActiveUser = async () => {
-      const unsubscribe = onAuthStateChanged(auth, async (user) => {
-        console.log(user)
-        if (!user) {
-          // User is not signed in, redirect to login
-          navigate('/login');
-          setUserData(null);
-          setLoading(false);
-        } else {
-          // Query the user data from Firestore
-          const q = query(userRef, where('uid', '==', user.uid));
-          try {
-            const querySnapshot = await getDocs(q);
-            querySnapshot.forEach((doc) => {
-               console.log(doc.data())
-              const documentId = doc.id;
-              setDocumentID(documentId); // Store document ID
-              setUserData(doc.data());  // Update user data in global state
-            });
-          } catch (error) {
-            console.error('Error fetching user data:', error);
-          }
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      console.log("Auth State Changed:", user);
+  
+      if (!user) {
+        console.log("No user found, redirecting...");
+        navigate('/login');
+        setUserData(null);
+        setLoading(false);
+        return;
+      }
+  
+      try {
+        const q = query(collection(db, 'users'), where('uid', '==', user.uid));
+        const querySnapshot = await getDocs(q);
+  
+        querySnapshot.forEach((doc) => {
+          setDocumentID(doc.id);
+          setUserData(doc.data());
+        });
+        
+        // Start inactivity timer if "Remember Me" is false
+        if (!rememberMe) {
+          startInactivityTimer();
         }
-      });
 
-      return () => unsubscribe(); // Cleanup subscription
-    };
-
-    getActiveUser();
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    });
+  
+    return () => unsubscribe(); // ✅ Cleanup on unmount
   }, [navigate, setUserData, setLoading]);
-
+  
   return (
     <div className=" bg-dashboard_grey flex flex-col" style={{height:'100vh'}}>
       {/* Dashboard Header */}
@@ -114,7 +141,7 @@ export const Dashboard = () => {
               <div className={`dropdown-content ${dropdownActive && 'active'}`}>
                 <span onClick={() => setSelectedTab('settings')}>My Profile</span>
                 <hr style={{ background: '#f2f4f7', height: '2px', border: 'none' }} />
-                <Link to={'/login'} style={{ color: 'var(--primary-color)' }}>
+                <Link onClick={handleLogout} style={{ color: 'var(--primary-color)' }}>
                   Logout
                 </Link>
               </div>
@@ -197,7 +224,7 @@ function AccountContent({ userData }) {
   return (
     <div className="account-tab">
       <div className="title ">
-        <h2>Welcome back, {userData?.fullName}</h2>
+        <h2>Welcome back, {userData?.fullName.split(' ')[0]}</h2>
         <p className="text-gray-500 text-sm mb-3">
          Showing data for the last<span className="text-[#f2a20e] text-sm border-b-2 border-[#f2a20e]"> 30 days</span>
        </p>

@@ -19,8 +19,7 @@ import { useGlobalState } from "../Contexts/GlobalStateContext.jsx";
 
 const Login = () => {
   const [error, setError] = useState(null);
-  const [rememberMe, setRememberMe] = useState(false);
-  const {currentUserRole, setCurrentUserRole} = useGlobalState()
+  const {currentUserRole, setCurrentUserRole, rememberMe, setRememberMe} = useGlobalState()
   const navigate = useNavigate();
 
   const initialValues = {
@@ -34,9 +33,7 @@ const Login = () => {
 
     try {
       // Set persistence based on the "Remember me" checkbox
-      const persistence = rememberMe
-        ? browserLocalPersistence
-        : browserSessionPersistence;
+      const persistence = browserLocalPersistence
       await setPersistence(auth, persistence);
 
       // Sign in with email and password
@@ -56,9 +53,9 @@ const Login = () => {
     try {
       // Set persistence based on the "Remember me" checkbox
       const persistence = rememberMe
-        ? browserLocalPersistence
-        : browserSessionPersistence;
-      await setPersistence(auth, persistence);
+        && browserLocalPersistence
+       
+      
 
       // Sign in with Google
       const result = await signInWithPopup(auth, googleProvider);
@@ -119,7 +116,7 @@ const Login = () => {
                     className="form-checkbox"
                   />
                   <label htmlFor="rememberMe">
-                    <small>Remember for 30 days</small>
+                    <small>Keep me signed in for 30 days</small>
                   </label>
                 </span>
                 <Link to="/forgot-password" className="text-sm text-[#f2a20e]">
