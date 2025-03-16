@@ -70,6 +70,7 @@ const startInactivityTimer = () => {
   window.addEventListener("mousemove", resetTimer);
   window.addEventListener("keydown", resetTimer);
 
+  
   // Start initial timer
   resetTimer();
 };

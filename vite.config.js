@@ -13,7 +13,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: ["yup"]
+      external: [] // Don't exclude yup
     }
   }
 })
