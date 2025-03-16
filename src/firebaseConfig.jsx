@@ -27,6 +27,10 @@ export const db = getFirestore(app);
 export const storage = getStorage(app)
 export const storageRef = ref(storage)
 
-await setPersistence(auth, browserLocalPersistence);
+const initializeAuth = async () => {
+  await setPersistence(auth, browserLocalPersistence);
+};
+
+initializeAuth();
 
 const analytics = getAnalytics(app);
