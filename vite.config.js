@@ -8,4 +8,12 @@ export default defineConfig({
     react(),
     svgr(),
   ], 
+  optimizeDeps: {
+    include: ["yup"]
+  },
+  build: {
+    rollupOptions: {
+      external: ["yup"]
+    }
+  }
 })
