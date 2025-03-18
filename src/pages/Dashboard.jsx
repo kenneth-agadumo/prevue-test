@@ -70,7 +70,7 @@ const startInactivityTimer = () => {
   window.addEventListener("mousemove", resetTimer);
   window.addEventListener("keydown", resetTimer);
 
-  
+
   // Start initial timer
   resetTimer();
 };
@@ -225,7 +225,7 @@ function AccountContent({ userData }) {
   return (
     <div className="account-tab">
       <div className="title ">
-        <h2>Welcome back, {userData?.fullName.split(' ')[0]}</h2>
+        <h2 className='text-2xl font-bold'>Welcome back, {userData?.fullName.split(' ')[0]} 👋🏾 </h2>
         <p className="text-gray-500 text-sm mb-3">
          Showing data for the last<span className="text-[#f2a20e] text-sm border-b-2 border-[#f2a20e]"> 30 days</span>
        </p>

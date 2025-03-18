@@ -141,7 +141,7 @@ const Carousel = () => {
       </div>
 
       {/* Indicators */}
-      <div className="flex justify-center mt-6 space-x-3">
+      <div className="flex justify-center m-4 space-x-3">
         {slides.map((_, index) => (
           <span
             key={index}

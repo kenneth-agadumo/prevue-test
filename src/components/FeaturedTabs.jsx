@@ -208,9 +208,7 @@ export const ActivitiesSection = () => {
     <div className="tab-content-container">
       <div className="tab-content">
         <p className="tab-content-text  ">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          varius enim in eros elementum tristique. Duis cursus, mi quis viverra
-          ornare, eros nterdum nulla, ut commodo diam libero vitae erat.
+          We'll be coming to you soon with the most bubbling activities in a city near you 😉
         </p> 
         <div className="content-row">
         
