@@ -5,7 +5,7 @@ import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
 import DropdownFilter from "./DropdownFilter";
 import RestaurantModal from "./RestaurantModal";
 import AddPropertyButton from "./AddProperty";
-import { auth, db, storage } from "../firebaseConfig";
+import { managerAuth, db, storage } from "../firebaseConfig";
 import { useGlobalState } from "../Contexts/GlobalStateContext";
 import { doc, deleteDoc } from "firebase/firestore";
 import { ref, deleteObject } from "firebase/storage";
@@ -23,7 +23,7 @@ export const PropertiesContent = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const propertiesPerPage = 7;
-  const currentUser = auth.currentUser?.uid;
+  const currentUser = managerAuth.currentUser?.uid;
 
 
    useEffect(() => {
@@ -94,7 +94,7 @@ export const PropertiesContent = () => {
       setIsLoading(true);
       try {
         // Delete property document
-        await deleteDoc(doc(auth.currentUser ? db : null, property.type.toLowerCase(), property.id));
+        await deleteDoc(doc(managerAuth.currentUser ? db : null, property.type.toLowerCase(), property.id));
 
         // Delete associated images
         const imageRefs = property.images.map((image) =>

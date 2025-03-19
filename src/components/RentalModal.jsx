@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../components.css';
-import { db, auth, storage } from '../firebaseConfig';
+import { db, managerAuth, storage } from '../firebaseConfig';
 import { addDoc, collection } from 'firebase/firestore';
 import { ref, uploadBytes } from 'firebase/storage';
 import { ImageDrop } from './ImageDrop';
@@ -8,7 +8,7 @@ import { ImageDrop } from './ImageDrop';
 export const RentalModal = ({ isOpen, onClose }) => {
   const [images, setImages] = useState([]);
   const [formData, setFormData] = useState({
-    userId: auth?.currentUser?.uid,
+    userId: managerAuth?.currentUser?.uid,
     price: '',
     address: '',
     rooms: '',

@@ -1,107 +1,92 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUser, FaUserTie } from "react-icons/fa6";
-import { IoClose } from "react-icons/io5";
-import { signInWithPopup, onAuthStateChanged, signOut } from "firebase/auth";
-import { auth, googleProvider, db } from "../firebaseConfig";
+import { signInWithPopup, onAuthStateChanged, signOut, setPersistence, browserLocalPersistence, } from "firebase/auth";
+import { userAuth, googleProvider, db } from "../firebaseConfig";
 import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { useGlobalState } from "../Contexts/GlobalStateContext";
+import UserLogin from "../userApp/UserLogin";
+import UserSignUp from "../userApp/UserSignUp";
 
 const LoginButton = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSignup, setIsSignup] = useState(true);
-  const [user, setUser] = useState(null); // state for authenticated user
+  const [user, setUser] = useState(null); 
+  const [isLoading, setIsLoading] = useState(false)
   const {currentUserRole, setCurrentUserRole} = useGlobalState()
   const navigate = useNavigate();
 
 
+
   // Listen for authentication state changes.
   useEffect(() => {
-    
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    setIsLoading(true)
+    const unsubscribe = onAuthStateChanged(userAuth, async (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+  
+        // Fetch user role from Firestore
+        const userDocRef = doc(db, "users", currentUser.uid);
+        const userDocSnap = await getDoc(userDocRef);
+        if (userDocSnap.exists()) {
+          const userData = userDocSnap.data();
+          setCurrentUserRole(userData.roles?.includes("user") ? "user" : ""); 
+        }
+      } else {
+        setUser(null);
+        setCurrentUserRole(""); // Reset role when no user
+      }
     });
+  
+    setIsLoading(false)
     return () => unsubscribe();
+
   }, []);
 
   const handleUserClick = () => {
     setIsModalOpen(true);
     setDropdownOpen(false);
-    setIsSignup(true);
+    setIsSignup(false);
   };
 
   const handleManagerClick = () => {
     navigate("/login"); // Redirect to manager login page
   };
 
-    // -----------------------------
-  // // Email/Password Signup Handler
-  // // -----------------------------
-  // const onSubmit = async (values) => {
-  //   setError(null);
-  //   const { fullName, email, password, phone } = values;
+   
 
-  //   try {
-  //     // Query Firestore for a document with the same email
-  //     const q = query(collection(db, "users"), where("email", "==", email));
-  //     const querySnapshot = await getDocs(q);
-  //     let userExistsInFirestore = false;
+  const handleSignUp = async (values) => {
+    try {
+      const { fullName, email, phone, password } = values;
+      const userCredential = await createUserWithEmailAndPassword(userAuth, email, password);
+      const user = userCredential.user;
+      
+      await setDoc(doc(db, "users", user.uid), {
+        uid: user.uid,
+        fullName,
+        email,
+        phone,
+        roles: [... "user"],
+      });
+      
+      navigate("/");
+    } catch (error) {
+      console.error("Sign Up Error:", error);
+    }
+  };
 
-  //     if (!querySnapshot.empty) {
-  //       // There is at least one document with a matching email.
-  //       const docSnap = querySnapshot.docs[0];
-  //       const data = docSnap.data();
-  //       if (data.roles && data.roles.includes("manager")) {
-  //         // If the roles array already contains "manager", navigate to dashboard
-  //         userExistsInFirestore = true;
-  //         navigate('/dashboard')
-  //       } else {
-  //         // The document exists but does not include "manager".
-  //         // Update the document to add the "manager" role.
-  //         await updateDoc(doc(db, "users", docSnap.id), {
-  //           roles: arrayUnion("manager"),
-  //         });
-  //         userExistsInFirestore = true;
-  //         navigate('/dashboard')
-  //       }
-  //     }
+  
 
-  //     let user;
-  //     if (userExistsInFirestore) {
-  //       // The user exists in Firestore (but not as a manager) so we sign them in.
-  //       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-  //       user = userCredential.user;
-  //       navigate('/dashboard')
-  //     } else {
-  //       // No document was found, so create a new auth user.
-  //       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-  //       user = userCredential.user;
-
-  //       if(!user.emailVerified){
-  //         await sendEmailVerification(user);
-  //       }
-
-  //       // Create a new document in Firestore with the user's details.
-  //       await setDoc(doc(db, "users", user.uid), {
-  //         uid: user.uid,
-  //         fullName: fullName,
-  //         email: email,
-  //         phone: phone,
-  //         roles: ["manager"],
-  //       });
-  //     }
-  //     navigate("/verify-email");
-  //   } catch (error) {
-  //     setError(error.message);
-  //     console.error("Registration error:", error);
-  //   }
-  // };
-
+  console.log(userAuth.currentUser)
   const handleSignInWithGoogle = async () => {
     try {
+      // Set persistence based on the "Remember me" checkbox
+      const persistence = browserLocalPersistence
+      await setPersistence(userAuth, persistence);
+
       // Sign in with Google.
-      const result = await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(userAuth, googleProvider);
       const signedInUser = result.user;
       console.log("User signed in with Google:", signedInUser);
       
@@ -162,7 +147,7 @@ const LoginButton = () => {
   // Handler for logout.
   const handleLogout = async () => {
     try {
-      await signOut(auth);
+      await signOut(userAuth);
       setDropdownOpen(false);
       navigate("/");
     } catch (error) {
@@ -170,9 +155,18 @@ const LoginButton = () => {
     }
   };
 
+
+  console.log("User", userAuth.currentUser)
   return (
-    <div className="relative">
-      {user && currentUserRole === 'user' ? (
+    isLoading ? (
+      <>
+        <p>
+          Loading
+        </p>
+      </>
+    ) : (
+      <div className="relative">
+         {user && currentUserRole === 'user' ? (
         // If a user is logged in, display a thumbnail button.
         <>
           <div
@@ -208,6 +202,7 @@ const LoginButton = () => {
         </>
       ) : (
         <>
+        
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
             className="px-1 py-1 w-24 h-10 bg-primary text-white rounded-2xl shadow-md"
@@ -234,84 +229,29 @@ const LoginButton = () => {
 
           {/* User Modal for Signup/Login */}
           {isModalOpen && (
-            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-              <div className="bg-white p-6 rounded-lg shadow-lg w-[30%]">
-                <div className="flex justify-between mb-2">
-                  <h2 className="text-lg font-bold">
-                    {isSignup ? "User Signup" : "User Login"}
-                  </h2>
-                  <IoClose
-                    className="w-6 h-6 cursor-pointer"
-                    onClick={() => setIsModalOpen(false)}
-                  />
-                </div>
-
-                {isSignup ? (
-                  <>
-                    <input
-                      type="text"
-                      placeholder="Full Name"
-                      className="w-full px-3 py-5 mb-6 border rounded"
-                    />
-                    <input
-                      type="email"
-                      placeholder="Email"
-                      className="w-full px-3 py-5 mb-6 border rounded"
-                    />
-                    <input
-                      type="tel"
-                      placeholder="Phone Number"
-                      className="w-full px-3 py-5 mb-6 border rounded"
-                    />
-                    <input
-                      type="password"
-                      placeholder="Password"
-                      className="w-full px-3 py-5 mb-6 border rounded"
-                    />
-                  </>
-                ) : (
-                  <>
-                    <input
-                      type="email"
-                      placeholder="Email"
-                      className="w-full px-3 py-5 mb-6 border rounded"
-                    />
-                    <input
-                      type="password"
-                      placeholder="Password"
-                      className="w-full px-3 py-5 mb-6 border rounded"
-                    />
-                  </>
-                )}
-
-                <div className="flex flex-col gap-3 items-center">
-                  <button 
-                  className="w-full px-4 py-2 bg-primary text-white rounded-2xl" 
-                  
-                  >
-                    {isSignup ? "Sign Up" : "Sign In"}
-                  </button>
-                  <button
-                    className="w-full px-4 py-2 md:border md:border-gray-300 text-black rounded-2xl"
-                    onClick={handleSignInWithGoogle}
-                  >
-                    Sign In With Google
-                  </button>
-                  <p
-                    className="text-sm text-gray-600 cursor-pointer hover:underline"
-                    onClick={() => setIsSignup(!isSignup)}
-                  >
-                    {isSignup
-                      ? "Already have an account? Sign in"
-                      : "Don't have an account? Sign up"}
-                  </p>
-                </div>
-              </div>
-            </div>
+            isSignup ? (
+              <UserSignUp
+              setIsModalOpen={setIsModalOpen} 
+              isSignup={isSignup} 
+              setIsSignup ={setIsSignup}
+              handleSignInWithGoogle={handleSignInWithGoogle}
+              />
+            ) : (
+              <UserLogin
+              setIsModalOpen={setIsModalOpen} 
+              isSignup={isSignup} 
+              setIsSignup ={setIsSignup}
+              handleSignInWithGoogle={handleSignInWithGoogle}
+              
+              />
+            )
           )}
         </>
       )}
-    </div>
+      </div>
+    )
+   
+    
   );
 };
 

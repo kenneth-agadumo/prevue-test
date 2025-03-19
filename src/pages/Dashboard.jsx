@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
 // Firebase imports
-import { auth, db, storage } from '../firebaseConfig.jsx';
+import { managerAuth, db, storage } from '../firebaseConfig.jsx';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc, getDocs, query, where, collection } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
@@ -37,12 +37,12 @@ export const Dashboard = () => {
   const navigate = useNavigate();
 
   // Reference for user profile image in Firebase Storage
-  const imageRef = ref(storage, `/userImages/${auth?.currentUser?.uid}/image-1`);
+  const imageRef = ref(storage, `/userImages/${managerAuth?.currentUser?.uid}/image-1`);
 
   // Logout handler
   const handleLogout = async () => {
-  await signOut(auth);
-  console.log("Checking currentUser after signout:", auth.currentUser);
+  await signOut(managerAuth);
+  console.log("Checking currentUser after signout:", managerAuth.currentUser);
   setUserData(null);
   navigate('/login');
 };
@@ -59,7 +59,7 @@ const startInactivityTimer = () => {
   const resetTimer = () => {
     clearTimeout(timeout);
     timeout = setTimeout(() => {
-      signOut(auth).then(() => {
+      signOut(managerAuth).then(() => {
         console.log("User signed out due to inactivity");
         navigate("/login"); // Redirect to login page after sign-out
       });
@@ -77,8 +77,9 @@ const startInactivityTimer = () => {
 
   // Fetch active user data on component mount
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      console.log("Auth State Changed:", user);
+   
+    const unsubscribe = onAuthStateChanged(managerAuth, async (user) => {
+      
   
       if (!user) {
         console.log("No user found, redirecting...");
@@ -110,6 +111,8 @@ const startInactivityTimer = () => {
     return () => unsubscribe(); // ✅ Cleanup on unmount
   }, [navigate, setUserData, setLoading]);
   
+
+  console.log(managerAuth.currentUser)
   return (
     <div className=" bg-dashboard_grey flex flex-col" style={{height:'100vh'}}>
       {/* Dashboard Header */}

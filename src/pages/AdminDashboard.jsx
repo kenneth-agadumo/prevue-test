@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
 // Firebase imports
-import { auth, db, storage } from '../firebaseConfig.jsx';
+import { adminAuth, db, storage } from '../firebaseConfig.jsx';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc, getDocs, query, where, collection } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
@@ -36,11 +36,11 @@ export const AdminDashboard = () => {
   const navigate = useNavigate();
 
   // Reference for user profile image in Firebase Storage
-  const imageRef = ref(storage, `/userImages/${auth?.currentUser?.uid}/image-1`);
+  const imageRef = ref(storage, `/userImages/${adminAuth?.currentUser?.uid}/image-1`);
 
   // Logout handler
   const handleLogout = async () => {
-    await signOut(auth);
+    await signOut(adminAuth);
     navigate('/login'); // Redirect to Login after logout
   };
 
@@ -52,7 +52,7 @@ export const AdminDashboard = () => {
   // Fetch active user data on component mount
   useEffect(() => {
     const getActiveUser = async () => {
-      const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      const unsubscribe = onAuthStateChanged(adminAuth, async (user) => {
         console.log(user)
         if (!user) {
           // User is not signed in, redirect to login

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { auth } from "../firebaseConfig.jsx";
+import { managerAuth } from "../firebaseConfig.jsx";
 import { sendEmailVerification } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -13,7 +13,7 @@ export const EmailVerification = () => {
 
   // Email verification check: redirect to dashboard when verified.
   useEffect(() => {
-    const user = auth.currentUser;
+    const user = managerAuth.currentUser;
     if (!user) {
       // Redirect to login if no user is found.
       navigate("/login");
@@ -48,7 +48,7 @@ export const EmailVerification = () => {
 
   const handleResendVerification = async () => {
     try {
-      await sendEmailVerification(auth.currentUser);
+      await sendEmailVerification(managerAuth.currentUser);
       setTimer(30);
       setIsButtonDisabled(true);
     } catch (error) {

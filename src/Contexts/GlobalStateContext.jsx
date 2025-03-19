@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { collection, getDocs, onSnapshot, doc, getDoc, query, where } from 'firebase/firestore';
 import { ref, getDownloadURL, listAll } from 'firebase/storage';
-import { auth, db, storage } from "../firebaseConfig";
+import {  managerAuth, db, storage } from "../firebaseConfig";
 
 // Create a context
 const GlobalStateContext = createContext();
@@ -88,8 +88,8 @@ export const GlobalStateProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchUserImage = async () => {
-      if (auth.currentUser) {
-        const imageRef = ref(storage, `/userImages/${auth.currentUser.uid}/image-1`);
+      if (managerAuth.currentUser) {
+        const imageRef = ref(storage, `/userImages/${managerAuth.currentUser.uid}/image-1`);
 
         try {
           const url = await getDownloadURL(imageRef);
@@ -105,7 +105,7 @@ export const GlobalStateProvider = ({ children }) => {
     };
 
     fetchUserImage();
-  }, [auth.currentUser]);
+  }, [managerAuth.currentUser]);
 
   useEffect(() => {
     const fetchAll = async () => {
