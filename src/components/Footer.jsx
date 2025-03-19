@@ -6,7 +6,7 @@ import { FiLinkedin } from "react-icons/fi";
 import { FiFacebook } from "react-icons/fi";
 import { PiTiktokLogo } from "react-icons/pi";
 import React, { useState } from 'react';
-import { db, auth, storage } from '../firebaseConfig';
+import { db, managerAuth, storage } from '../firebaseConfig';
 import { addDoc, collection } from 'firebase/firestore';
 import { ref, uploadBytes } from 'firebase/storage';
 

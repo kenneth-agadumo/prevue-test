@@ -15,7 +15,7 @@ const InputField = ({ label, type, id, placeholder }) => {
         name={id}
         type={type}
         placeholder={placeholder}
-        className="shadow appearance-none border h-[44px] min-w-[90%] rounded md:w-[400px] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-[20px]  lg:text-[15px]"
+        className="shadow appearance-none border h-[44px] min-w-[90%] w-[100%] rounded md:w-[400px] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-[20px]  lg:text-[15px]"
       />
       <ErrorMessage name={id} component="div" className="text-red-500 text-xs mt-1" />
     </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../components.css';
-import { db, auth, storage } from '../firebaseConfig';
+import { db, managerAuth, storage } from '../firebaseConfig';
 import { addDoc, collection } from 'firebase/firestore';
 import { ImageDrop } from './ImageDrop';
 import { ref, uploadBytes } from 'firebase/storage';
@@ -17,7 +17,7 @@ export const RestaurantModal = ({ isOpen, onClose }) => {
   const [phone, setPhone] = useState('')
 
   const initialValue = {
-    userId: auth?.currentUser?.uid,
+    userId: managerAuth?.currentUser?.uid,
     name: '',
     address: '',
     contactNumber: '',
@@ -34,7 +34,7 @@ export const RestaurantModal = ({ isOpen, onClose }) => {
   }
    
   const [formData, setFormData] = useState( initialValue);
-  console.log(auth.currentUser.uid)
+  console.log(managerAuth.currentUser.uid)
 
 
    // Handle form input changes

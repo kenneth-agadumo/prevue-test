@@ -3,7 +3,7 @@ import { Formik, Form } from "formik";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { verifyPasswordResetCode, confirmPasswordReset } from "firebase/auth";
-import { auth } from "../firebaseConfig.jsx";
+import { managerAuth } from "../firebaseConfig.jsx";
 import { setNewPasswordSchema } from "../auth/setPassword.js";
 import InputField from "../components/AuthComponents/Input.jsx";
 import Btn from "../components/AuthComponents/Btn.jsx";
@@ -32,10 +32,10 @@ const ResetPassword = () => {
 
     try {
       // Verify the password reset code
-      await verifyPasswordResetCode(auth, code);
+      await verifyPasswordResetCode(managerAuth, code);
 
       // Confirm the new password
-      await confirmPasswordReset(auth, code, newPassword);
+      await confirmPasswordReset(managerAuth, code, newPassword);
 
       // Redirect to success page
       navigate("/passwordresetsuccessful");

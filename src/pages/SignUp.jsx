@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Google from "../components/AuthComponents/Google.jsx";
 import { motion } from "framer-motion";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -9,9 +9,10 @@ import {
   createUserWithEmailAndPassword, 
   sendEmailVerification, 
   signInWithPopup, 
-  signInWithEmailAndPassword 
+  signInWithEmailAndPassword,
+  onAuthStateChanged 
 } from "firebase/auth";
-import { auth, db, googleProvider } from "../firebaseConfig";
+import { managerAuth, db, googleProvider } from "../firebaseConfig";
 import { collection, query, where, getDocs, updateDoc, arrayUnion, setDoc, doc } from "firebase/firestore";
 import { useNavigate, Link } from "react-router-dom";
 import Btn from "../components/AuthComponents/Btn";
@@ -31,6 +32,19 @@ const SignUp = () => {
     confirmPassword: "",
     phone: "", // Add phone to initial values
   };
+
+
+  useEffect(() => {
+    // Check if user is already signed in
+    const unsubscribe = onAuthStateChanged(managerAuth, (user) => {
+      if (user) {
+        console.log("User already signed in, redirecting to dashboard...");
+        navigate("/dashboard"); // Redirect if already logged in
+      }
+    });
+
+    return () => unsubscribe(); // Cleanup on unmount
+  }, [navigate]);
 
   // -----------------------------
   // Email/Password Signup Handler
@@ -67,13 +81,13 @@ const SignUp = () => {
       let user;
       if (userExistsInFirestore) {
         // The user exists in Firestore (but not as a manager) so we sign them in.
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const userCredential = await signInWithEmailAndPassword(managerAuth, email, password);
         user = userCredential.user;
         setCurrentUserRole('manager')
         navigate('/dashboard')
       } else {
         // No document was found, so create a new auth user.
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const userCredential = await createUserWithEmailAndPassword(managerAuth, email, password);
         user = userCredential.user;
 
         if(!user.emailVerified){
@@ -102,7 +116,7 @@ const SignUp = () => {
   // -----------------------------
   const handleSignInWithGoogle = async () => {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(managerAuth, googleProvider);
       const user = result.user;
       console.log("User signed in with Google:", user);
       if (!user) throw new Error("User not created");

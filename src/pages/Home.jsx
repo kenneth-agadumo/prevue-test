@@ -5,7 +5,7 @@ import { FeaturedTabs } from "../components/FeaturedTabs";
 // import { Dropdown } from "../components/Dropdown";
 // import { EmbedScript } from "../components/VirtualTour";
 import {  GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "firebase/auth";
-import { auth, googleProvider } from "../firebaseConfig";
+import { userAuth, googleProvider } from "../firebaseConfig";
 import Footer from "../components/Footer";
 import Carousel from "../components/Carousel";
 import { HeroSearch } from "../components/HeroSearch";

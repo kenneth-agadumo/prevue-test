@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { auth, db, storage } from "../firebaseConfig";
+import { managerAuth, db, storage } from "../firebaseConfig";
 import {collection, getDocs, doc, onSnapshot,deleteDoc, updateDoc } from 'firebase/firestore'
 import { updateEmail, updatePassword, sendPasswordResetEmail } from "firebase/auth";
 import RestaurantModal from './RestaurantModal.jsx';
@@ -60,7 +60,7 @@ export const MyProfile = ({userData, documentID}) => {
   )
 
   const [imageUrl, setImageUrl] = useState();
-  const imageRef = ref(storage, `/userImages/${auth.currentUser.uid}/image-1`)
+  const imageRef = ref(storage, `/userImages/${managerAuth.currentUser.uid}/image-1`)
 
   useEffect(() => {
     getDownloadURL(imageRef)
@@ -101,7 +101,7 @@ export const MyProfile = ({userData, documentID}) => {
  
   const updateInfo = async () => {
     const docRef = doc(db, 'users', documentID)
-    const user = auth.currentUser
+    const user = managerAuth.currentUser
 
    
     try {
@@ -119,8 +119,8 @@ export const MyProfile = ({userData, documentID}) => {
       }
 
       
-      if (auth.currentUser){
-          const imageRef = ref(storage, `/userImages/${auth?.currentUser?.uid}/image-1`)
+      if (managerAuth.currentUser){
+          const imageRef = ref(storage, `/userImages/${managerAuth?.currentUser?.uid}/image-1`)
         getDownloadURL(imageRef)
         .then((url) => {
           setUserImageUrl(url);

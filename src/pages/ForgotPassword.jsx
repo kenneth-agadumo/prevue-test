@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { app } from "../firebaseConfig.jsx";
-import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { managerApp } from "../firebaseConfig.jsx";
+import { sendPasswordResetEmail } from "firebase/auth";
+import {  managerAuth } from "../firebaseConfig";
+
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import { motion } from "framer-motion";
@@ -23,8 +25,8 @@ const ForgotPassword = () => {
     setMessage("");
 
     try {
-      const auth = getAuth(app);
-      await sendPasswordResetEmail(auth, values.email);
+     
+      await sendPasswordResetEmail(managerAuth, values.email);
       setMessage("Password reset email sent. Please check your email inbox.");
     } catch (error) {
       setError(error.message);

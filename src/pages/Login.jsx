@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form } from "formik";
 import { loginValidationSchema } from "../auth/loginValidationSchema";
 import { motion } from "framer-motion";
@@ -11,8 +11,9 @@ import {
   browserLocalPersistence,
   browserSessionPersistence,
   GoogleAuthProvider,
+  onAuthStateChanged
 } from "firebase/auth";
-import { auth, googleProvider } from "../firebaseConfig.jsx";
+import {  managerAuth, googleProvider } from "../firebaseConfig.jsx";
 import Btn from "../components/AuthComponents/Btn.jsx";
 import Google from "../components/AuthComponents/Google.jsx";
 import { useGlobalState } from "../Contexts/GlobalStateContext.jsx";
@@ -21,6 +22,20 @@ const Login = () => {
   const [error, setError] = useState(null);
   const {currentUserRole, setCurrentUserRole, rememberMe, setRememberMe} = useGlobalState()
   const navigate = useNavigate();
+
+
+  useEffect(() => {
+    // Check if user is already signed in
+    const unsubscribe = onAuthStateChanged(managerAuth, (user) => {
+      if (user) {
+        console.log("User already signed in, redirecting to dashboard...");
+        navigate("/dashboard"); // Redirect if already logged in
+      }
+    });
+
+    return () => unsubscribe(); // Cleanup on unmount
+  }, [navigate]);
+
 
   const initialValues = {
     email: "",
@@ -34,10 +49,10 @@ const Login = () => {
     try {
       // Set persistence based on the "Remember me" checkbox
       const persistence = browserLocalPersistence
-      await setPersistence(auth, persistence);
+      await setPersistence(managerAuth, persistence);
 
       // Sign in with email and password
-      await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(managerAuth, email, password);
       setCurrentUserRole('manager')
       // Redirect to Dashboard after successful login
       navigate("/dashboard");
@@ -58,7 +73,7 @@ const Login = () => {
       
 
       // Sign in with Google
-      const result = await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(managerAuth, googleProvider);
       const user = result.user;
       console.log("User signed in with Google:", user);
 
@@ -70,7 +85,7 @@ const Login = () => {
       console.error("Google sign-in error:", error);
     }
   };
-
+  console.log(managerAuth.currentUser);
   return (
     <div className="grid place-items-center pt-[50px] pb-[150px]">
       <motion.div
