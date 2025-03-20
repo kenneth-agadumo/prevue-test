@@ -52,7 +52,7 @@ export const HeroSearch = () => {
 
     setSearchResults(results);
 
-    navigate("/features", {
+    navigate("/exploreShortletsAndRestaurants", {
       state: {
         category,
         searchResults: results,
