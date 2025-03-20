@@ -94,7 +94,10 @@ const App = () => {
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/reset-successful" element={<PasswordReset />} />
             <Route path="/verify-email" element={<EmailVerification />} />
-            <Route path="/features/" element={<SearchResultsPage />} />
+            <Route
+              path="/exploreShortletsAndRestaurants/"
+              element={<SearchResultsPage />}
+            />
             <Route
               path="/restaurants/:restaurantId"
               element={<RestaurantPage />}

@@ -17,7 +17,7 @@ export const Navbar = () => {
     "/activities",
     "/restaurants/",
     "/rentals/",
-    "/features",
+    "/exploreShortletsAndRestaurants",
   ];
 
   // Check if the current path matches any of the visible paths or a pattern like /restaurants/:restaurantId
@@ -25,7 +25,7 @@ export const Navbar = () => {
     location.pathname === "/" ||
     visiblePaths.includes(location.pathname) ||
     /\/restaurants\/[^/]+$/.test(location.pathname) ||
-    /\/features\/[^/]+$/.test(location.pathname) ||
+    /\/exploreShortletsAndRestaurants\/[^/]+$/.test(location.pathname) ||
     /\/rentals\/[^/]+$/.test(location.pathname);
 
   useEffect(() => {
