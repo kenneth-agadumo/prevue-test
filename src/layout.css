@@ -1034,3 +1034,7 @@ button {
     margin: 0;
   }
 }
+
+.buttons {
+  display: none !important;
+}
