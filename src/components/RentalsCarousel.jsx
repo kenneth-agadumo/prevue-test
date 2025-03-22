@@ -31,11 +31,11 @@ const RentalsCarousel = ({ shortlets, rentals }) => {
   };
   console.log(rentals, "slides");
   return (
-    <div className="relative w-full overflow-hidden">
-      <div className="w-full h-[500px] overflow-hidden rounded-lg">
+    <div className="relative w-11/12 md:w-[90%]  mx-auto rounded-2xl overflow-hidden">
+      <div className="w-full overflow-hidden rounded-lg">
         <iframe
           src={slides[currentIndex].src}
-          className="w-full h-[500px]"
+          className="w-full h-[70vh] md:h-[523px] min-h-screen  rounded-2xl"
           frameBorder="0"
           allowFullScreen
           title={`Slide ${currentIndex + 1}`}

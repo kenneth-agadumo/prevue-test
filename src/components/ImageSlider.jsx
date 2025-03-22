@@ -15,7 +15,7 @@ export const ImageSlider = ({ images, tourLink }) => {
   const toggleIframe = () => {
     setShowIframe(!showIframe);
   };
-  const sliderStyle = {
+  {/*const sliderStyle = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -43,7 +43,7 @@ export const ImageSlider = ({ images, tourLink }) => {
     display: showIframe ? 'none' : 'block',
   };
   
-  const imageStyle = {
+  {/*const imageStyle = {
     width: '100%',
     maxHeight: '500px',
     objectFit: 'cover',
@@ -67,12 +67,12 @@ export const ImageSlider = ({ images, tourLink }) => {
     borderRadius: '20px',
     cursor: 'pointer',
     zIndex: 1,
-  };
+  };*/}
   
 
   return (
-    <div style={sliderStyle}>
-      <button onClick={prevImage} style={{ ...buttonStyle, left: '10px' }}>
+    <div className="relative w-11/12 md:w-[90%] mx-auto rounded-2xl overflow-hidden">
+      <button onClick={prevImage} className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full z-10">
         <img src="left-arrow.svg" alt="previous" style={{ width: '7px' }} />
       </button>
 
@@ -80,7 +80,7 @@ export const ImageSlider = ({ images, tourLink }) => {
       {showIframe ? (
         <iframe 
           src={tourLink}
-          style={iframeStyle}
+           className="w-full h-[70vh] md:h-[523px] rounded-2xl"
           frameBorder="0"
           allowFullScreen
           title={`Slide ${currentIndex + 1}`}
@@ -89,15 +89,15 @@ export const ImageSlider = ({ images, tourLink }) => {
         <img
           src={images[currentIndex]}
           alt={`slide ${currentIndex}`}
-          style={{ ...imageStyle, borderRadius: '20px' }}
+          className="w-full h-[70vh] md:h-[523px] object-cover rounded-2xl"
         />
       )}
 
-      <button onClick={nextImage} style={{ ...buttonStyle, right: '10px' }}>
-        <img src="right-arrow.svg" alt="next" style={{ width: '7px' }} />
+      <button onClick={nextImage} className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full z-10">
+        <img src="right-arrow.svg" alt="next" className="w-4" />
       </button>
      {/* Button positioned at the bottom-center to toggle iframe */}
-      <button onClick={toggleIframe} style={bottomButtonStyle}>
+      <button onClick={toggleIframe} className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white text-black px-4 py-2 rounded-full shadow-lg z-10">
         {showIframe ? 'Close Tour' : 'Take Tour'}
       </button>
     </div>
