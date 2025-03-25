@@ -14,6 +14,9 @@ export const RentalCard = ({
   amenities = [],
   badge,
 }) => {
+  const numericPrice = Number(price);
+  const formattedPrice = !isNaN(numericPrice) ? numericPrice.toLocaleString() : price;
+  
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition-all duration-300 relative">
       {/* Badge */}
@@ -54,7 +57,7 @@ export const RentalCard = ({
 
         {/* Price and Rating */}
         <div className="mt-3 flex justify-between items-center">
-          <p className="text-gray-700 font-semibold">₦{price}/night</p>
+          <p className="text-gray-700 font-semibold">₦{formattedPrice}/night</p>
           <div className="flex items-center">
             {[...Array(5)].map((_, i) => (
               <svg

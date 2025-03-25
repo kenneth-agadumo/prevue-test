@@ -4,20 +4,13 @@ import { RentalCard } from "../components/Card";
 import { useGlobalState } from "../Contexts/GlobalStateContext";
 import Footer from "../components/Footer";
 import RentalsCarousel from "../components/RentalsCarousel";
+import useShortlets from "../hooks/useShortlets";
 
 export const Rentals = () => {
   const { shortletImagesMap } = useGlobalState();
   const [viewType, setViewType] = useState("card");
 
-  const rentalsData = Object.entries(shortletImagesMap).map(
-    ([shortletId, shortletData]) => ({
-      shortletId,
-      address: shortletData.address,
-      price: shortletData.price,
-      virtualTour:
-        "https://kuula.co/share/h5Hpv?logo=1&info=1&fs=1&vr=0&sd=1&thumbs=1",
-    })
-  );
+  const { shortlets, loadMore, loading } = useShortlets();
 
   return (
     <>
@@ -68,7 +61,7 @@ export const Rentals = () => {
         ) : (
           <>
             <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto px-6">
-              {Object.entries(shortletImagesMap).map(
+              {Object.entries(shortlets).map(
                 ([shortletId, shortletData]) => (
                   <RentalCard
                     virtualTour={shortletData.virtualTourLink}
@@ -77,7 +70,7 @@ export const Rentals = () => {
                     type="rentals"
                     id={shortletId}
                     address={shortletData.address}
-                    price={shortletData.price}
+                    price={shortletData.costPerNight}
                     /* image={
                   shortletData.images.length > 0
                     ? shortletData.images[0].url
@@ -94,7 +87,7 @@ export const Rentals = () => {
             </div>
             <div>
               <div className="load-more flex justify-center mt-8">
-                <button className="bg-blue-600 text-white py-2 px-6 rounded-lg">
+                <button onClick={loadMore} className="bg-blue-600 text-white py-2 px-6 rounded-lg">
                   Load More
                 </button>
               </div>
