@@ -4,8 +4,10 @@ import { RestaurantCard } from "../components/Card";
 import { useGlobalState } from "../Contexts/GlobalStateContext";
 import Footer from "../components/Footer";
 import RestaurantsCarousel from "../components/RestaurantsCarousel";
+import useRestaurants from "../hooks/useRestaurants";
 
 export const Restaurants = () => {
+  const { restaurants, loadMore, loading } = useRestaurants();
   const { restaurantImagesMap } = useGlobalState();
   const [viewType, setViewType] = useState("card");
 
@@ -17,7 +19,7 @@ export const Restaurants = () => {
       virtualTour: shortletData.images[0].url,
     })
   );
-
+console.log(restaurants)
   return (
     <div>
       <div className="w-full bg-primary text-white py-16 mt-16">
@@ -75,7 +77,7 @@ export const Restaurants = () => {
               className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 py-6 mx-auto"
               style={{ width: "90%" }}
             >
-              {Object.entries(restaurantImagesMap).map(
+              {Object.entries(restaurants).map(
                 ([restaurantId, restaurantData]) => (
                   // eslint-disable-next-line react/jsx-key
                   <RestaurantCard
@@ -83,11 +85,7 @@ export const Restaurants = () => {
                     id={restaurantId}
                     name={restaurantData.name}
                     address={restaurantData.address}
-                    image={
-                      restaurantData.images.length > 0
-                        ? restaurantData.images[0].url
-                        : "/default-image.png"
-                    }
+                    virtualTour={restaurantData.virtualTourLink}
                   />
                 )
               )}

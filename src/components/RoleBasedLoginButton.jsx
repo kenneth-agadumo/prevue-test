@@ -17,13 +17,35 @@ const LoginButton = () => {
   const {currentUserRole, setCurrentUserRole} = useGlobalState()
   const navigate = useNavigate();
 
-
+  const startInactivityTimer = () => {
+    let timeout;
+  
+    const resetTimer = () => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        signOut(managerAuth).then(() => {
+          console.log("User signed out due to inactivity");
+          navigate("/login"); // Redirect to login page after sign-out
+        });
+      }, 60 * 60 * 1000); // 1 hour
+    };
+  
+    // Reset timer on user activity
+    window.addEventListener("mousemove", resetTimer);
+    window.addEventListener("keydown", resetTimer);
+  
+  
+    // Start initial timer
+    resetTimer();
+  };
 
   // Listen for authentication state changes.
   useEffect(() => {
     setIsLoading(true)
     const unsubscribe = onAuthStateChanged(userAuth, async (currentUser) => {
+
       if (currentUser) {
+        console.log(currentUser)
         setUser(currentUser);
   
         // Fetch user role from Firestore
@@ -32,6 +54,7 @@ const LoginButton = () => {
         if (userDocSnap.exists()) {
           const userData = userDocSnap.data();
           setCurrentUserRole(userData.roles?.includes("user") ? "user" : ""); 
+          startInactivityTimer()
         }
       } else {
         setUser(null);
@@ -56,29 +79,9 @@ const LoginButton = () => {
 
    
 
-  const handleSignUp = async (values) => {
-    try {
-      const { fullName, email, phone, password } = values;
-      const userCredential = await createUserWithEmailAndPassword(userAuth, email, password);
-      const user = userCredential.user;
-      
-      await setDoc(doc(db, "users", user.uid), {
-        uid: user.uid,
-        fullName,
-        email,
-        phone,
-        roles: [... "user"],
-      });
-      
-      navigate("/");
-    } catch (error) {
-      console.error("Sign Up Error:", error);
-    }
-  };
-
   
 
-  console.log(userAuth.currentUser)
+  
   const handleSignInWithGoogle = async () => {
     try {
       // Set persistence based on the "Remember me" checkbox
@@ -156,7 +159,7 @@ const LoginButton = () => {
   };
 
 
-  console.log("User", userAuth.currentUser)
+
   return (
     isLoading ? (
       <>

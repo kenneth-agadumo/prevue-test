@@ -63,7 +63,7 @@ const startInactivityTimer = () => {
         console.log("User signed out due to inactivity");
         navigate("/login"); // Redirect to login page after sign-out
       });
-    }, 20 * 60 * 1000); // 20 minutes
+    }, 60 * 60 * 1000); // 1 hour
   };
 
   // Reset timer on user activity
