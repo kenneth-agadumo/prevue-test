@@ -109,7 +109,7 @@ export const RentalPage = () => {
       <div className="slider pt-6">
       {/*<ImageSlider images={imageUrls} tourLink={rentalData.virtualTourLink} />*/}
       <iframe 
-        src={shortletData.virtualTourLink},
+        src={shortletData.virtualTourLink}
         style={{ width: '90%', 
           height: '523px',
           display: 'flex',
