@@ -1,11 +1,8 @@
-import { useState } from "react";
-import Lottie from "lottie-react";
-import Heart from "../heart.json";
 import HeartButton from "./Like";
 import { Link } from "react-router-dom";
 
 export const RentalCard = ({
-  //image,
+  image,
   virtualTour,
   name,
   address,
@@ -16,7 +13,6 @@ export const RentalCard = ({
   rating = 4.5,
   amenities = [],
   badge,
-  
 }) => {
   const numericPrice = Number(price);
   const formattedPrice = !isNaN(numericPrice) ? numericPrice.toLocaleString() : price;
@@ -33,18 +29,18 @@ export const RentalCard = ({
       {/* Image Section */}
       <Link to={`/${type}/${id}`}>
         <div className="w-full h-64 relative overflow-hidden group">
-          {/*<img
+          {/* *<img
             src={image}
             alt={name}
             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-          />*/}
+          />* */}
           <iframe
             src={virtualTour}
             title="Virtual Tour"
             className="w-full h-full border-none"
             allowFullScreen
           ></iframe>
-          
+          <div className="absolute top-0 left-0 w-full h-full bg-white opacity-0 pointer-events-none"></div>
         </div>
       </Link>
 
@@ -110,72 +106,10 @@ export const RentalCard = ({
             View Details
           </Link>
         </div>
-
       </div>
     </div>
   );
 };
-
-// export const RentalCard = ({
-//   image,
-//   name,
-//   address,
-//   price,
-//   note,
-//   type,
-//   id,
-//   rating = 4.5,
-//   amenities = [],
-// }) => {
-//   return (
-//     <div className="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition-all duration-300">
-//       {/* Image Section */}
-//       <Link to={`/${type}/${id}`}>
-//         <div className="w-full h-64 overflow-hidden">
-//           <img
-//             src={image}
-//             alt={name}
-//             className="w-full h-full object-cover transition-all duration-300 hover:brightness-90"
-//           />
-//         </div>
-//       </Link>
-
-//       <div className="p-4">
-//         <div className="flex justify-between items-start">
-//           <div>
-//             <h3 className="text-lg font-bold text-gray-800">{name}</h3>
-//             <p className="text-sm text-gray-500">{address}</p>
-//           </div>
-//           <HeartButton />
-//         </div>
-
-//         <div className="mt-3 flex justify-between items-center">
-//           <p className="text-gray-700 font-semibold">₦{price}/night</p>
-//           <div className="flex items-center">
-//             <span className="text-yellow-400 text-sm">★</span>
-//             <span className="ml-1 text-gray-600 text-sm">{rating}</span>
-//           </div>
-//         </div>
-
-//         {amenities.length > 0 && (
-//           <div className="mt-3 flex flex-wrap gap-2">
-//             {amenities.map((amenity, index) => (
-//               <span
-//                 key={index}
-//                 className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-lg"
-//               >
-//                 {amenity}
-//               </span>
-//             ))}
-//           </div>
-//         )}
-
-//         {/* Note */}
-//         {note && <p className="mt-3 text-sm italic text-gray-500">{note}</p>}
-//       </div>
-//     </div>
-//   );
-// };
 
 export const RestaurantCard = ({
   image,

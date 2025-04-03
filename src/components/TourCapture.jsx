@@ -4,6 +4,7 @@ import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
 import DashboardSearch from "./DashboardSearch";
 import DashboardFilter from "./DashboardFilter";
 import { MdDelete } from "react-icons/md";
+import OverviewModal from "./OverviewModal";
 
 
 
@@ -12,7 +13,8 @@ export const TourCapture = () => {
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState(""); // State for the search term
+  const [searchTerm, setSearchTerm] = useState(""); 
+  const [selectedTour, setSelectedTour] = useState(null); 
   const toursPerPage = 2;
 
   const mockTours = [
@@ -50,6 +52,14 @@ export const TourCapture = () => {
   const handleNextPage = () => currentPage < totalPages && setCurrentPage(currentPage + 1);
   const handlePreviousPage = () => currentPage > 1 && setCurrentPage(currentPage - 1);
 
+  const handleRowClick = (tour) => {
+    setSelectedTour(tour); // Set the selected tour
+  };
+
+  const handleCloseModal = () => {
+    setSelectedTour(null); // Close modal
+  };
+
   if (loading) return <div>Loading tours...</div>;
   if (!tours.length) return <div>No tours available.</div>;
 
@@ -77,7 +87,8 @@ export const TourCapture = () => {
           </thead>
           <tbody>
             {currentTours.map((tour) => (
-              <tr key={tour.id} className="hover:bg-primarylight cursor-pointer">
+              <tr key={tour.id} className="hover:bg-primarylight cursor-pointer"
+              onClick={() => handleRowClick(tour)}>
                 <td className="p-7 border-b border-gray-200 text-xs">{tour.name}</td>
                 <td className="p-6 border-b border-gray-200 text-gray-500 text-xs">{tour.type}</td>
                 <td className="p-6 border-b border-gray-200 text-gray-500 text-xs">{tour.phone}</td>
@@ -133,6 +144,14 @@ export const TourCapture = () => {
           </tbody>
         </table>
       </div>
+      {selectedTour && (
+        <OverviewModal 
+          isOpen={!!selectedTour} 
+          onClose={handleCloseModal} 
+          title={selectedTour.name} 
+          location={selectedTour.location} 
+        />
+      )}
     </div>
   );
 };

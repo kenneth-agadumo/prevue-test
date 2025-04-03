@@ -102,14 +102,14 @@ export const RentalPage = () => {
     return <div className="text-center mt-20 ">Shortlet not found</div>;
   }
 
-  //const imageUrls = rentalData?.images?.map((image) => image.url);
+  const imageUrls = rentalData?.images?.map((image) => image.url);
 
   return (
-    <div>
+    <div className="px-4 sm:px-6 lg:px-8">
       <div className="slider pt-6">
       {/*<ImageSlider images={imageUrls} tourLink={rentalData.virtualTourLink} />*/}
       <iframe 
-        src={shortletData.virtualTourLink} 
+        src={shortletData.virtualTourLink},
         style={{ width: '90%', 
           height: '523px',
           display: 'flex',
@@ -124,8 +124,8 @@ export const RentalPage = () => {
         title="Virtual Tour"
       />
       </div>
-      <div className="description">
-        <div className="description-left">
+      <div className="description flex flex-col md:flex-row gap-8">
+        <div className="description-left w-full md:w-2/3">
           <div className="description-header ">
             <div className="d-header">
               <div>
@@ -152,7 +152,7 @@ export const RentalPage = () => {
               </div>
             </div>
           </div>
-          <div className="description-about">
+          <div className="description-about mt-4">
             <h4
               style={{
                 color: "var(--primary-color)",
@@ -165,7 +165,7 @@ export const RentalPage = () => {
             <p style={{ wordSpacing: "3px" }}>{shortletData.about}</p>
           </div>
 
-          <div className="description-about box-border overflow-hidden">
+          <div className="description-about box-border overflow-hidden mt-6">
             <h4
               style={{
                 color: "var(--primary-color)",
@@ -176,29 +176,25 @@ export const RentalPage = () => {
               Location Amenities
             </h4>
             <div
-              className="flex gap-10 flex-wrap  justify-around  pl-3 pr-10 pt-4"
+              className="grid grid-cols-2 sm:grid-cols-4 gap-4"
               style={{ wordSpacing: "3px" }}
             >
               {shortletData.amenities.map((amenity, index) => (
                 <div
-                  className="flex flex-col basis-11"
+                  className="flex flex-col items-center"
                   key={index}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    marginBottom: "8px",
-                  }}
+                 
                 >
                   {amenitiesIconMap[amenity] || (
                     <span style={{ color: "var(--secondary-color)" }}>❓</span>
                   )}
-                  <span className="text-sm text-center mt-3">{amenity}</span>
+                  <span className="text-sm text-center mt-2">{amenity}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="description-location">
+          <div className="description-location mt-6">
             <h4
               style={{
                 color: "var(--primary-color)",
@@ -211,7 +207,7 @@ export const RentalPage = () => {
             <Map />
           </div>
         </div>
-        <div className="description-right">
+        <div className="description-right w-full md:w-1/3">
           <div className="dright-col-1">
             <h4 style={{ color: "#50504F;" }}>Contact Information</h4>
             <div className="col1">
@@ -276,17 +272,13 @@ export const RentalPage = () => {
         </div>
       </div>
       <div
-        className="recomended"
+        className="recomended mt-6"
         style={{ width: "90%", background: "#3233433", margin: "0 auto 100px" }}
       >
-        <h3>Recommended Properties like this</h3>
+        <h3 className="text-lg font-semibold mb-5">Recommended Properties like this</h3>
         <div
-          style={{
-            width: "100%",
-            display: "flex",
-            gap: "36px",
-            justifyContent: "36px",
-          }}
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4"
+        
         >
           <RestaurantCard
             name={"Hard Rock Cafe"}

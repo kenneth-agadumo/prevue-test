@@ -5,7 +5,7 @@ const SearchResultsPage = () => {
   const router = useLocation();
 
   return (
-    <div className="p-10">
+    <div className="p-10 mt-16">
       <SearchResults
         results={router?.state.searchResults}
         category={router.state.category}
