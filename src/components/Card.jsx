@@ -160,6 +160,16 @@ export const RestaurantCard = ({
 
         <p className="mt-3 text-sm text-gray-500">{address}</p>
       </div>
+
+       {/* CTA Button */}
+       <div className="mt-4">
+          <Link
+            to={`/${type}/${id}`}
+            className="block bg-emerald-500 text-white text-center text-sm py-2 rounded-lg hover:bg-emerald-600 transition-colors"
+          >
+            View Details
+          </Link>
+        </div>
     </div>
   );
 };

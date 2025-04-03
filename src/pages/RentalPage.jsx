@@ -1,9 +1,8 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useGlobalState } from "../Contexts/GlobalStateContext";
 import { ImageSlider } from "../components/ImageSlider";
 import { Map } from "../components/Map";
-import Lottie from "lottie-react";
 import ReservationForm from "../components/ReservationForm";
 import { Dropdown } from "../components/Dropdown";
 import Heart from "../heart.json";
@@ -18,6 +17,11 @@ import { TbAirConditioning } from "react-icons/tb";
 import { MdBalcony, MdOutlinePets } from "react-icons/md";
 import { FaWifi, FaKitchenSet, FaDumbbell } from "react-icons/fa6"; // Import some icons
 import { BiCloset } from "react-icons/bi";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebaseConfig"; // Adjust path as necessary
+import Loading from "../house-loading.json";
+import Lottie from "lottie-react";
+
 // import { LuWashingMachine } from 'react-icons/lu';
 import {
   RiTwitterXFill,
@@ -29,7 +33,10 @@ import {
 export const RentalPage = () => {
   const { shortletId } = useParams();
   const { shortletImagesMap } = useGlobalState();
-  const rentalData = shortletImagesMap[shortletId];
+  const[ shortletData, setShortletData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  
 
   const amenitiesIconMap = {
     WiFi: <FaWifi className="w-6 h-6" />,
@@ -47,22 +54,62 @@ export const RentalPage = () => {
 
   const [iconclicked, setIconClicked] = useState(false);
 
+  
+  useEffect(() => {
+    const fetchShortletData = async () => {
+      if (!shortletId) return;
+      setLoading(true);
+      try {
+        const docRef = doc(db, "shortlets", shortletId);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          setShortletData(docSnap.data());
+        } else {
+          setShortletData(null);
+        }
+      } catch (error) {
+        console.error("Error fetching restaurant data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchShortletData();
+  }, [shortletId]);
+
+  if (loading) {
+    return  <div
+    className="loading-container"
+    style={{
+      height: "100vh",
+      display: "flex",
+      justifyContent: "center",
+      alignContent: "center",
+    }}
+  >
+    <Lottie style={{ width: "300px" }} animationData={Loading} />
+  </div>;
+  }
+
+
+
   const handleDoubleClick = () => {
     setIconClicked(!iconclicked);
   };
 
-  if (!rentalData) {
-    return <div>Rental not found</div>;
+  if (!shortletData) {
+    return <div className="text-center mt-20 ">Shortlet not found</div>;
   }
 
-  const imageUrls = rentalData?.images?.map((image) => image.url);
+  // const imageUrls = rentalData?.images?.map((image) => image.url);
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="slider pt-6">
-      <ImageSlider images={imageUrls} tourLink={rentalData.virtualTourLink}  />
-     {/*} <iframe 
-        src={rentalData.virtualTourLink} 
+      {/*<ImageSlider images={imageUrls} tourLink={rentalData.virtualTourLink} />*/}
+      <iframe 
+        src={shortletData.virtualTourLink}
         style={{ width: '90%', 
           height: '523px',
           display: 'flex',
@@ -75,7 +122,7 @@ export const RentalPage = () => {
         frameBorder="0"
         allowFullScreen
         title="Virtual Tour"
-      />*/}
+      />
       </div>
       <div className="description flex flex-col md:flex-row gap-8">
         <div className="description-left w-full md:w-2/3">
@@ -84,9 +131,9 @@ export const RentalPage = () => {
               <div>
                 <h4 style={{ marginBottom: "6px", fontSize: "22px" }}>
                   {" "}
-                  {rentalData.propertyName}
+                  {shortletData.propertyName}
                 </h4>
-                <p>{rentalData.address}</p>
+                <p>{shortletData.address}</p>
               </div>
 
               <div
@@ -115,7 +162,7 @@ export const RentalPage = () => {
             >
               About Property
             </h4>
-            <p style={{ wordSpacing: "3px" }}>{rentalData.about}</p>
+            <p style={{ wordSpacing: "3px" }}>{shortletData.about}</p>
           </div>
 
           <div className="description-about box-border overflow-hidden mt-6">
@@ -132,7 +179,7 @@ export const RentalPage = () => {
               className="grid grid-cols-2 sm:grid-cols-4 gap-4"
               style={{ wordSpacing: "3px" }}
             >
-              {rentalData.amenities.map((amenity, index) => (
+              {shortletData.amenities.map((amenity, index) => (
                 <div
                   className="flex flex-col items-center"
                   key={index}
@@ -165,12 +212,12 @@ export const RentalPage = () => {
             <h4 style={{ color: "#50504F;" }}>Contact Information</h4>
             <div className="col1">
               <p>Phone Number</p>
-              <p>{rentalData.telephone}</p>
+              <p>{shortletData.telephone}</p>
             </div>
             <div className="col1">
               <p>Email</p>
-              <a href={`mailto:'${rentalData.email}'`}>
-                <p>{rentalData.email}</p>
+              <a href={`mailto:'${shortletData.email}'`}>
+                <p>{shortletData.email}</p>
               </a>
             </div>
             <div className="col1">
@@ -208,18 +255,18 @@ export const RentalPage = () => {
             <div className="w-full flex justify-between">
               <p className="text-grey">Cost/Night</p>
               <p className="text-grey">
-                ₦{Number(rentalData.costPerNight).toLocaleString()}
+                ₦{Number(shortletData.costPerNight).toLocaleString()}
               </p>
             </div>
             <div className="w-full flex justify-between text-neutral-600">
               <p className="text-grey">Caution Fee</p>
               <p className="text-grey">
-                ₦{Number(rentalData.cautionFee).toLocaleString()}
+                ₦{Number(shortletData.cautionFee).toLocaleString()}
               </p>
             </div>
             <DateRangePicker
-              costPerNight={rentalData.costPerNight}
-              cautionFee={rentalData.cautionFee}
+              costPerNight={shortletData.costPerNight}
+              cautionFee={shortletData.cautionFee}
             />
           </div>
         </div>
