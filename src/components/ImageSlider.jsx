@@ -77,7 +77,7 @@ export const ImageSlider = ({ images, tourLink }) => {
       </button>*/}
 
       {/* Conditionally render iframe or image */}
-      {showIframe ? (
+      {/* {showIframe ? (
         <iframe 
           src={tourLink}
           style={iframeStyle}
@@ -91,7 +91,7 @@ export const ImageSlider = ({ images, tourLink }) => {
           alt={`slide ${currentIndex}`}
           style={{ ...imageStyle, borderRadius: '20px' }}
         />
-      )}
+      )} */}
 
       {/*<button onClick={nextImage} style={{ ...buttonStyle, right: '10px' }}>
         <img src="right-arrow.svg" alt="next" style={{ width: '7px' }} />
@@ -100,6 +100,14 @@ export const ImageSlider = ({ images, tourLink }) => {
       {/*<button onClick={toggleIframe} style={bottomButtonStyle}>
         {showIframe ? 'Close Tour' : 'Take Tour'}
       </button>*/}
+
+        <iframe 
+          src={tourLink}
+          style={iframeStyle}
+          frameBorder="0"
+          allowFullScreen
+          title={`Slide ${currentIndex + 1}`}
+        />
     </div>
   );
 };

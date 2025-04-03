@@ -61,14 +61,14 @@ export const Rentals = () => {
         ) : (
           <>
             <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto px-6">
-              {Object.entries(shortlets).map(
-                ([shortletId, shortletData]) => (
+              {shortlets.map(
+                (shortletData) => (
                   <RentalCard
                     virtualTour={shortletData.virtualTourLink}
                     name={shortletData.propertyName}
-                    key={shortletId}
+                    key={shortletData.id}
                     type="rentals"
-                    id={shortletId}
+                    id={shortletData.id}
                     address={shortletData.address}
                     price={shortletData.costPerNight}
                     /* image={

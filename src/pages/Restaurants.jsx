@@ -11,14 +11,7 @@ export const Restaurants = () => {
   const { restaurantImagesMap } = useGlobalState();
   const [viewType, setViewType] = useState("card");
 
-  const resturantsData = Object.entries(restaurantImagesMap).map(
-    ([shortletId, shortletData]) => ({
-      shortletId,
-      address: shortletData.address,
-      name: shortletData.name,
-      virtualTour: shortletData.images[0].url,
-    })
-  );
+
 console.log(restaurants)
   return (
     <div>
@@ -70,22 +63,22 @@ console.log(restaurants)
         </div>
 
         {viewType === "grid" ? (
-          <RestaurantsCarousel restaurants={resturantsData} />
+          <RestaurantsCarousel restaurants={restaurants} />
         ) : (
           <>
             <div
               className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 py-6 mx-auto"
               style={{ width: "90%" }}
             >
-              {Object.entries(restaurants).map(
-                ([restaurantId, restaurantData]) => (
-                  // eslint-disable-next-line react/jsx-key
+              {restaurants.map(
+                (restaurant) => (
+                 
                   <RestaurantCard
                     type="restaurants"
-                    id={restaurantId}
-                    name={restaurantData.name}
-                    address={restaurantData.address}
-                    virtualTour={restaurantData.virtualTourLink}
+                    id={restaurant.id}
+                    name={restaurant.name}
+                    address={restaurant.address}
+                    virtualTour={restaurant.virtualTourLink}
                   />
                 )
               )}
