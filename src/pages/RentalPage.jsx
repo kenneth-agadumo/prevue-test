@@ -102,7 +102,7 @@ export const RentalPage = () => {
     return <div className="text-center mt-20 ">Shortlet not found</div>;
   }
 
-  const imageUrls = rentalData?.images?.map((image) => image.url);
+  // const imageUrls = rentalData?.images?.map((image) => image.url);
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
